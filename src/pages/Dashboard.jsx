@@ -284,7 +284,11 @@ export default function Dashboard({ onNavigate }) {
               </thead>
               <tbody className="divide-y divide-gray-50">
                 {ultimosClientes.map((c) => (
-                  <tr key={c.id} className="hover:bg-blue-50/50 transition-colors">
+                  <tr
+                    key={c.id}
+                    onClick={() => onNavigate('clientProfile', c.id)}
+                    className="hover:bg-azul-claro transition-colors cursor-pointer"
+                  >
                     <td className="px-5 py-3 font-medium text-azul-oscuro">
                       {c.nombre}
                       <div className="text-xs text-gray-400 font-normal">{c.email}</div>

@@ -87,12 +87,12 @@ export default function Chat({ onNavigate, onDerivar }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <Header showClose onClose={() => onNavigate('dashboard')}>
+      <Header showClose onClose={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}>
         <button
-          onClick={() => onNavigate('dashboard')}
+          onClick={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}
           className="text-xs text-blue-200 hover:text-white"
         >
-          ← Panel
+          ← {user?.isAdmin ? 'Panel' : 'Perfil'}
         </button>
       </Header>
 

@@ -6,9 +6,30 @@ export function useUser() {
   return useContext(UserContext);
 }
 
+const SEED_ADMIN = {
+  nombre: 'Administrador',
+  email: 'admin@veeduria.com',
+  telefono: '3000000000',
+  ciudad: 'Bogotá',
+  password: 'admin123',
+  plan: 'premium',
+  fechaRegistro: '2025-01-01',
+  consultasRealizadas: 999,
+  isAdmin: true,
+};
+
 export function UserProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Seed admin al iniciar
+  useEffect(() => {
+    const users = JSON.parse(localStorage.getItem('veeduria_users') || '[]');
+    if (!users.find(u => u.email === SEED_ADMIN.email)) {
+      users.push(SEED_ADMIN);
+      localStorage.setItem('veeduria_users', JSON.stringify(users));
+    }
+  }, []);
 
   // Restaurar sesión al cargar
   useEffect(() => {
@@ -45,6 +66,7 @@ export function UserProvider({ children }) {
       plan: found.plan || 'gratis',
       fechaRegistro: found.fechaRegistro,
       consultasRealizadas: found.consultasRealizadas || 0,
+      isAdmin: found.isAdmin || false,
     };
     localStorage.setItem('veeduria_user', JSON.stringify(sessionUser));
     setUser(sessionUser);
@@ -68,6 +90,7 @@ export function UserProvider({ children }) {
       plan: 'gratis',
       fechaRegistro: new Date().toISOString().split('T')[0],
       consultasRealizadas: 0,
+      isAdmin: false,
     };
     users.push(newUser);
     localStorage.setItem('veeduria_users', JSON.stringify(users));
@@ -80,6 +103,7 @@ export function UserProvider({ children }) {
       plan: newUser.plan,
       fechaRegistro: newUser.fechaRegistro,
       consultasRealizadas: 0,
+      isAdmin: false,
     };
     localStorage.setItem('veeduria_user', JSON.stringify(sessionUser));
     setUser(sessionUser);
@@ -123,6 +147,7 @@ export function UserProvider({ children }) {
     incrementConsultas,
     logout,
     isAuthenticated: !!user,
+    isAdmin: user?.isAdmin || false,
   };
 
   return (

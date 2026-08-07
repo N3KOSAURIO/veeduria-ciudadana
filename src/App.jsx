@@ -14,21 +14,25 @@ import Perfil from './pages/Perfil.jsx';
 import Terminos from './pages/Terminos.jsx';
 import Privacidad from './pages/Privacidad.jsx';
 import Cookies from './pages/Cookies.jsx';
+import ClientProfile from './pages/ClientProfile.jsx';
 
 const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil'];
 
 export default function App() {
-  const { isAuthenticated, loading } = useUser();
+  const { isAuthenticated, isAdmin, loading } = useUser();
   const [page, setPage] = useState('landing');
   const [derivarFlowId, setDerivarFlowId] = useState(null);
   const [checkoutPlanId, setCheckoutPlanId] = useState(null);
+  const [clientProfileId, setClientProfileId] = useState(null);
 
-  // Redirigir a dashboard si ya está autenticado
+  // Redirigir según tipo de usuario
   useEffect(() => {
-    if (isAuthenticated && (page === 'landing' || page === 'login' || page === 'registro')) {
-      setPage('dashboard');
+    if (isAuthenticated) {
+      if (page === 'landing' || page === 'login' || page === 'registro') {
+        setPage(isAdmin ? 'dashboard' : 'chat');
+      }
     }
-  }, [isAuthenticated, page]);
+  }, [isAuthenticated, isAdmin, page]);
 
   const handleNavigate = (target, extra) => {
     // Rutas públicas: landing, login, registro, terminos, privacidad, cookies
@@ -46,6 +50,9 @@ export default function App() {
     }
     if (target === 'checkout') {
       setCheckoutPlanId(extra);
+    }
+    if (target === 'clientProfile') {
+      setClientProfileId(extra);
     }
     setPage(target);
   };
@@ -88,6 +95,7 @@ export default function App() {
     if (page === 'planes') return <Planes onNavigate={handleNavigate} />;
     if (page === 'checkout') return <Checkout onNavigate={handleNavigate} planId={checkoutPlanId} />;
     if (page === 'perfil') return <Perfil onNavigate={handleNavigate} />;
+    if (page === 'clientProfile') return <ClientProfile onNavigate={handleNavigate} clientId={clientProfileId} />;
 
     return null;
   };
