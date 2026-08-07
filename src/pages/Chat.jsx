@@ -208,7 +208,7 @@ export default function Chat({ onNavigate, onDerivar }) {
   // ===== PETITION MODE =====
   if (mode === 'petition') {
     return (
-      <div className="min-h-screen flex flex-col bg-gray-50">
+      <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg">
         <Header showClose onClose={() => setMode('chat')}>
           <button
             onClick={() => setMode('chat')}
@@ -218,7 +218,7 @@ export default function Chat({ onNavigate, onDerivar }) {
           </button>
         </Header>
 
-        <div className="flex-1 overflow-y-auto chat-scroll px-4 py-4" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+        <div className="flex-1 overflow-y-auto chat-scroll px-4 py-4 max-w-3xl mx-auto w-full" style={{ maxHeight: 'calc(100vh - 140px)' }}>
           {messages.map((msg, i) => (
             <div key={i}>
               <ChatBubble sender={msg.sender}>
@@ -242,7 +242,7 @@ export default function Chat({ onNavigate, onDerivar }) {
 
   // ===== CHAT MODE =====
   return (
-    <div className="min-h-screen flex flex-col bg-gray-50">
+    <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg">
       <Header showClose onClose={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}>
         <div className="flex items-center gap-3">
           <button
@@ -260,7 +260,7 @@ export default function Chat({ onNavigate, onDerivar }) {
         </div>
       </Header>
 
-      <div className="flex-1 overflow-y-auto chat-scroll px-4 py-4" style={{ maxHeight: 'calc(100vh - 140px)' }}>
+      <div className="flex-1 overflow-y-auto chat-scroll px-4 py-4 max-w-3xl mx-auto w-full" style={{ maxHeight: 'calc(100vh - 140px)' }}>
         {messages.map((msg, i) => (
           <div key={i}>
             <ChatBubble
@@ -336,7 +336,7 @@ export default function Chat({ onNavigate, onDerivar }) {
         <div ref={chatEndRef} />
       </div>
 
-      <div className="border-t border-gray-200 bg-white px-4 py-3">
+      <div className="border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface px-4 py-3">
         <div className="flex items-center gap-2 max-w-3xl mx-auto">
           <FileUpload onFileSelect={handleFileSelect} disabled={isInputDisabled} />
 
@@ -351,7 +351,7 @@ export default function Chat({ onNavigate, onDerivar }) {
                 ? 'Límite alcanzado — subí de plan para seguir'
                 : 'Escribí tu consulta o adjuntá un archivo...'
             }
-            className="flex-1 px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
+            className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-border rounded-xl text-sm text-gray-900 dark:text-dark-text bg-white dark:bg-dark-bg placeholder:text-gray-400 dark:placeholder:text-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
             disabled={isInputDisabled}
           />
           <button
