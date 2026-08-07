@@ -224,6 +224,104 @@ const FLUJOS = {
 3. **Queja ante la Procuraduría** — el funcionario que niega información sin justa causa comete falta disciplinaria`,
     derivacion: "¿Querés que un consultor fuerce la entrega de esa información? Presentamos el derecho de petición, y si no responden, la tutela. No pagás hasta obtener resultados."
   },
+  "13": {
+    triggers: [
+      "veeduría", "veeduria", "formar veeduría", "crear veeduría", "cómo vigilar",
+      "como vigilar", "grupo de vigilancia", "control ciudadano", "comité de control",
+      "comite de control", "ser veedor", "quiero ser veedor", "inscribir veeduría",
+      "inscribir veeduria", "personería", "personeria"
+    ],
+    respuesta: `Formar una veeduría ciudadana es tu derecho. La **Ley 850 de 2003** la define como un mecanismo democrático para vigilar la gestión pública. No necesitás ser abogado ni funcionario.
+
+📝 **Requisitos para crear una veeduría:**
+
+1. **Mínimo 2 personas** (ciudadanos colombianos u organizaciones comunitarias)
+2. Elegir un **objeto específico** de vigilancia (un contrato, una obra, un programa, un servicio)
+3. Redactar un **acta de constitución** con: nombre de la veeduría, integrantes, objeto a vigilar, duración
+4. **Inscribirla** ante la Personería Municipal o la Cámara de Comercio (según la entidad a vigilar)
+5. La inscripción es GRATIS
+
+🛡️ **¿Qué pueden vigilar las veedurías?**
+- Contratos y obras públicas
+- Programas y proyectos con recursos públicos
+- Servicios públicos (salud, educación, agua, transporte)
+- Procesos de contratación en SECOP
+- Ejecución presupuestal de cualquier entidad pública
+
+⚖️ La Corte Constitucional (T-596/02) aclaró: **no necesitás estar inscrito como veedor** para ejercer control social. Pero tener la veeduría formalizada te da acceso a más información y protección legal.
+
+📌 **Derechos de los veedores:**
+- Acceder a documentos y contratos (sin restricción)
+- Solicitar informes a la entidad vigilada
+- Recibir respuesta en 10 días hábiles
+- Presentar denuncias ante Contraloría, Procuraduría y Fiscalía
+- Protección especial contra represalias`,
+    derivacion: "¿Querés que un consultor te acompañe a crear tu veeduría? Te damos el acta de constitución lista, te orientamos con la inscripción en la Personería y te guiamos en tu primer caso."
+  },
+  "14": {
+    triggers: [
+      "servicios públicos", "servicios publicos", "agua", "luz", "energía", "energia",
+      "gas", "alcantarillado", "acueducto", "basura", "aseo", "recibo", "factura",
+      "cobro excesivo", "tarifa", "corte de servicio", "no tengo agua", "no tengo luz",
+      "epm", "empresa de servicios", "servicio público", "servicio publico"
+    ],
+    respuesta: `Los servicios públicos en Colombia son un **derecho fundamental por conexidad** (cuando su falta afecta la vida, la salud o la dignidad). La Ley 142 de 1994 regula todos los servicios públicos domiciliarios.
+
+⚡ **Tus derechos como usuario:**
+
+1. **Continuidad**: el servicio no puede suspenderse si afecta tu salud o la de personas vulnerables (niños, ancianos, enfermos)
+2. **Información clara**: las empresas deben explicar cada cobro en tu factura
+3. **Reclamo directo**: podés presentar PQR (Petición, Queja, Reclamo) ante la empresa — deben responder en 15 días hábiles
+4. **Doble instancia**: si la empresa no responde, podés apelar ante la **Superintendencia de Servicios Públicos**
+
+📌 **Si tu servicio está fallando:**
+
+1. **Documentá**: guardá facturas, fotos, fechas de interrupciones
+2. **Presentá PQR** por escrito a la empresa (con copia, radicado)
+3. Si no responden en 15 días → **queja ante la Superintendencia de Servicios Públicos**
+4. Si hay afectación a la salud → **Tutela** (gratis, sin abogado)
+
+⚠️ **Situaciones que podés denunciar:**
+- Cobros excesivos o no justificados
+- Cortes sin aviso previo
+- Mala calidad del agua
+- Falta de mantenimiento en redes públicas
+- Contratos de prestación sin participación ciudadana`,
+    derivacion: "¿Querés que un consultor revise tu caso con la empresa de servicios? Te ayudamos a redactar el PQR, hacer seguimiento y, si no responden, escalar a la Superintendencia o a tutela."
+  },
+  "15": {
+    triggers: [
+      "contaminación", "contaminacion", "río", "rio", "basura", "desechos",
+      "tala", "árboles", "arboles", "deforestación", "deforestacion", "minería",
+      "mineria", "aire", "humo", "vertedero", "escombro", "escombros",
+      "ambiente", "medio ambiente", "ecología", "ecologia", "residuo", "tóxico", "toxico",
+      "químico", "quimico", "derrame", "licencia ambiental", "animales"
+    ],
+    respuesta: `El medio ambiente en Colombia es un **derecho colectivo protegido constitucionalmente** (Art. 79 y 80 de la Constitución). Toda persona tiene derecho a gozar de un ambiente sano.
+
+🌿 **Mecanismos de protección ambiental que podés activar:**
+
+| Mecanismo | ¿Cuándo usarlo? | ¿Ante quién? |
+|-----------|-----------------|--------------|
+| **Acción popular** | Daño al medio ambiente que afecta a la comunidad | Juez administrativo |
+| **Denuncia penal** | Delito ambiental (tala ilegal, minería ilegal, contaminación grave) | Fiscalía |
+| **Queja administrativa** | Incumplimiento de licencia ambiental | **Corporación Autónoma Regional (CAR)** o **ANLA** |
+| **Derecho de petición** | Solicitar información sobre licencias, permisos, planes de manejo | Entidad que otorgó la licencia |
+
+📌 **¿Qué necesitás para denunciar?**
+
+1. **Evidencia**: fotos, videos, ubicación exacta, fechas
+2. **Identificar al responsable** (empresa, persona, entidad)
+3. **Consultar si tiene licencia ambiental** (derecho de petición a la CAR)
+4. Si no tiene licencia → irregularidad GRAVE
+
+⚖️ **Leyes clave:**
+- **Ley 99/1993** — Sistema Nacional Ambiental y CAR
+- **Ley 1333/2009** — Procedimiento sancionatorio ambiental
+- **Código Penal, Art. 328-339** — Delitos ambientales (hasta 12 años de cárcel)
+- **Decreto 1076/2015** — Licencias ambientales y planes de manejo`,
+    derivacion: "¿Querés que un consultor ambiental revise tu caso? Analizamos si hay violación de licencias, preparamos la denuncia ante la CAR o la Fiscalía y hacemos seguimiento."
+  },
   "00": {
     triggers: [], // fallback — no triggers
     respuesta: `Gracias por tu consulta. En **Veeduría Ciudadana** te ayudamos a vigilar la gestión pública y proteger tus derechos.
@@ -233,6 +331,9 @@ const FLUJOS = {
 - ✅ Revisar contratos en SECOP
 - ✅ Asesorarte sobre tus derechos como ciudadano, estudiante, paciente o trabajador
 - ✅ Guiarte para presentar derechos de petición, tutelas o denuncias
+- ✅ Crear y formalizar una veeduría ciudadana (Ley 850/2003)
+- ✅ Reclamar por servicios públicos (agua, luz, gas)
+- ✅ Denunciar daños ambientales o contaminación
 - ✅ Conectarte con los organismos de control (Contraloría, Procuraduría, Fiscalía)
 
 📋 **Contanos más sobre tu caso y un consultor especializado te orientará sin costo.**
