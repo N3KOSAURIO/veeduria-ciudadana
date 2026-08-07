@@ -1,19 +1,51 @@
 @import "tailwindcss";
 
+/* ── Class-based dark mode (instead of prefers-color-scheme) ── */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Theme tokens ── */
 @theme {
+  /* Paleta original (modo claro) */
   --color-azul-oscuro: #1a365d;
   --color-azul-medio: #2c5282;
   --color-azul-claro: #ebf4ff;
   --color-dorado: #d4a853;
   --color-dorado-hover: #b8923a;
+
+  /* Dark-mode semantic tokens */
+  --color-dark-bg: #0f172a;              /* slate-900 */
+  --color-dark-surface: #1e293b;         /* slate-800 */
+  --color-dark-border: #334155;          /* slate-700 */
+  --color-dark-text: #f1f5f9;            /* slate-100 */
+  --color-dark-text-secondary: #94a3b8;  /* slate-400 */
+  --color-dark-header: #0b1a2e;          /* azul mucho más oscuro que #1a365d */
 }
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: #f7fafc;
+/* ── Smooth theme transition ── */
+html {
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-/* Chat scroll */
+html.dark {
+  color-scheme: dark;
+}
+
+/* ── Base layer: global body adapts to theme ── */
+@layer base {
+  body {
+    background-color: #f7fafc;
+    color: #1a202c;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  .dark body,
+  html.dark body {
+    background-color: var(--color-dark-bg);
+    color: var(--color-dark-text);
+  }
+}
+
+/* ── Chat scrollbar (adapts to dark mode) ── */
 .chat-scroll::-webkit-scrollbar {
   width: 6px;
 }
@@ -23,4 +55,11 @@ body {
 .chat-scroll::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 3px;
+}
+
+.dark .chat-scroll::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+.dark .chat-scroll::-webkit-scrollbar-thumb {
+  background: #475569;
 }

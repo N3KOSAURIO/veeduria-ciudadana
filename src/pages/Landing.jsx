@@ -1,5 +1,6 @@
 import Header from '../components/Header.jsx';
 import { useUser } from '../context/UserContext.jsx';
+import logo from '../assets/logo.svg';
 
 export default function Landing({ onNavigate }) {
   const { isAuthenticated, user } = useUser();
@@ -41,7 +42,7 @@ export default function Landing({ onNavigate }) {
       {/* Hero */}
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-16 text-center">
         <div className="max-w-2xl">
-          <span className="inline-block text-5xl mb-6">🏛️</span>
+          <img src={logo} alt="Veeduría Ciudadana" className="inline-block w-20 h-20 md:w-24 md:h-24 mb-6" />
           <h2 className="text-3xl md:text-4xl font-extrabold text-azul-oscuro mb-4 leading-tight">
             Veeduría Ciudadana
           </h2>

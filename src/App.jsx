@@ -15,8 +15,9 @@ import Terminos from './pages/Terminos.jsx';
 import Privacidad from './pages/Privacidad.jsx';
 import Cookies from './pages/Cookies.jsx';
 import ClientProfile from './pages/ClientProfile.jsx';
+import Ajustes from './pages/Ajustes.jsx';
 
-const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil'];
+const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil', 'ajustes'];
 
 export default function App() {
   const { isAuthenticated, isAdmin, loading } = useUser();
@@ -95,6 +96,7 @@ export default function App() {
     if (page === 'planes') return <Planes onNavigate={handleNavigate} />;
     if (page === 'checkout') return <Checkout onNavigate={handleNavigate} planId={checkoutPlanId} />;
     if (page === 'perfil') return <Perfil onNavigate={handleNavigate} />;
+    if (page === 'ajustes') return <Ajustes onNavigate={handleNavigate} />;
     if (page === 'clientProfile') return <ClientProfile onNavigate={handleNavigate} clientId={clientProfileId} />;
 
     return null;

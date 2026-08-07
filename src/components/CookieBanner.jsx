@@ -48,14 +48,14 @@ export default function CookieBanner() {
       {/* Overlay oscuro (solo cuando se muestra configuración) */}
       {showSettings && (
         <div
-          className="fixed inset-0 bg-black/30 z-40 transition-opacity"
+          className="fixed inset-0 bg-black/30 dark:bg-black/60 z-40 transition-opacity"
           onClick={() => setShowSettings(false)}
         />
       )}
 
       {/* Banner principal o panel de configuración */}
       <div className="fixed bottom-0 left-0 right-0 z-50 animate-slide-up">
-        <div className="bg-white border-t-4 border-azul-oscuro shadow-2xl">
+        <div className="bg-white dark:bg-dark-surface border-t-4 border-azul-oscuro dark:border-dark-border shadow-2xl">
           {!showSettings ? (
             /* --- BANNER PRINCIPAL --- */
             <div className="max-w-6xl mx-auto px-4 sm:px-6 py-4 md:py-5">
@@ -64,16 +64,16 @@ export default function CookieBanner() {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="text-lg">🍪</span>
-                    <h3 className="text-base font-bold text-azul-oscuro">Este sitio utiliza cookies</h3>
+                    <h3 className="text-base font-bold text-azul-oscuro dark:text-dark-text">Este sitio utiliza cookies</h3>
                   </div>
-                  <p className="text-sm text-gray-600 leading-relaxed">
+                  <p className="text-sm text-gray-600 dark:text-dark-text-secondary leading-relaxed">
                     Utilizamos cookies propias y de terceros para garantizar el funcionamiento técnico de la 
                     Plataforma, analizar el uso de nuestros servicios y, con su consentimiento, mostrar 
                     contenido personalizado.{' '}
                     <button
                       type="button"
                       onClick={() => setShowSettings(true)}
-                      className="text-azul-medio underline hover:text-azul-oscuro font-medium"
+                      className="text-azul-medio dark:text-blue-400 underline hover:text-azul-oscuro dark:hover:text-blue-300 font-medium"
                     >
                       Más información
                     </button>
@@ -90,13 +90,13 @@ export default function CookieBanner() {
                   </button>
                   <button
                     onClick={rejectAll}
-                    className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm font-semibold rounded-lg transition-colors"
+                    className="px-4 py-2 bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-200 text-sm font-semibold rounded-lg transition-colors"
                   >
                     Rechazar
                   </button>
                   <button
                     onClick={() => setShowSettings(true)}
-                    className="px-4 py-2 border border-gray-300 hover:border-azul-medio text-azul-medio text-sm font-semibold rounded-lg transition-colors"
+                    className="px-4 py-2 border border-gray-300 dark:border-slate-600 hover:border-azul-medio dark:hover:border-blue-400 text-azul-medio dark:text-blue-400 text-sm font-semibold rounded-lg transition-colors"
                   >
                     Configurar
                   </button>
@@ -107,24 +107,24 @@ export default function CookieBanner() {
             /* --- PANEL DE CONFIGURACIÓN --- */
             <div className="max-w-2xl mx-auto px-4 sm:px-6 py-6">
               <div className="flex items-center justify-between mb-5">
-                <h3 className="text-lg font-bold text-azul-oscuro">Configuración de Cookies</h3>
+                <h3 className="text-lg font-bold text-azul-oscuro dark:text-dark-text">Configuración de Cookies</h3>
                 <button
                   onClick={() => setShowSettings(false)}
-                  className="text-gray-400 hover:text-gray-600 text-xl leading-none p-1"
+                  className="text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 text-xl leading-none p-1"
                   title="Cerrar"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-sm text-gray-600 mb-5">
+              <p className="text-sm text-gray-600 dark:text-dark-text-secondary mb-5">
                 Seleccione qué tipos de cookies desea permitir. Las cookies esenciales son necesarias 
                 para el funcionamiento de la Plataforma y no pueden desactivarse.
               </p>
 
               <div className="space-y-4 mb-6">
                 {/* Esenciales */}
-                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 cursor-not-allowed opacity-75">
+                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 dark:bg-slate-800/60 cursor-not-allowed opacity-75">
                   <input
                     type="checkbox"
                     checked={settings.essential}
@@ -132,8 +132,8 @@ export default function CookieBanner() {
                     className="mt-0.5 w-4 h-4 text-azul-oscuro rounded border-gray-300 accent-azul-oscuro"
                   />
                   <div>
-                    <span className="font-semibold text-sm text-gray-800">Cookies esenciales</span>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <span className="font-semibold text-sm text-gray-800 dark:text-dark-text">Cookies esenciales</span>
+                    <p className="text-xs text-gray-500 dark:text-dark-text-secondary mt-0.5">
                       Necesarias para el funcionamiento de la Plataforma. Gestionan autenticación, 
                       sesiones de usuario y navegación segura.
                     </p>
@@ -141,7 +141,7 @@ export default function CookieBanner() {
                 </label>
 
                 {/* Analíticas */}
-                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 cursor-pointer hover:bg-blue-50/50 transition-colors">
+                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 dark:bg-slate-800/60 cursor-pointer hover:bg-blue-50/50 dark:hover:bg-slate-700/60 transition-colors">
                   <input
                     type="checkbox"
                     checked={settings.analytics}
@@ -149,8 +149,8 @@ export default function CookieBanner() {
                     className="mt-0.5 w-4 h-4 text-azul-oscuro rounded border-gray-300 accent-azul-oscuro"
                   />
                   <div>
-                    <span className="font-semibold text-sm text-gray-800">Cookies analíticas (simuladas)</span>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <span className="font-semibold text-sm text-gray-800 dark:text-dark-text">Cookies analíticas (simuladas)</span>
+                    <p className="text-xs text-gray-500 dark:text-dark-text-secondary mt-0.5">
                       Permiten analizar de forma anónima cómo los usuarios interactúan con la Plataforma 
                       para mejorar el servicio. Actualmente simuladas en entorno de desarrollo.
                     </p>
@@ -158,7 +158,7 @@ export default function CookieBanner() {
                 </label>
 
                 {/* Publicitarias */}
-                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 cursor-pointer hover:bg-blue-50/50 transition-colors">
+                <label className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 dark:bg-slate-800/60 cursor-pointer hover:bg-blue-50/50 dark:hover:bg-slate-700/60 transition-colors">
                   <input
                     type="checkbox"
                     checked={settings.advertising}
@@ -166,8 +166,8 @@ export default function CookieBanner() {
                     className="mt-0.5 w-4 h-4 text-azul-oscuro rounded border-gray-300 accent-azul-oscuro"
                   />
                   <div>
-                    <span className="font-semibold text-sm text-gray-800">Cookies publicitarias (simuladas)</span>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <span className="font-semibold text-sm text-gray-800 dark:text-dark-text">Cookies publicitarias (simuladas)</span>
+                    <p className="text-xs text-gray-500 dark:text-dark-text-secondary mt-0.5">
                       Utilizadas para mostrar contenido y comunicaciones relevantes sobre servicios de 
                       control social ciudadano. Actualmente simuladas en entorno de desarrollo.
                     </p>
@@ -193,10 +193,10 @@ export default function CookieBanner() {
           )}
 
           {/* Link a política de cookies */}
-          <div className="border-t border-gray-100 bg-gray-50/50 px-4 py-2 text-center">
-            <span className="text-xs text-gray-400">
+          <div className="border-t border-gray-100 dark:border-dark-border bg-gray-50/50 dark:bg-slate-800/30 px-4 py-2 text-center">
+            <span className="text-xs text-gray-400 dark:text-dark-text-secondary">
               Consulte nuestra{' '}
-              <span className="text-azul-medio underline cursor-pointer">
+              <span className="text-azul-medio dark:text-blue-400 underline cursor-pointer">
                 Política de Cookies
               </span>{' '}
               para más información.
