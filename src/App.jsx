@@ -16,6 +16,7 @@ import Privacidad from './pages/Privacidad.jsx';
 import Cookies from './pages/Cookies.jsx';
 import ClientProfile from './pages/ClientProfile.jsx';
 import Ajustes from './pages/Ajustes.jsx';
+import MisPeticiones from './pages/MisPeticiones.jsx';
 
 const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil', 'ajustes'];
 
@@ -98,6 +99,7 @@ export default function App() {
     if (page === 'perfil') return <Perfil onNavigate={handleNavigate} />;
     if (page === 'ajustes') return <Ajustes onNavigate={handleNavigate} />;
     if (page === 'clientProfile') return <ClientProfile onNavigate={handleNavigate} clientId={clientProfileId} />;
+    if (page === 'mis-peticiones') return <MisPeticiones onNavigate={handleNavigate} />;
 
     return null;
   };

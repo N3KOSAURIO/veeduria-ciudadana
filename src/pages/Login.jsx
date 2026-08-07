@@ -1,13 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useUser } from '../context/UserContext.jsx';
 import Header from '../components/Header.jsx';
+import { initGoogleSignIn } from '../utils/googleAuth.js';
 
 export default function Login({ onNavigate }) {
-  const { login } = useUser();
+  const { login, googleLogin } = useUser();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const googleBtnRef = useRef(null);
+
+  useEffect(() => {
+    initGoogleSignIn('google-signin-btn', (googleUser) => {
+      setLoading(true);
+      setTimeout(() => {
+        googleLogin(googleUser);
+      }, 400);
+    });
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -88,6 +99,10 @@ export default function Login({ onNavigate }) {
                 {loading ? 'Ingresando...' : 'INGRESAR'}
               </button>
             </form>
+
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <div id="google-signin-btn" className="flex justify-center min-h-[48px]"></div>
+            </div>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-500">

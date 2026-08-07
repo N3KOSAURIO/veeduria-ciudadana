@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useUser } from '../context/UserContext.jsx';
 import Header from '../components/Header.jsx';
+import { initGoogleSignIn } from '../utils/googleAuth.js';
 
 export default function Registro({ onNavigate }) {
-  const { register } = useUser();
+  const { register, googleLogin } = useUser();
   const [form, setForm] = useState({
     nombre: '',
     email: '',
@@ -14,6 +15,15 @@ export default function Registro({ onNavigate }) {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    initGoogleSignIn('google-signin-registro', (googleUser) => {
+      setLoading(true);
+      setTimeout(() => {
+        googleLogin(googleUser);
+      }, 400);
+    });
+  }, []);
 
   const handleChange = (e) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -169,6 +179,11 @@ export default function Registro({ onNavigate }) {
                 {loading ? 'Creando cuenta...' : 'CREAR CUENTA GRATIS'}
               </button>
             </form>
+
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <p className="text-xs text-gray-400 text-center mb-3">O registrate con</p>
+              <div id="google-signin-registro" className="flex justify-center min-h-[48px]"></div>
+            </div>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-500">

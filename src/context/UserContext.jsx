@@ -137,6 +137,46 @@ export function UserProvider({ children }) {
     setUser(null);
   };
 
+  const googleLogin = ({ nombre, email, picture }) => {
+    const users = JSON.parse(localStorage.getItem('veeduria_users') || '[]');
+    let found = users.find(u => u.email === email);
+
+    // Si no existe, crear usuario automáticamente con Google
+    if (!found) {
+      found = {
+        nombre,
+        email,
+        telefono: '',
+        ciudad: '',
+        password: '', // sin password, solo Google
+        plan: 'gratis',
+        fechaRegistro: new Date().toISOString().split('T')[0],
+        consultasRealizadas: 0,
+        isAdmin: false,
+        authProvider: 'google',
+        picture,
+      };
+      users.push(found);
+      localStorage.setItem('veeduria_users', JSON.stringify(users));
+    }
+
+    const sessionUser = {
+      nombre: found.nombre,
+      email: found.email,
+      telefono: found.telefono,
+      ciudad: found.ciudad,
+      plan: found.plan || 'gratis',
+      fechaRegistro: found.fechaRegistro,
+      consultasRealizadas: found.consultasRealizadas || 0,
+      isAdmin: found.isAdmin || false,
+      picture: found.picture || '',
+      authProvider: found.authProvider || 'google',
+    };
+    localStorage.setItem('veeduria_user', JSON.stringify(sessionUser));
+    setUser(sessionUser);
+    return { success: true };
+  };
+
   const value = {
     user,
     loading,
@@ -146,6 +186,7 @@ export function UserProvider({ children }) {
     updatePlan,
     incrementConsultas,
     logout,
+    googleLogin,
     isAuthenticated: !!user,
     isAdmin: user?.isAdmin || false,
   };
