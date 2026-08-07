@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-azul-oscuro: #1a365d;
+  --color-azul-medio: #2c5282;
+  --color-azul-claro: #ebf4ff;
+  --color-dorado: #d4a853;
+  --color-dorado-hover: #b8923a;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f7fafc;
+}
+
+/* Chat scroll */
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-scroll::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
