@@ -5,6 +5,7 @@ import ChatBubble from '../components/ChatBubble.jsx';
 import QuickActions from '../components/QuickActions.jsx';
 import FileUpload from '../components/FileUpload.jsx';
 import PetitionFlow from '../components/PetitionFlow.jsx';
+import VoiceInput from '../components/VoiceInput.jsx';
 import { processQuery } from '../utils/chatEngine.js';
 import { analyzeFile } from '../utils/fileAnalyzer.js';
 
@@ -180,6 +181,32 @@ export default function Chat({ onNavigate, onDerivar }) {
             },
           ]);
         }
+
+        // Si es imagen con texto OCR, procesar contra el chatbot
+        if (analysis.type === 'image' && analysis.ocrText) {
+          const chatResult = processQuery(analysis.ocrText.substring(0, 500));
+          if (chatResult.id && chatResult.id !== '00') {
+            setMessages(prev => [
+              ...prev,
+              {
+                sender: 'bot',
+                text: `🔍 Detecté texto en la imagen y encontré información relevante:\n\n${chatResult.respuesta}`,
+                flowId: chatResult.id,
+              },
+            ]);
+            if (chatResult.derivacion) {
+              setMessages(prev => [
+                ...prev,
+                {
+                  sender: 'bot',
+                  text: `📋 ${chatResult.derivacion}`,
+                  isDerivacion: true,
+                  flowId: chatResult.id,
+                },
+              ]);
+            }
+          }
+        }
       }
 
       incrementConsultas();
@@ -339,6 +366,7 @@ export default function Chat({ onNavigate, onDerivar }) {
       <div className="border-t border-gray-200 dark:border-dark-border bg-white dark:bg-dark-surface px-4 py-3">
         <div className="flex items-center gap-2 max-w-3xl mx-auto">
           <FileUpload onFileSelect={handleFileSelect} disabled={isInputDisabled} />
+          <VoiceInput onText={(text) => handleSend(text)} disabled={isInputDisabled} />
 
           <input
             ref={inputRef}

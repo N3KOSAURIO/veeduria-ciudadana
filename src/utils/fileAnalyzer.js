@@ -77,14 +77,54 @@ function getDominantColors(img) {
 }
 
 /**
- * Analiza un archivo de imagen
+ * Ejecuta OCR sobre la imagen usando Tesseract.js.
+ * Devuelve el texto extraído o null si falla / no hay texto significativo.
+ */
+async function extractTextFromImage(file) {
+  try {
+    // Carga diferida de Tesseract para no pesar el bundle inicial
+    const Tesseract = (await import('tesseract.js')).default;
+    const { data } = await Tesseract.recognize(file, 'spa', {
+      logger: () => {}, // silencioso
+    });
+    const text = (data.text || '').trim();
+    // Solo devolver si hay al menos 10 caracteres de texto
+    return text.length >= 10 ? text : null;
+  } catch (err) {
+    console.warn('OCR falló:', err.message);
+    return null; // fallback silencioso — seguimos sin OCR
+  }
+}
+
+/**
+ * Analiza un archivo de imagen (metadatos + OCR opcional)
  */
 async function analyzeImage(file) {
   return new Promise((resolve) => {
     const url = URL.createObjectURL(file);
     const img = new Image();
-    img.onload = () => {
+    img.onload = async () => {
       const colors = getDominantColors(img);
+
+      // Intentar OCR en paralelo (no bloquea la respuesta)
+      const ocrPromise = extractTextFromImage(file).catch(() => null);
+
+      const baseSummary = `📷 **${file.name}**\n` +
+        `• Dimensiones: ${img.naturalWidth}×${img.naturalHeight}px\n` +
+        `• Formato: ${file.type || 'desconocido'}\n` +
+        `• Tamaño: ${formatBytes(file.size)}\n` +
+        `• Relación de aspecto: ${(img.naturalWidth / img.naturalHeight).toFixed(2)}:1\n` +
+        `• Colores predominantes: ${colors.map(c => c.hex).join(', ')}`;
+
+      // Esperar OCR
+      const ocrText = await ocrPromise;
+
+      let summary = baseSummary;
+      if (ocrText) {
+        const preview = ocrText.length > 300 ? ocrText.substring(0, 300) + '...' : ocrText;
+        summary += `\n\n📝 **Texto detectado (OCR):**\n${preview}`;
+      }
+
       URL.revokeObjectURL(url);
       resolve({
         type: 'image',
@@ -95,13 +135,9 @@ async function analyzeImage(file) {
         height: img.naturalHeight,
         aspectRatio: (img.naturalWidth / img.naturalHeight).toFixed(2),
         dominantColors: colors,
-        dataUrl: url, // se mantiene viva la referencia para mostrar
-        summary: `📷 **${file.name}**\n` +
-          `• Dimensiones: ${img.naturalWidth}×${img.naturalHeight}px\n` +
-          `• Formato: ${file.type || 'desconocido'}\n` +
-          `• Tamaño: ${formatBytes(file.size)}\n` +
-          `• Relación de aspecto: ${(img.naturalWidth / img.naturalHeight).toFixed(2)}:1\n` +
-          `• Colores predominantes: ${colors.map(c => c.hex).join(', ')}`,
+        dataUrl: url,
+        ocrText: ocrText || null,
+        summary,
       });
     };
     img.onerror = () => {
