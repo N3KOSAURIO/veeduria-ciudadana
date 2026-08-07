@@ -99,11 +99,6 @@ export default function Landing({ onNavigate }) {
           </div>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="text-center py-4 text-xs text-gray-400 border-t border-gray-200">
-        Próximamente · Demo Beta · Veeduría Ciudadana 2026
-      </footer>
     </div>
   );
 }

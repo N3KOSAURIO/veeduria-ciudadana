@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useUser } from './context/UserContext.jsx';
+import CookieBanner from './components/CookieBanner.jsx';
+import Footer from './components/Footer.jsx';
 import Landing from './pages/Landing.jsx';
 import Login from './pages/Login.jsx';
 import Registro from './pages/Registro.jsx';
@@ -9,6 +11,11 @@ import Derivacion from './pages/Derivacion.jsx';
 import Planes from './pages/Planes.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Perfil from './pages/Perfil.jsx';
+import Terminos from './pages/Terminos.jsx';
+import Privacidad from './pages/Privacidad.jsx';
+import Cookies from './pages/Cookies.jsx';
+
+const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil'];
 
 export default function App() {
   const { isAuthenticated, loading } = useUser();
@@ -16,7 +23,7 @@ export default function App() {
   const [derivarFlowId, setDerivarFlowId] = useState(null);
   const [checkoutPlanId, setCheckoutPlanId] = useState(null);
 
-  // Redirigir a dashboard si ya está autenticado y va a landing/login/registro
+  // Redirigir a dashboard si ya está autenticado
   useEffect(() => {
     if (isAuthenticated && (page === 'landing' || page === 'login' || page === 'registro')) {
       setPage('dashboard');
@@ -24,9 +31,11 @@ export default function App() {
   }, [isAuthenticated, page]);
 
   const handleNavigate = (target, extra) => {
-    // Proteger rutas que requieren auth
-    const protectedPages = ['chat', 'dashboard', 'derivacion', 'planes', 'checkout', 'perfil'];
-    if (protectedPages.includes(target) && !isAuthenticated) {
+    // Rutas públicas: landing, login, registro, terminos, privacidad, cookies
+    const publicPages = ['landing', 'login', 'registro', 'terminos', 'privacidad', 'cookies'];
+    const isPublic = publicPages.includes(target);
+
+    if (!isPublic && !isAuthenticated) {
       setPage('login');
       return;
     }
@@ -58,40 +67,36 @@ export default function App() {
     );
   }
 
-  // Páginas públicas (sin auth)
-  if (page === 'landing') {
-    return <Landing onNavigate={handleNavigate} />;
-  }
-  if (page === 'login') {
-    return <Login onNavigate={handleNavigate} />;
-  }
-  if (page === 'registro') {
-    return <Registro onNavigate={handleNavigate} />;
-  }
+  const showFooter = PAGES_WITH_FOOTER.includes(page);
 
-  // Páginas protegidas (requieren auth)
-  if (!isAuthenticated) {
-    return <Login onNavigate={handleNavigate} />;
-  }
+  const renderPage = () => {
+    // Páginas públicas
+    if (page === 'landing') return <Landing onNavigate={handleNavigate} />;
+    if (page === 'login') return <Login onNavigate={handleNavigate} />;
+    if (page === 'registro') return <Registro onNavigate={handleNavigate} />;
+    if (page === 'terminos') return <Terminos onNavigate={handleNavigate} />;
+    if (page === 'privacidad') return <Privacidad onNavigate={handleNavigate} />;
+    if (page === 'cookies') return <Cookies onNavigate={handleNavigate} />;
 
-  if (page === 'dashboard') {
-    return <Dashboard onNavigate={handleNavigate} />;
-  }
-  if (page === 'chat') {
-    return <Chat onNavigate={handleNavigate} onDerivar={handleDerivar} />;
-  }
-  if (page === 'derivacion') {
-    return <Derivacion onNavigate={handleNavigate} onBack={handleBack} flowId={derivarFlowId} />;
-  }
-  if (page === 'planes') {
-    return <Planes onNavigate={handleNavigate} />;
-  }
-  if (page === 'checkout') {
-    return <Checkout onNavigate={handleNavigate} planId={checkoutPlanId} />;
-  }
-  if (page === 'perfil') {
-    return <Perfil onNavigate={handleNavigate} />;
-  }
+    // Si no autenticado, mostrar login
+    if (!isAuthenticated) return <Login onNavigate={handleNavigate} />;
 
-  return null;
+    // Páginas protegidas
+    if (page === 'dashboard') return <Dashboard onNavigate={handleNavigate} />;
+    if (page === 'chat') return <Chat onNavigate={handleNavigate} onDerivar={handleDerivar} />;
+    if (page === 'derivacion') return <Derivacion onNavigate={handleNavigate} onBack={handleBack} flowId={derivarFlowId} />;
+    if (page === 'planes') return <Planes onNavigate={handleNavigate} />;
+    if (page === 'checkout') return <Checkout onNavigate={handleNavigate} planId={checkoutPlanId} />;
+    if (page === 'perfil') return <Perfil onNavigate={handleNavigate} />;
+
+    return null;
+  };
+
+  return (
+    <div className="flex flex-col min-h-screen">
+      {renderPage()}
+      <CookieBanner />
+      {showFooter && <Footer onNavigate={handleNavigate} />}
+    </div>
+  );
 }

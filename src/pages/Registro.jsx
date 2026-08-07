@@ -28,6 +28,10 @@ export default function Registro({ onNavigate }) {
       setError('Todos los campos son obligatorios.');
       return;
     }
+    if (!form.aceptoTerminos) {
+      setError('Debés aceptar los Términos y Condiciones para crear tu cuenta.');
+      return;
+    }
     if (password !== confirmar) {
       setError('Las contraseñas no coinciden.');
       return;
@@ -128,9 +132,38 @@ export default function Registro({ onNavigate }) {
                 />
               </div>
 
+              <label className="flex items-start gap-2 cursor-pointer mt-2">
+                <input
+                  type="checkbox"
+                  name="aceptoTerminos"
+                  checked={form.aceptoTerminos || false}
+                  onChange={handleChange}
+                  className="mt-1 w-4 h-4 text-azul-oscuro rounded"
+                />
+                <span className="text-xs text-gray-500">
+                  Acepto los{' '}
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('terminos')}
+                    className="text-azul-medio underline hover:text-azul-oscuro"
+                  >
+                    Términos y Condiciones
+                  </button>{' '}
+                  y la{' '}
+                  <button
+                    type="button"
+                    onClick={() => onNavigate('privacidad')}
+                    className="text-azul-medio underline hover:text-azul-oscuro"
+                  >
+                    Política de Privacidad
+                  </button>{' '}
+                  de Veeduría Ciudadana.
+                </span>
+              </label>
+
               <button
                 type="submit"
-                disabled={loading}
+                disabled={loading || !form.aceptoTerminos}
                 className="w-full py-3 bg-dorado hover:bg-dorado-hover text-white font-bold rounded-xl transition-colors disabled:opacity-50 shadow-md text-sm mt-2"
               >
                 {loading ? 'Creando cuenta...' : 'CREAR CUENTA GRATIS'}
