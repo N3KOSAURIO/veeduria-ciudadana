@@ -135,7 +135,16 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
     const emailOk = isEmailJSConfigured();
     return (
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-green-50 to-white">
-        <Header showClose onClose={() => onBack()} />
+        <Header showClose onClose={() => onBack()}>
+          <div className="flex items-center gap-3">
+            <button onClick={() => onNavigate('perfil')} className="text-xs text-blue-200 hover:text-white">
+              ← Perfil
+            </button>
+            <button onClick={() => onNavigate('mis-peticiones')} className="text-xs text-yellow-200 hover:text-white">
+              📋 Mis Peticiones
+            </button>
+          </div>
+        </Header>
         <main className="flex-1 flex flex-col items-center justify-center px-4 text-center max-w-md mx-auto py-8">
           <span className="text-6xl mb-4">📄</span>
           <h2 className="text-2xl font-bold text-gray-800 mb-2">¡PDF generado!</h2>
@@ -261,7 +270,16 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
   // === FORMULARIO DE GENERACIÓN ===
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
-      <Header showClose onClose={() => onBack()} />
+      <Header showClose onClose={() => onBack()}>
+        <div className="flex items-center gap-3">
+          <button onClick={() => onNavigate('perfil')} className="text-xs text-blue-200 hover:text-white">
+            ← Perfil
+          </button>
+          <button onClick={() => onNavigate('mis-peticiones')} className="text-xs text-yellow-200 hover:text-white">
+            📋 Mis Peticiones
+          </button>
+        </div>
+      </Header>
       <main className="flex-1 flex items-start justify-center px-4 py-6">
         <div className="w-full max-w-lg bg-white rounded-2xl shadow-lg p-6 sm:p-8">
           <div className="text-center mb-6">

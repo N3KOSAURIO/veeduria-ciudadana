@@ -315,7 +315,7 @@ export default function Chat({ onNavigate, onDerivar }) {
                   onClick={() => onDerivar(msg.flowId)}
                   className="px-4 py-2 bg-dorado hover:bg-dorado-hover text-white text-sm font-semibold rounded-xl shadow transition-colors"
                 >
-                  Sí, quiero consultoría →
+                  Sí, generar derecho de petición →
                 </button>
               </div>
             )}

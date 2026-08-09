@@ -1,9 +1,11 @@
 /**
  * Servicio de autenticación — abstrae localStorage para futuro swap por JWT/API.
  * Única fuente de verdad para login, registro, sesión.
+ *
+ * v1.1 — Usuarios en claves individuales (veeduria_db_<email>), NO en array expuesto.
  */
 
-const USERS_KEY = 'veeduria_users';
+const DB_PREFIX = 'veeduria_db_';
 const SESSION_KEY = 'veeduria_user';
 
 const SEED_ADMIN = {
@@ -18,19 +20,39 @@ const SEED_ADMIN = {
   isAdmin: true,
 };
 
-function getUsers() {
-  return JSON.parse(localStorage.getItem(USERS_KEY) || '[]');
+/* ── helpers internos ── */
+
+function dbKey(email) {
+  return DB_PREFIX + email.toLowerCase().trim();
 }
 
-function saveUsers(users) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+function getUser(email) {
+  try {
+    const raw = localStorage.getItem(dbKey(email));
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveUser(user) {
+  localStorage.setItem(dbKey(user.email), JSON.stringify(user));
+}
+
+/** Solo para migrar datos viejos de veeduria_users → claves individuales */
+function migrateOldUsers() {
+  try {
+    const old = localStorage.getItem('veeduria_users');
+    if (!old) return;
+    const users = JSON.parse(old);
+    users.forEach(u => saveUser(u));
+    localStorage.removeItem('veeduria_users');
+  } catch { /* ignorar errores de migración */ }
 }
 
 function seedAdmin() {
-  const users = getUsers();
-  if (!users.find(u => u.email === SEED_ADMIN.email)) {
-    users.push(SEED_ADMIN);
-    saveUsers(users);
+  if (!getUser(SEED_ADMIN.email)) {
+    saveUser(SEED_ADMIN);
   }
 }
 
@@ -49,7 +71,10 @@ function toSessionUser(found) {
   };
 }
 
+/* ── API pública ── */
+
 export function initAuth() {
+  migrateOldUsers();
   seedAdmin();
 }
 
@@ -59,15 +84,14 @@ export function getCurrentUser() {
     if (!stored) return null;
     const parsed = JSON.parse(stored);
     if (parsed.email && parsed.nombre) return parsed;
-  } catch (e) {
+  } catch {
     localStorage.removeItem(SESSION_KEY);
   }
   return null;
 }
 
 export function login(email, password) {
-  const users = getUsers();
-  const found = users.find(u => u.email === email);
+  const found = getUser(email);
 
   if (!found) {
     return { success: false, error: 'Correo no registrado. ¿Querés crear una cuenta?' };
@@ -83,9 +107,8 @@ export function login(email, password) {
 
 export function register(data) {
   const { nombre, email, telefono, ciudad, password } = data;
-  const users = getUsers();
 
-  if (users.find(u => u.email === email)) {
+  if (getUser(email)) {
     return { success: false, error: 'Este correo ya está registrado. Iniciá sesión.' };
   }
 
@@ -100,8 +123,7 @@ export function register(data) {
     consultasRealizadas: 0,
     isAdmin: false,
   };
-  users.push(newUser);
-  saveUsers(users);
+  saveUser(newUser);
 
   const sessionUser = toSessionUser(newUser);
   localStorage.setItem(SESSION_KEY, JSON.stringify(sessionUser));
@@ -109,8 +131,7 @@ export function register(data) {
 }
 
 export function googleLogin({ nombre, email, picture }) {
-  const users = getUsers();
-  let found = users.find(u => u.email === email);
+  let found = getUser(email);
 
   if (!found) {
     found = {
@@ -126,8 +147,7 @@ export function googleLogin({ nombre, email, picture }) {
       authProvider: 'google',
       picture,
     };
-    users.push(found);
-    saveUsers(users);
+    saveUser(found);
   }
 
   const sessionUser = toSessionUser(found);
@@ -146,11 +166,9 @@ export function updateUser(updates) {
   const updated = { ...stored, ...updates };
   localStorage.setItem(SESSION_KEY, JSON.stringify(updated));
 
-  const users = getUsers();
-  const idx = users.findIndex(u => u.email === stored.email);
-  if (idx !== -1) {
-    users[idx] = { ...users[idx], ...updates };
-    saveUsers(users);
+  const record = getUser(stored.email);
+  if (record) {
+    saveUser({ ...record, ...updates });
   }
   return updated;
 }

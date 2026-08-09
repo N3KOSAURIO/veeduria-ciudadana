@@ -92,7 +92,7 @@ export default function CookieBanner() {
                     onClick={rejectAll}
                     className="px-4 py-2 bg-gray-200 dark:bg-slate-700 hover:bg-gray-300 dark:hover:bg-slate-600 text-gray-700 dark:text-slate-200 text-sm font-semibold rounded-lg transition-colors"
                   >
-                    Rechazar
+                    Solo esenciales
                   </button>
                   <button
                     onClick={() => setShowSettings(true)}

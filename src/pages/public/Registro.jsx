@@ -15,6 +15,7 @@ export default function Registro({ onNavigate }) {
   });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
     initGoogleSignIn('google-signin-registro', (googleUser) => {
@@ -34,8 +35,8 @@ export default function Registro({ onNavigate }) {
     setError('');
 
     const { nombre, email, telefono, ciudad, password, confirmar } = form;
-    if (!nombre.trim() || !email.trim() || !telefono.trim() || !ciudad.trim() || !password || !confirmar) {
-      setError('Todos los campos son obligatorios.');
+    if (!nombre.trim() || !email.trim() || !password || !confirmar) {
+      setError('Nombre, correo y contraseña son obligatorios.');
       return;
     }
     if (!form.aceptoTerminos) {
@@ -63,8 +64,13 @@ export default function Registro({ onNavigate }) {
       if (!result.success) {
         setError(result.error);
         setLoading(false);
+      } else {
+        setSuccess(true);
+        setTimeout(() => {
+          onNavigate('chat');
+        }, 1200);
       }
-    }, 800);
+    }, 600);
   };
 
   return (
@@ -88,6 +94,11 @@ export default function Registro({ onNavigate }) {
                 {error}
               </div>
             )}
+            {success && (
+              <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700 flex items-center gap-2">
+                <span>✅</span> ¡Cuenta creada! Redirigiendo al chat...
+              </div>
+            )}
 
             <form onSubmit={handleSubmit} className="space-y-3">
               <div>
@@ -109,7 +120,7 @@ export default function Registro({ onNavigate }) {
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Teléfono <span className="text-gray-400 font-normal">(opcional)</span></label>
                   <input
                     type="tel" name="telefono" value={form.telefono} onChange={handleChange}
                     placeholder="3XX XXX XXXX"
@@ -117,7 +128,7 @@ export default function Registro({ onNavigate }) {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Ciudad</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Ciudad <span className="text-gray-400 font-normal">(opcional)</span></label>
                   <input
                     type="text" name="ciudad" value={form.ciudad} onChange={handleChange}
                     placeholder="Bogotá, Medellín..."
