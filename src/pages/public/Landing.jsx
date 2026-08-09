@@ -50,7 +50,7 @@ export default function Landing({ onNavigate }) {
             Tu herramienta de control social
           </p>
           <p className="text-base text-gray-500 mb-10 max-w-md mx-auto">
-            ¿Ves una obra en la calle y no sabés si es legal? Consultá gratis.
+            ¿Ves una obra en la calle y no sabes si es legal? Consulta gratis.
           </p>
 
           {isAuthenticated ? (
@@ -68,7 +68,7 @@ export default function Landing({ onNavigate }) {
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-dorado hover:bg-dorado-hover text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
               >
                 <span className="text-xl">🟢</span>
-                CONSULTÁ GRATIS
+                CONSULTA GRATIS
               </button>
               <button
                 onClick={() => onNavigate('registro')}
@@ -84,17 +84,17 @@ export default function Landing({ onNavigate }) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-14">
             <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
               <span className="text-3xl block mb-3">🔍</span>
-              <h3 className="font-bold text-azul-oscuro mb-1">Fiscalizá</h3>
+              <h3 className="font-bold text-azul-oscuro mb-1">Fiscaliza</h3>
               <p className="text-sm text-gray-500">obras públicas</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
               <span className="text-3xl block mb-3">📋</span>
-              <h3 className="font-bold text-azul-oscuro mb-1">Auditá</h3>
+              <h3 className="font-bold text-azul-oscuro mb-1">Audita</h3>
               <p className="text-sm text-gray-500">contratos públicos</p>
             </div>
             <div className="bg-white rounded-xl p-6 shadow-md border border-gray-100 hover:shadow-lg transition-shadow">
               <span className="text-3xl block mb-3">⚖️</span>
-              <h3 className="font-bold text-azul-oscuro mb-1">Conocé</h3>
+              <h3 className="font-bold text-azul-oscuro mb-1">Conoce</h3>
               <p className="text-sm text-gray-500">tus derechos</p>
             </div>
           </div>

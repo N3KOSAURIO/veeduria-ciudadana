@@ -137,11 +137,11 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-green-50 to-white">
         <Header showClose onClose={() => onBack()}>
           <div className="flex items-center gap-3">
-            <button onClick={() => onNavigate('perfil')} className="text-xs text-blue-200 hover:text-white">
-              ← Perfil
+            <button onClick={() => onNavigate('perfil')} className="text-sm text-blue-200 hover:text-white px-1" title="Perfil">
+              👤
             </button>
-            <button onClick={() => onNavigate('mis-peticiones')} className="text-xs text-yellow-200 hover:text-white">
-              📋 Mis Peticiones
+            <button onClick={() => onNavigate('mis-peticiones')} className="text-sm text-yellow-200 hover:text-white px-1" title="Mis Peticiones">
+              📋
             </button>
           </div>
         </Header>
@@ -272,11 +272,11 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
       <Header showClose onClose={() => onBack()}>
         <div className="flex items-center gap-3">
-          <button onClick={() => onNavigate('perfil')} className="text-xs text-blue-200 hover:text-white">
-            ← Perfil
+          <button onClick={() => onNavigate('perfil')} className="text-sm text-blue-200 hover:text-white px-1" title="Perfil">
+            👤
           </button>
-          <button onClick={() => onNavigate('mis-peticiones')} className="text-xs text-yellow-200 hover:text-white">
-            📋 Mis Peticiones
+          <button onClick={() => onNavigate('mis-peticiones')} className="text-sm text-yellow-200 hover:text-white px-1" title="Mis Peticiones">
+            📋
           </button>
         </div>
       </Header>
@@ -288,7 +288,7 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
               Generar Derecho de Petición
             </h2>
             <p className="text-sm text-gray-500">
-              Completá los datos y generá un PDF listo para radicar.
+              Completa los datos y genera un PDF listo para radicar.
               Basado en la Ley 1755 de 2015.
             </p>
           </div>
@@ -448,7 +448,7 @@ export default function Derivacion({ onNavigate, onBack, flowId }) {
                 value={form.anexos}
                 onChange={handleChange}
                 rows={2}
-                placeholder="Lista de documentos que adjuntás: fotos, facturas, contratos previos..."
+                placeholder="Lista de documentos que adjuntas: fotos, facturas, contratos previos..."
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio resize-y"
               />
             </div>

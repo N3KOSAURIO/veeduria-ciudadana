@@ -347,7 +347,7 @@ export default function PetitionFlow({ onDone, user, onAddMessages, city }) {
         <ChatBubble sender="bot">
           {resultado.success
             ? `✅ **¡Derecho de petición enviado!**\n\n📨 **Radicado:** ${resultado.radicado}\n🔬 **ADN:** ${resultado.adn}\n📬 **Enviado a:** ${form.entidadCorreo}\n\n📋 **Entidad:** ${form.entidadNombre}\n⏳ **Plazo legal:** 15 días hábiles (Ley 1755/2015)\n\nEl documento queda guardado en **Mis Peticiones** para hacer seguimiento.`
-            : `📄 **Documento generado**\n\n📨 **Radicado:** ${resultado.radicado}\n🔬 **ADN:** ${resultado.adn}\n\n${resultado.message}\n\n📋 El documento queda guardado en **Mis Peticiones** para seguimiento.${!emailJsOk ? '\n\n💡 **Tip:** Configurá EmailJS en src/config/emailjs.js para activar el envío automático por correo.' : ''}`
+            : `📄 **Documento generado**\n\n📨 **Radicado:** ${resultado.radicado}\n🔬 **ADN:** ${resultado.adn}\n\n${resultado.message}\n\n📋 El documento queda guardado en **Mis Peticiones** para seguimiento.${!emailJsOk ? '\n\n💡 **Tip:** Configura EmailJS en src/config/emailjs.js para activar el envío automático por correo.' : ''}`
           }
         </ChatBubble>
         <div className="flex gap-2 ml-0">

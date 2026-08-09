@@ -82,10 +82,10 @@ export default function Registro({ onNavigate }) {
             <div className="text-center mb-6">
               <span className="text-3xl block mb-2">📝</span>
               <h2 className="text-2xl font-extrabold text-azul-oscuro mb-1">
-                Creá tu cuenta gratis
+                Crea tu cuenta gratis
               </h2>
               <p className="text-sm text-gray-500">
-                Empezá a fiscalizar obras y contratos públicos
+                Empieza a fiscalizar obras y contratos públicos
               </p>
             </div>
 
@@ -148,7 +148,7 @@ export default function Registro({ onNavigate }) {
                 <label className="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
                 <input
                   type="password" name="confirmar" value={form.confirmar} onChange={handleChange}
-                  placeholder="Repetí tu contraseña"
+                  placeholder="Repite tu contraseña"
                   className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                 />
               </div>
@@ -192,18 +192,18 @@ export default function Registro({ onNavigate }) {
             </form>
 
             <div className="mt-4 pt-4 border-t border-gray-100">
-              <p className="text-xs text-gray-400 text-center mb-3">O registrate con</p>
+              <p className="text-xs text-gray-400 text-center mb-3">O regístrate con</p>
               <div id="google-signin-registro" className="flex justify-center min-h-[48px]"></div>
             </div>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-500">
-                ¿Ya tenés cuenta?{' '}
+                ¿Ya tienes cuenta?{' '}
                 <button
                   onClick={() => onNavigate('login')}
                   className="text-azul-medio hover:text-azul-oscuro font-semibold underline"
                 >
-                  Iniciá sesión
+                  Inicia sesión
                 </button>
               </p>
             </div>

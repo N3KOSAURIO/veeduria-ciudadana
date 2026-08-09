@@ -94,7 +94,7 @@ export function login(email, password) {
   const found = getUser(email);
 
   if (!found) {
-    return { success: false, error: 'Correo no registrado. ¿Querés crear una cuenta?' };
+    return { success: false, error: 'Correo no registrado. ¿Quieres crear una cuenta?' };
   }
   if (found.password !== password) {
     return { success: false, error: 'Contraseña incorrecta.' };
@@ -109,7 +109,7 @@ export function register(data) {
   const { nombre, email, telefono, ciudad, password } = data;
 
   if (getUser(email)) {
-    return { success: false, error: 'Este correo ya está registrado. Iniciá sesión.' };
+    return { success: false, error: 'Este correo ya está registrado. Inicia sesión.' };
   }
 
   const newUser = {

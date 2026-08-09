@@ -51,7 +51,7 @@ const FLUJOS = {
 | **Ley 1474/2011** | Estatuto Anticorrupción — plan anticorrupción obligatorio |
 | **Ley 1757/2015** | Control social — derecho y deber de vigilar la gestión pública |
 
-🔍 **Cada alcaldía tiene su propio normograma** (conjunto de normas que la rigen). Podés consultarlo en la página web de tu municipio o solicitarlo por derecho de petición.`,
+🔍 **Cada alcaldía tiene su propio normograma** (conjunto de normas que la rigen). Puedes consultarlo en la página web de tu municipio o solicitarlo por derecho de petición.`,
     jurisprudencia: "C-274/13 (Corte Constitucional — no es necesario justificar la solicitud de información pública); T-595/02 (derecho de petición como derecho fundamental de aplicación inmediata)",
     derivacion: "¿Necesitás que un consultor analice el normograma de tu municipio y te diga exactamente qué podés vigilar? Hacemos el análisis completo y te entregamos una guía personalizada."
   },
@@ -86,7 +86,7 @@ const FLUJOS = {
     ],
     respuesta: `Como estudiante tenés **derecho a participar en la vigilancia** de tu institución educativa, especialmente si recibe recursos públicos:
 
-🔍 **Podés vigilar:**
+🔍 **Puedes vigilar:**
 - Ejecución del presupuesto educativo
 - Contratos de alimentación escolar (PAE), infraestructura, transporte
 - Calidad y oportunidad de los servicios educativos
@@ -199,7 +199,7 @@ const FLUJOS = {
     respuesta: `El **derecho de petición** es tu herramienta más poderosa como ciudadano. Es GRATIS, no necesitás abogado, y está en la Constitución (Art. 23).
 
 📝 **Pasos para hacerlo:**
-1. Escribí un documento corto con:
+1. Escribe un documento corto con:
    - Tus datos (nombre, cédula, dirección, teléfono, correo)
    - Lo que solicitás (sé específico: \"copia del contrato X\", \"informe de avance de la obra Y\")
    - Razón (no es obligatorio, pero ayuda: \"para ejercer control social como ciudadano\")
@@ -209,7 +209,7 @@ const FLUJOS = {
 
 ⚠️ **Si no responden en 10 días:**
 - Están violando la Ley 1712/2014 y tu derecho fundamental
-- Podés presentar una **tutela** (la resuelven en 10 días)
+- Puedes presentar una **tutela** (la resuelven en 10 días)
 - La Procuraduría puede abrir proceso disciplinario al funcionario`,
     jurisprudencia: "T-595/02 (derecho de petición como derecho fundamental); C-274/13 (no se requiere justificar la razón de la solicitud de información pública)",
     derivacion: "¿Querés que redactemos y radiquemos el derecho de petición por vos? Nos encargamos de todo: redacción, radicación y seguimiento hasta obtener respuesta."
@@ -425,7 +425,7 @@ Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente
 
 - **No necesitás abogado.** La tutela la puede presentar cualquier persona, incluso escrita a mano.
 - **Radicala en cualquier juzgado** (civil, penal, laboral, etc.). Todos los jueces son competentes para recibir tutelas.
-- **Podés presentarla por correo electrónico** del juzgado (hoy casi todos lo aceptan).
+- **Puedes presentarla por correo electrónico** del juzgado (hoy casi todos lo aceptan).
 - **Guardá copia con sello de radicación** — es tu constancia.
 - **Si el juez la rechaza por improcedente**, tenés 3 días para impugnar.
 - **Si no cumplen el fallo**, pedí inmediatamente apertura de **incidente de desacato**. El juez puede imponer arresto (hasta 6 meses) y multa (hasta 20 salarios mínimos).
@@ -573,7 +573,7 @@ En Colombia existen tres grandes sistemas de control sobre los servidores públi
 Cualquier falta disciplinaria de un servidor público: negligencia, abuso de poder, incumplimiento de deberes, violación del régimen de inhabilidades, acoso laboral, irregularidades en contratación (sin detrimento probado), omisión en la respuesta a derechos de petición, y en general cualquier conducta que afecte el buen servicio público.
 
 ### 📝 ¿Cómo denunciar?
-1. **Escribí tu queja** con:
+1. **Escribe tu queja** con:
    - Tus datos completos (nombre, cédula, dirección, teléfono, correo)
    - Nombre y cargo del funcionario denunciado
    - Entidad donde trabaja
@@ -664,7 +664,7 @@ Principales delitos contra la administración pública:
 - **Enriquecimiento ilícito** (Art. 412 CP). Prisión: 8 a 15 años
 
 ### 📝 ¿Cómo denunciar?
-1. **Escribí la denuncia penal** — debe incluir:
+1. **Escribe la denuncia penal** — debe incluir:
    - Relato detallado de los hechos (qué delito creés que se cometió)
    - Identificación del posible responsable
    - Pruebas (documentos, testimonios, grabaciones, fotos)

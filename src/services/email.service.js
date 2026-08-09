@@ -66,8 +66,8 @@ export async function enviarDerechoPeticion({
       radicado,
       message:
         '⚠️ EmailJS no está configurado. El PDF se generó pero no se envió por correo.\n\n' +
-        'Para activar el envío: creá una cuenta en emailjs.com, conectá Gmail/Outlook,\n' +
-        'creá un template y poné las credenciales en src/config/emailjs.js',
+        'Para activar el envío: crea una cuenta en emailjs.com, conecta Gmail/Outlook,\n' +
+        'crea un template y pon las credenciales en src/config/emailjs.js',
     };
   }
 
@@ -113,7 +113,7 @@ export async function enviarDerechoPeticion({
       return {
         success: false,
         radicado,
-        message: `⚠️ Template de EmailJS no encontrado.\nVerificá TEMPLATE_ID en src/config/emailjs.js.\nRadicado: ${radicado}`,
+        message: `⚠️ Template de EmailJS no encontrado.\nVerifica TEMPLATE_ID en src/config/emailjs.js.\nRadicado: ${radicado}`,
       };
     }
     return {

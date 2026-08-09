@@ -11,7 +11,7 @@ import { analyzeFile } from '../../utils/fileAnalyzer.js';
 
 const MENSAJE_INICIAL = {
   sender: 'bot',
-  text: '¡Hola! Soy tu asistente de veeduría ciudadana. ¿En qué puedo ayudarte?\n\nPodés consultarme sobre obras, contratos y derechos. También podés adjuntarme archivos para analizar o **radicar un derecho de petición**.',
+  text: '¡Hola! Soy tu asistente de veeduría ciudadana. ¿En qué puedo ayudarte?\n\nPuedes consultarme sobre obras, contratos y derechos. También puedes adjuntarme archivos para analizar o **radicar un derecho de petición**.',
   showQuickActions: true,
 };
 
@@ -274,15 +274,17 @@ export default function Chat({ onNavigate, onDerivar }) {
         <div className="flex items-center gap-3">
           <button
             onClick={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}
-            className="text-xs text-blue-200 hover:text-white"
+            className="text-sm text-blue-200 hover:text-white px-1"
+            title={user?.isAdmin ? 'Panel' : 'Perfil'}
           >
-            ← {user?.isAdmin ? 'Panel' : 'Perfil'}
+            {user?.isAdmin ? '📊' : '👤'}
           </button>
           <button
             onClick={() => onNavigate('mis-peticiones')}
-            className="text-xs text-yellow-200 hover:text-white"
+            className="text-sm text-yellow-200 hover:text-white px-1"
+            title="Mis Peticiones"
           >
-            📋 Mis Peticiones
+            📋
           </button>
         </div>
       </Header>
@@ -377,7 +379,7 @@ export default function Chat({ onNavigate, onDerivar }) {
             placeholder={
               user?.plan === 'gratis' && (user?.consultasRealizadas || 0) >= 5
                 ? 'Límite alcanzado — subí de plan para seguir'
-                : 'Escribí tu consulta o adjuntá un archivo...'
+                : 'Escribe tu consulta o adjunta un archivo...'
             }
             className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-border rounded-xl text-sm text-gray-900 dark:text-dark-text bg-white dark:bg-dark-bg placeholder:text-gray-400 dark:placeholder:text-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
             disabled={isInputDisabled}
