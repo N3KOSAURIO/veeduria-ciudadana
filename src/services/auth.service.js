@@ -8,6 +8,9 @@
 const DB_PREFIX = 'veeduria_db_';
 const SESSION_KEY = 'veeduria_user';
 
+/* ⚠️ DEMO ONLY — ELIMINAR al migrar a backend real.
+   Credenciales hardcodeadas. No usar en producción.
+   Ver plan: Veeduria-MIGRACION-BACKEND.md paso 6 */
 const SEED_ADMIN = {
   nombre: 'Administrador',
   email: 'admin@veeduria.com',
@@ -163,12 +166,19 @@ export function updateUser(updates) {
   const stored = getCurrentUser();
   if (!stored) return;
 
-  const updated = { ...stored, ...updates };
+  // ⚠️ SEGURIDAD: solo campos de perfil, nunca isAdmin/plan/consultasRealizadas
+  const ALLOWED = ['nombre', 'telefono', 'ciudad', 'picture'];
+  const safe = {};
+  for (const k of ALLOWED) {
+    if (k in updates) safe[k] = updates[k];
+  }
+
+  const updated = { ...stored, ...safe };
   localStorage.setItem(SESSION_KEY, JSON.stringify(updated));
 
   const record = getUser(stored.email);
   if (record) {
-    saveUser({ ...record, ...updates });
+    saveUser({ ...record, ...safe });
   }
   return updated;
 }

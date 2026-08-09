@@ -1,3 +1,6 @@
+/* ⚠️ DEMO ONLY — Datos ficticios en bundle del frontend.
+   En producción: estos datos deben servirse desde API con autorización.
+   Ver: Veeduria-MIGRACION-BACKEND.md paso 9 */
 // Clientes ficticios para simular plataforma con clientes reales pagando
 // Datos en español colombiano — Nombres, empresas y ciudades reales
 

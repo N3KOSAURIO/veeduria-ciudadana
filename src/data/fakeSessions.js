@@ -1,3 +1,5 @@
+/* ⚠️ DEMO ONLY — Datos ficticios en bundle del frontend.
+   En producción: estos datos deben servirse desde API con autorización. */
 // Historial de sesiones simuladas para Veeduría Ciudadana
 
 const FAKE_SESSIONS = [

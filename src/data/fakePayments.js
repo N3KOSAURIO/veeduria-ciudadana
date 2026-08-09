@@ -1,3 +1,5 @@
+/* ⚠️ DEMO ONLY — Datos ficticios en bundle del frontend.
+   En producción: estos datos deben servirse desde API con autorización. */
 // Pagos ficticios simulando transacciones reales de la plataforma
 // Factura, cliente, monto, método de pago y fecha
 

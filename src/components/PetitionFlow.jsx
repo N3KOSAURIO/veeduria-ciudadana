@@ -3,7 +3,7 @@ import ChatBubble from './ChatBubble.jsx';
 import { buscarEntidad, getEntidadById } from '../data/entidades.js';
 import { generarDocumento, generarPreview, sugerirAsunto } from '../utils/petitionGenerator.js';
 import { generarRadicado, generarADN, guardarPeticion } from '../utils/radicadoSystem.js';
-import { enviarDerechoPeticion, isEmailJSConfigured } from '../utils/emailService.js';
+import { enviarDerechoPeticion, isEmailJSConfigured } from '../services/email.service.js';
 
 const PASOS = {
   ENTIDAD: 'entidad',
