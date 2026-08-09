@@ -1,6 +1,6 @@
-import Header from '../components/Header.jsx';
-import { useUser } from '../context/UserContext.jsx';
-import logo from '../assets/logo.svg';
+import Header from '../../components/Header.jsx';
+import { useUser } from '../../context/UserContext.jsx';
+import logo from '../../assets/logo.svg';
 
 export default function Landing({ onNavigate }) {
   const { isAuthenticated, user } = useUser();

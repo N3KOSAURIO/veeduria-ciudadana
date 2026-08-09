@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
-import { useUser } from '../context/UserContext.jsx';
-import Header from '../components/Header.jsx';
+import { useUser } from '../../context/UserContext.jsx';
+import Header from '../../components/Header.jsx';
 import {
   obtenerPeticiones,
   actualizarPeticion,
   diasTranscurridos,
   calcularEstado,
   getEstadoInfo,
-} from '../utils/radicadoSystem.js';
-import { analizarRespuesta, analizarPlazos } from '../utils/responseAnalyzer.js';
+} from '../../utils/radicadoSystem.js';
+import { analizarRespuesta, analizarPlazos } from '../../utils/responseAnalyzer.js';
 
 export default function MisPeticiones({ onNavigate }) {
   const { user } = useUser();

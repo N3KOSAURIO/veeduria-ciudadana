@@ -1,13 +1,13 @@
 import { useState, useRef, useEffect } from 'react';
-import { useUser } from '../context/UserContext.jsx';
-import Header from '../components/Header.jsx';
-import ChatBubble from '../components/ChatBubble.jsx';
-import QuickActions from '../components/QuickActions.jsx';
-import FileUpload from '../components/FileUpload.jsx';
-import PetitionFlow from '../components/PetitionFlow.jsx';
-import VoiceInput from '../components/VoiceInput.jsx';
-import { processQuery } from '../utils/chatEngine.js';
-import { analyzeFile } from '../utils/fileAnalyzer.js';
+import { useUser } from '../../context/UserContext.jsx';
+import Header from '../../components/Header.jsx';
+import ChatBubble from '../../components/ChatBubble.jsx';
+import QuickActions from '../../components/QuickActions.jsx';
+import FileUpload from '../../components/FileUpload.jsx';
+import PetitionFlow from '../../components/PetitionFlow.jsx';
+import VoiceInput from '../../components/VoiceInput.jsx';
+import { processQuery } from '../../utils/chatEngine.js';
+import { analyzeFile } from '../../utils/fileAnalyzer.js';
 
 const MENSAJE_INICIAL = {
   sender: 'bot',

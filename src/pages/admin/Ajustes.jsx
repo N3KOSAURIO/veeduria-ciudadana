@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useTheme } from '../context/ThemeContext.jsx';
+import { useTheme } from '../../context/ThemeContext.jsx';
 
 /* ------------------------------------------------------------------ */
 /*  ToggleSwitch — componente reutilizable                            */

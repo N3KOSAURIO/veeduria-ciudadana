@@ -1,9 +1,10 @@
-import { useUser } from '../context/UserContext.jsx';
-import PLANES from '../data/plans.js';
-import Header from '../components/Header.jsx';
+import { useUser } from '../../context/UserContext.jsx';
+import { getPlans } from '../../services/citizen.service.js';
+import Header from '../../components/Header.jsx';
 
 export default function Planes({ onNavigate }) {
   const { user } = useUser();
+  const PLANES = getPlans();
   const planActual = user?.plan || 'gratis';
 
   const planOrder = ['gratis', 'pro', 'premium'];

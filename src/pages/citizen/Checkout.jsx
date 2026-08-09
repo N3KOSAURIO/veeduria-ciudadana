@@ -1,13 +1,15 @@
 import { useState } from 'react';
-import { useUser } from '../context/UserContext.jsx';
-import PLANES from '../data/plans.js';
-import Header from '../components/Header.jsx';
+import { useUser } from '../../context/UserContext.jsx';
+import { getPlans } from '../../services/citizen.service.js';
+import Header from '../../components/Header.jsx';
 
 const METODOS = [
   { id: 'tarjeta', nombre: 'Tarjeta débito/crédito', icono: '💳' },
   { id: 'efectivo', nombre: 'Efectivo (Efecty, Baloto)', icono: '💵' },
   { id: 'transferencia', nombre: 'Transferencia bancaria', icono: '🏦' },
 ];
+
+const PLANES = getPlans();
 
 export default function Checkout({ onNavigate, planId }) {
   const { updatePlan } = useUser();

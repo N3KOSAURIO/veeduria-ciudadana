@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect, useContext } from 'react';
-import Terminos from '../pages/Terminos.jsx';
+import Terminos from '../pages/public/Terminos.jsx';
 
 export const TOSContext = createContext(null);
 

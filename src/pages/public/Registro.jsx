@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useUser } from '../context/UserContext.jsx';
-import Header from '../components/Header.jsx';
-import { initGoogleSignIn } from '../utils/googleAuth.js';
+import { useUser } from '../../context/UserContext.jsx';
+import Header from '../../components/Header.jsx';
+import { initGoogleSignIn } from '../../utils/googleAuth.js';
 
 export default function Registro({ onNavigate }) {
   const { register, googleLogin } = useUser();

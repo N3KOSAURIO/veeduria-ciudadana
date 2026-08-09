@@ -1,114 +1,111 @@
-import { useState, useEffect } from 'react';
-import { useUser } from './context/UserContext.jsx';
-import CookieBanner from './components/CookieBanner.jsx';
-import Footer from './components/Footer.jsx';
-import Landing from './pages/Landing.jsx';
-import Login from './pages/Login.jsx';
-import Registro from './pages/Registro.jsx';
-import Dashboard from './pages/Dashboard.jsx';
-import Chat from './pages/Chat.jsx';
-import Derivacion from './pages/Derivacion.jsx';
-import Planes from './pages/Planes.jsx';
-import Checkout from './pages/Checkout.jsx';
-import Perfil from './pages/Perfil.jsx';
-import Terminos from './pages/Terminos.jsx';
-import Privacidad from './pages/Privacidad.jsx';
-import Cookies from './pages/Cookies.jsx';
-import ClientProfile from './pages/ClientProfile.jsx';
-import Ajustes from './pages/Ajustes.jsx';
-import MisPeticiones from './pages/MisPeticiones.jsx';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PublicLayout from './layouts/PublicLayout.jsx';
+import CitizenLayout from './layouts/CitizenLayout.jsx';
+import AdminLayout from './layouts/AdminLayout.jsx';
+import Landing from './pages/public/Landing.jsx';
+import Login from './pages/public/Login.jsx';
+import Registro from './pages/public/Registro.jsx';
+import Terminos from './pages/public/Terminos.jsx';
+import Privacidad from './pages/public/Privacidad.jsx';
+import Cookies from './pages/public/Cookies.jsx';
+import Chat from './pages/citizen/Chat.jsx';
+import Perfil from './pages/citizen/Perfil.jsx';
+import MisPeticiones from './pages/citizen/MisPeticiones.jsx';
+import Derivacion from './pages/citizen/Derivacion.jsx';
+import Planes from './pages/citizen/Planes.jsx';
+import Checkout from './pages/citizen/Checkout.jsx';
+import Dashboard from './pages/admin/Dashboard.jsx';
+import ClientProfile from './pages/admin/ClientProfile.jsx';
+import Ajustes from './pages/admin/Ajustes.jsx';
 
-const PAGES_WITH_FOOTER = ['landing', 'login', 'registro', 'dashboard', 'planes', 'perfil', 'ajustes'];
+/**
+ * Wrapper que traduce onNavigate (API vieja) → navigate (React Router).
+ * Esto evita tocar 68+ call sites en 15 archivos durante Fase 1.
+ * Fase 2: reemplazar onNavigate por useNavigate() directo en cada página.
+ */
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function App() {
-  const { isAuthenticated, isAdmin, loading } = useUser();
-  const [page, setPage] = useState('landing');
-  const [derivarFlowId, setDerivarFlowId] = useState(null);
-  const [checkoutPlanId, setCheckoutPlanId] = useState(null);
-  const [clientProfileId, setClientProfileId] = useState(null);
+function PageWrapper({ Component, extraProps }) {
+  const navigate = useNavigate();
+  const params = useParams();
 
-  // Redirigir según tipo de usuario
-  useEffect(() => {
-    if (isAuthenticated) {
-      if (page === 'landing' || page === 'login' || page === 'registro') {
-        setPage(isAdmin ? 'dashboard' : 'chat');
-      }
-    }
-  }, [isAuthenticated, isAdmin, page]);
-
-  const handleNavigate = (target, extra) => {
-    // Rutas públicas: landing, login, registro, terminos, privacidad, cookies
-    const publicPages = ['landing', 'login', 'registro', 'terminos', 'privacidad', 'cookies'];
-    const isPublic = publicPages.includes(target);
-
-    if (!isPublic && !isAuthenticated) {
-      setPage('login');
-      return;
-    }
-
-    if (target === 'landing' || target === 'dashboard') {
-      setDerivarFlowId(null);
-      setCheckoutPlanId(null);
-    }
-    if (target === 'checkout') {
-      setCheckoutPlanId(extra);
-    }
-    if (target === 'clientProfile') {
-      setClientProfileId(extra);
-    }
-    setPage(target);
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/admin/ajustes',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
   };
 
-  const handleDerivar = (flowId) => {
-    setDerivarFlowId(flowId);
-    setPage('derivacion');
+  const onDerivar = (flowId) => {
+    navigate(`/derivacion/${flowId}`);
   };
 
-  const handleBack = () => {
-    setPage('chat');
+  const onBack = () => {
+    navigate(-1);
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <p className="text-gray-400">Cargando...</p>
-      </div>
-    );
-  }
-
-  const showFooter = PAGES_WITH_FOOTER.includes(page);
-
-  const renderPage = () => {
-    // Páginas públicas
-    if (page === 'landing') return <Landing onNavigate={handleNavigate} />;
-    if (page === 'login') return <Login onNavigate={handleNavigate} />;
-    if (page === 'registro') return <Registro onNavigate={handleNavigate} />;
-    if (page === 'terminos') return <Terminos onNavigate={handleNavigate} />;
-    if (page === 'privacidad') return <Privacidad onNavigate={handleNavigate} />;
-    if (page === 'cookies') return <Cookies onNavigate={handleNavigate} />;
-
-    // Si no autenticado, mostrar login
-    if (!isAuthenticated) return <Login onNavigate={handleNavigate} />;
-
-    // Páginas protegidas
-    if (page === 'dashboard') return <Dashboard onNavigate={handleNavigate} />;
-    if (page === 'chat') return <Chat onNavigate={handleNavigate} onDerivar={handleDerivar} />;
-    if (page === 'derivacion') return <Derivacion onNavigate={handleNavigate} onBack={handleBack} flowId={derivarFlowId} />;
-    if (page === 'planes') return <Planes onNavigate={handleNavigate} />;
-    if (page === 'checkout') return <Checkout onNavigate={handleNavigate} planId={checkoutPlanId} />;
-    if (page === 'perfil') return <Perfil onNavigate={handleNavigate} />;
-    if (page === 'ajustes') return <Ajustes onNavigate={handleNavigate} />;
-    if (page === 'clientProfile') return <ClientProfile onNavigate={handleNavigate} clientId={clientProfileId} />;
-    if (page === 'mis-peticiones') return <MisPeticiones onNavigate={handleNavigate} />;
-
-    return null;
-  };
+  // Resolver params de ruta para componentes que los necesitan
+  const clientId = params.clientId;
+  const planId = params.planId;
+  const flowId = params.flowId;
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {renderPage()}
-      <CookieBanner />
-      {showFooter && <Footer onNavigate={handleNavigate} />}
-    </div>
+    <Component
+      onNavigate={onNavigate}
+      onDerivar={onDerivar}
+      onBack={onBack}
+      clientId={clientId}
+      planId={planId}
+      flowId={flowId}
+      {...extraProps}
+    />
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        {/* Públicas */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<PageWrapper Component={Landing} />} />
+          <Route path="/login" element={<PageWrapper Component={Login} />} />
+          <Route path="/registro" element={<PageWrapper Component={Registro} />} />
+          <Route path="/terminos" element={<PageWrapper Component={Terminos} />} />
+          <Route path="/privacidad" element={<PageWrapper Component={Privacidad} />} />
+          <Route path="/cookies" element={<PageWrapper Component={Cookies} />} />
+        </Route>
+
+        {/* Ciudadano */}
+        <Route element={<CitizenLayout />}>
+          <Route path="/chat" element={<PageWrapper Component={Chat} />} />
+          <Route path="/perfil" element={<PageWrapper Component={Perfil} />} />
+          <Route path="/mis-peticiones" element={<PageWrapper Component={MisPeticiones} />} />
+          <Route path="/derivacion/:flowId?" element={<PageWrapper Component={Derivacion} />} />
+          <Route path="/planes" element={<PageWrapper Component={Planes} />} />
+          <Route path="/checkout/:planId?" element={<PageWrapper Component={Checkout} />} />
+        </Route>
+
+        {/* Admin */}
+        <Route element={<AdminLayout />}>
+          <Route path="/admin" element={<PageWrapper Component={Dashboard} />} />
+          <Route path="/admin/clients/:clientId" element={<PageWrapper Component={ClientProfile} />} />
+          <Route path="/admin/ajustes" element={<PageWrapper Component={Ajustes} />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }

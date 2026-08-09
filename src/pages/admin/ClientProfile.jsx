@@ -1,7 +1,5 @@
-import fakeClients from '../data/fakeClients.js';
-import fakeSessions from '../data/fakeSessions.js';
-import fakeActivity from '../data/fakeActivity.js';
-import Header from '../components/Header.jsx';
+import { getClientById, getSessions, getActivity } from '../../services/admin.service.js';
+import Header from '../../components/Header.jsx';
 
 // Datos simulados por cliente — metadatos de navegación
 const CLIENT_METADATA = {
@@ -47,7 +45,7 @@ function getClientMeta(clientId) {
 
 // Generar sesiones para el cliente
 function getClientSessions(clientId) {
-  return fakeSessions.map((s, i) => ({
+  return getSessions(clientId).map((s, i) => ({
     ...s,
     id: `sess-${clientId}-${i}`,
   }));
@@ -55,14 +53,14 @@ function getClientSessions(clientId) {
 
 // Generar actividad para el cliente
 function getClientActivity(clientId) {
-  return fakeActivity.map((a, i) => ({
+  return getActivity(clientId).map((a, i) => ({
     ...a,
     id: `act-${clientId}-${i}`,
   }));
 }
 
 export default function ClientProfile({ onNavigate, clientId }) {
-  const client = fakeClients.find(c => c.id === clientId);
+  const client = getClientById(clientId);
 
   if (!client) {
     return (

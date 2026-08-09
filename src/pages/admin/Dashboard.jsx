@@ -1,7 +1,7 @@
-import { useUser } from '../context/UserContext.jsx';
-import Header from '../components/Header.jsx';
-import fakeClients from '../data/fakeClients.js';
-import fakePayments from '../data/fakePayments.js';
+import { useUser } from '../../context/UserContext.jsx';
+import Header from '../../components/Header.jsx';
+import { getClients, getPayments } from '../../services/admin.service.js';
+import { exportClients, exportPayments } from '../../services/excel.service.js';
 
 /* ------------------------------------------------------------------ */
 /*  Datos simulados para gráfico de barras (ingresos mensuales COP)   */
@@ -116,8 +116,10 @@ function Badge({ children, color = 'dorado' }) {
 export default function Dashboard({ onNavigate }) {
   const { user, logout } = useUser();
 
-  const ultimosClientes = fakeClients.slice(0, 10);
-  const ultimosPagos = fakePayments.slice(0, 10);
+  const clients = getClients();
+  const payments = getPayments();
+  const ultimosClientes = clients.slice(0, 10);
+  const ultimosPagos = payments.slice(0, 10);
 
   const ingresosTotales = ultimosPagos.reduce((sum, p) => sum + p.monto, 0);
   const formatoCOP = (n) =>
@@ -269,7 +271,16 @@ export default function Dashboard({ onNavigate }) {
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
               Últimos clientes registrados
             </h3>
-            <Badge>{fakeClients.length} totales</Badge>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => exportClients(clients)}
+                className="text-xs text-green-600 hover:text-green-800 font-medium flex items-center gap-1"
+                title="Exportar a Excel"
+              >
+                <span>📥</span> Excel
+              </button>
+              <Badge>{clients.length} totales</Badge>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
@@ -318,7 +329,16 @@ export default function Dashboard({ onNavigate }) {
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
               Últimos pagos recibidos
             </h3>
-            <Badge color="verde">{fakePayments.length} transacciones</Badge>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => exportPayments(payments)}
+                className="text-xs text-green-600 hover:text-green-800 font-medium flex items-center gap-1"
+                title="Exportar a Excel"
+              >
+                <span>📥</span> Excel
+              </button>
+              <Badge color="verde">{payments.length} transacciones</Badge>
+            </div>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
