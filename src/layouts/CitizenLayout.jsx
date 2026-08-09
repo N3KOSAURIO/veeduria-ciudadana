@@ -12,6 +12,7 @@ export default function CitizenLayout() {
       terminos: '/terminos',
       privacidad: '/privacidad',
       cookies: '/cookies',
+      informacion: '/informacion',
     };
     navigate(routes[target] || '/');
   };

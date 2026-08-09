@@ -26,6 +26,13 @@ export default function Footer({ onNavigate }) {
           >
             Cookies
           </button>
+          <span className="text-blue-300 hidden sm:inline">|</span>
+          <button
+            onClick={() => onNavigate && onNavigate('informacion')}
+            className="text-blue-200 hover:text-white transition-colors font-medium"
+          >
+            Información
+          </button>
         </div>
 
         {/* Separador */}

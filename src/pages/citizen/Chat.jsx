@@ -286,6 +286,20 @@ export default function Chat({ onNavigate, onDerivar }) {
           >
             📋
           </button>
+          <button
+            onClick={() => onNavigate('pqr')}
+            className="text-sm text-green-200 hover:text-white px-1"
+            title="PQR"
+          >
+            📬
+          </button>
+          <button
+            onClick={() => onNavigate('ajustes')}
+            className="text-sm text-blue-200 hover:text-white px-1"
+            title="Ajustes"
+          >
+            ⚙️
+          </button>
         </div>
       </Header>
 

@@ -16,7 +16,10 @@ import Planes from './pages/citizen/Planes.jsx';
 import Checkout from './pages/citizen/Checkout.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ClientProfile from './pages/admin/ClientProfile.jsx';
-import Ajustes from './pages/admin/Ajustes.jsx';
+import AdminAjustes from './pages/admin/Ajustes.jsx';
+import Informacion from './pages/public/Informacion.jsx';
+import PQR from './pages/citizen/PQR.jsx';
+import CitizenAjustes from './pages/citizen/Ajustes.jsx';
 
 /**
  * Wrapper que traduce onNavigate (API vieja) → navigate (React Router).
@@ -42,7 +45,9 @@ function PageWrapper({ Component, extraProps }) {
       terminos: '/terminos',
       privacidad: '/privacidad',
       cookies: '/cookies',
-      ajustes: '/admin/ajustes',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
       clientProfile: `/admin/clients/${extra}`,
       checkout: `/checkout/${extra}`,
     };
@@ -87,6 +92,7 @@ export default function App() {
           <Route path="/terminos" element={<PageWrapper Component={Terminos} />} />
           <Route path="/privacidad" element={<PageWrapper Component={Privacidad} />} />
           <Route path="/cookies" element={<PageWrapper Component={Cookies} />} />
+          <Route path="/informacion" element={<PageWrapper Component={Informacion} />} />
         </Route>
 
         {/* Ciudadano */}
@@ -97,13 +103,15 @@ export default function App() {
           <Route path="/derivacion/:flowId?" element={<PageWrapper Component={Derivacion} />} />
           <Route path="/planes" element={<PageWrapper Component={Planes} />} />
           <Route path="/checkout/:planId?" element={<PageWrapper Component={Checkout} />} />
+          <Route path="/pqr" element={<PageWrapper Component={PQR} />} />
+          <Route path="/ajustes" element={<PageWrapper Component={CitizenAjustes} />} />
         </Route>
 
         {/* Admin */}
         <Route element={<AdminLayout />}>
           <Route path="/admin" element={<PageWrapper Component={Dashboard} />} />
           <Route path="/admin/clients/:clientId" element={<PageWrapper Component={ClientProfile} />} />
-          <Route path="/admin/ajustes" element={<PageWrapper Component={Ajustes} />} />
+          <Route path="/admin/ajustes" element={<PageWrapper Component={AdminAjustes} />} />
         </Route>
       </Routes>
     </BrowserRouter>

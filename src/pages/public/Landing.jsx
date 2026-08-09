@@ -24,6 +24,12 @@ export default function Landing({ onNavigate }) {
         ) : (
           <>
             <button
+              onClick={() => onNavigate('informacion')}
+              className="px-3 py-1.5 text-white/70 hover:text-white text-xs font-semibold hover:underline"
+            >
+              Información
+            </button>
+            <button
               onClick={() => onNavigate('login')}
               className="px-3 py-1.5 text-white text-xs font-semibold hover:underline"
             >

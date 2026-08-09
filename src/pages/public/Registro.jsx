@@ -52,6 +52,16 @@ export default function Registro({ onNavigate }) {
       return;
     }
 
+    // Validar teléfono colombiano (opcional, pero si se ingresa debe ser válido)
+    const telefonoStr = telefono.trim();
+    if (telefonoStr) {
+      const digitsOnly = telefonoStr.replace(/\D/g, '');
+      if (!/^3\d{9}$/.test(digitsOnly)) {
+        setError('El teléfono debe empezar por 3 y tener exactamente 10 dígitos. Formato: 3XX XXX XXXX.');
+        return;
+      }
+    }
+
     setLoading(true);
     setTimeout(() => {
       const result = register({

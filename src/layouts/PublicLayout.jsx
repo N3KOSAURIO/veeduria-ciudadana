@@ -14,6 +14,7 @@ export default function PublicLayout() {
       terminos: '/terminos',
       privacidad: '/privacidad',
       cookies: '/cookies',
+      informacion: '/informacion',
     };
     navigate(routes[target] || '/');
   };

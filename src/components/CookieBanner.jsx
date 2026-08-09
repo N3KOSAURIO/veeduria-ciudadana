@@ -13,7 +13,24 @@ export default function CookieBanner() {
     // Verificar si ya se aceptaron/rechazaron cookies
     const stored = localStorage.getItem('veeduria_cookies_accepted');
     if (!stored) {
-      // Pequeño delay para que aparezca después de cargar la página
+      // Si el usuario ya aceptó los Términos y Condiciones,
+      // las cookies esenciales se aceptan implícitamente
+      const tosRaw = localStorage.getItem('veeduria_tos_accepted');
+      if (tosRaw) {
+        try {
+          const tos = JSON.parse(tosRaw);
+          if (tos.accepted) {
+            localStorage.setItem('veeduria_cookies_accepted', JSON.stringify({
+              accepted: true,
+              preferences: { essential: true, analytics: false, advertising: false },
+              timestamp: new Date().toISOString(),
+            }));
+            return; // No mostrar banner, TOS ya cubre cookies esenciales
+          }
+        } catch { /* ignorar errores de parseo */ }
+      }
+
+      // Ni cookies ni TOS: mostrar banner tras breve delay
       const timer = setTimeout(() => setVisible(true), 600);
       return () => clearTimeout(timer);
     }

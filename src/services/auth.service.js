@@ -187,6 +187,22 @@ export function updatePlan(plan) {
   return updateUser({ plan });
 }
 
+export function changePassword(email, currentPassword, newPassword) {
+  const user = getUser(email);
+  if (!user) {
+    return { success: false, error: 'Usuario no encontrado.' };
+  }
+  if (user.password !== currentPassword) {
+    return { success: false, error: 'Contraseña actual incorrecta.' };
+  }
+  if (newPassword.length < 6) {
+    return { success: false, error: 'Mínimo 6 caracteres.' };
+  }
+  user.password = newPassword;
+  saveUser(user);
+  return { success: true };
+}
+
 export function incrementConsultas() {
   const user = getCurrentUser();
   if (!user) return;

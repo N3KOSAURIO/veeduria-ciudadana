@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '../../context/UserContext.jsx';
 import { getPlans } from '../../services/citizen.service.js';
+import { changePassword } from '../../services/auth.service.js';
 import Header from '../../components/Header.jsx';
 
 function exportarDatos(user, planActual) {
@@ -78,15 +79,10 @@ export default function Perfil({ onNavigate }) {
       setPassMsg('Mínimo 6 caracteres.');
       return;
     }
-    const users = JSON.parse(localStorage.getItem('veeduria_users') || '[]');
-    const found = users.find(u => u.email === user.email);
-    if (found && found.password !== actual) {
-      setPassMsg('Contraseña actual incorrecta.');
+    const result = changePassword(user.email, actual, nueva);
+    if (!result.success) {
+      setPassMsg(result.error);
       return;
-    }
-    if (found) {
-      found.password = nueva;
-      localStorage.setItem('veeduria_users', JSON.stringify(users));
     }
     setPasswordForm({ actual: '', nueva: '', confirmar: '' });
     setPassMsg('Contraseña actualizada.');
