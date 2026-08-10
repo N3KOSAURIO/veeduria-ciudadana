@@ -22,7 +22,7 @@ export function getClients() {
  * 🔒 Solo admin autorizado.
  */
 export function getClientById(id) {
-  return fakeClients.find(c => c.id === id) || null;
+  return fakeClients.find(c => c.id === Number(id)) || null;
 }
 
 /**
