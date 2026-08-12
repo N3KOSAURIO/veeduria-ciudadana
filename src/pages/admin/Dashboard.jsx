@@ -130,25 +130,28 @@ export default function Dashboard({ onNavigate }) {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
       {/* ---- HEADER ---- */}
-      <Header>
+      <Header onNavigate={onNavigate}>
         <div className="flex items-center gap-2 ml-auto">
           <button
             onClick={() => onNavigate('chat')}
-            className="text-xs text-blue-200 hover:text-white px-2 py-1 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
+            title="Chat"
           >
-            💬 Chat
+            💬
           </button>
           <button
             onClick={() => onNavigate('planes')}
-            className="text-xs text-blue-200 hover:text-white px-2 py-1 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
+            title="Planes"
           >
-            🚀 Planes
+            🚀
           </button>
           <button
             onClick={() => onNavigate('perfil')}
-            className="text-xs text-blue-200 hover:text-white px-2 py-1 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
+            title="Perfil"
           >
-            👤 Perfil
+            👤
           </button>
         </div>
       </Header>

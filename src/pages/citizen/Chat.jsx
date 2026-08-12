@@ -236,10 +236,10 @@ export default function Chat({ onNavigate, onDerivar }) {
   if (mode === 'petition') {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg">
-        <Header showClose onClose={() => setMode('chat')}>
+        <Header showClose onClose={() => setMode('chat')} onNavigate={onNavigate}>
           <button
             onClick={() => setMode('chat')}
-            className="text-xs text-blue-200 hover:text-white"
+            className="text-xs text-blue-200 hover:text-white px-2 py-1"
           >
             ← Cancelar
           </button>
@@ -270,18 +270,18 @@ export default function Chat({ onNavigate, onDerivar }) {
   // ===== CHAT MODE =====
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-dark-bg">
-      <Header showClose onClose={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}>
+      <Header showClose onClose={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')} onNavigate={onNavigate}>
         <div className="flex items-center gap-3">
           <button
             onClick={() => onNavigate(user?.isAdmin ? 'dashboard' : 'perfil')}
-            className="text-sm text-blue-200 hover:text-white px-1"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
             title={user?.isAdmin ? 'Panel' : 'Perfil'}
           >
             {user?.isAdmin ? '📊' : '👤'}
           </button>
           <button
             onClick={() => onNavigate('mis-peticiones')}
-            className="text-sm text-yellow-200 hover:text-white px-1"
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
             title="Mis Peticiones"
           >
             📋

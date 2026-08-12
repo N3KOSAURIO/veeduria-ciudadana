@@ -30,7 +30,7 @@ export default function ClientProfile({ onNavigate, clientId }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
-      <Header showClose onClose={() => onNavigate('dashboard')}>
+      <Header showClose onClose={() => onNavigate('dashboard')} onNavigate={onNavigate}>
         <span className="text-xs text-blue-200">Admin — Perfil Cliente</span>
       </Header>
 

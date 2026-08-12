@@ -43,7 +43,7 @@ export default function Login({ onNavigate }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
-      <Header />
+      <Header onNavigate={onNavigate} />
       <main className="flex-1 flex items-center justify-center px-6 py-10">
         <div className="w-full max-w-md">
           {/* Card */}
@@ -74,7 +74,7 @@ export default function Login({ onNavigate }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="tu@correo.com"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
                   autoFocus
                 />
               </div>
@@ -87,7 +87,7 @@ export default function Login({ onNavigate }) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
                 />
               </div>
 

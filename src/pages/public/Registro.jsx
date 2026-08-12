@@ -85,7 +85,7 @@ export default function Registro({ onNavigate }) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
-      <Header />
+      <Header onNavigate={onNavigate} />
       <main className="flex-1 flex items-center justify-center px-6 py-10">
         <div className="w-full max-w-md">
           <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100">
@@ -116,7 +116,7 @@ export default function Registro({ onNavigate }) {
                 <input
                   type="text" name="nombre" value={form.nombre} onChange={handleChange}
                   placeholder="Tu nombre y apellido"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                   autoFocus
                 />
               </div>
@@ -125,7 +125,7 @@ export default function Registro({ onNavigate }) {
                 <input
                   type="email" name="email" value={form.email} onChange={handleChange}
                   placeholder="tu@correo.com"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                 />
               </div>
               <div className="grid grid-cols-2 gap-3">
@@ -134,7 +134,7 @@ export default function Registro({ onNavigate }) {
                   <input
                     type="tel" name="telefono" value={form.telefono} onChange={handleChange}
                     placeholder="3XX XXX XXXX"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                    className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                   />
                 </div>
                 <div>
@@ -142,7 +142,7 @@ export default function Registro({ onNavigate }) {
                   <input
                     type="text" name="ciudad" value={form.ciudad} onChange={handleChange}
                     placeholder="Bogotá, Medellín..."
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                    className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                   />
                 </div>
               </div>
@@ -151,7 +151,7 @@ export default function Registro({ onNavigate }) {
                 <input
                   type="password" name="password" value={form.password} onChange={handleChange}
                   placeholder="Mínimo 6 caracteres"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                 />
               </div>
               <div>
@@ -159,7 +159,7 @@ export default function Registro({ onNavigate }) {
                 <input
                   type="password" name="confirmar" value={form.confirmar} onChange={handleChange}
                   placeholder="Repite tu contraseña"
-                  className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
+                  className="w-full px-4 py-2.5 border border-gray-300 text-gray-900 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio"
                 />
               </div>
 
