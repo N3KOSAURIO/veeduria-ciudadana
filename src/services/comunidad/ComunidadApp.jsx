@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
 import { comunidadApi } from './comunidad.api.js';
@@ -22,11 +22,6 @@ export default function ComunidadApp() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const goLista = useCallback(async () => {
-    setView('lista');
-    await loadComunidades();
-  }, [loadComunidades]);
-
   const loadComunidades = useCallback(async () => {
     setLoading(true);
     setError('');
@@ -39,6 +34,19 @@ export default function ComunidadApp() {
       setLoading(false);
     }
   }, []);
+
+  // Cargar la lista de comunidades al montar (si está autenticado).
+  useEffect(() => {
+    if (isAuthenticated && view === 'lista') {
+      loadComunidades();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAuthenticated]);
+
+  const goLista = useCallback(async () => {
+    setView('lista');
+    await loadComunidades();
+  }, [loadComunidades]);
 
   const openComunidad = useCallback(async (c) => {
     setComunidad(c);
