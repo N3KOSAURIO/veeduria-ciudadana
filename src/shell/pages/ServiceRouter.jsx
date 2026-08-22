@@ -1,5 +1,6 @@
 import { useParams, Navigate } from 'react-router-dom';
 import services from '../../config/services.json';
+import ComunidadApp from '../../services/comunidad/ComunidadApp.jsx';
 
 /**
  * ServiceRouter — enruta /servicios/:id al módulo correspondiente.
@@ -23,6 +24,7 @@ export default function ServiceRouter() {
     case 'veeduria':
       return <Navigate to="/chat" replace />;
     case 'comunidad':
+      return <ComunidadApp />;
     case 'pagos':
     default:
       return <ServicePlaceholder svc={svc} />;

@@ -18,7 +18,7 @@
       "status": "beta",
       "backed": true,
       "paid": false,
-      "note": "Estilo Reddit. Post-fase (FASE 6, OSS-first)."
+      "note": "Estilo Reddit. Usuarios crean comunidades, publican posts, comentan y votan. En desarrollo (FASE 4)."
     },
     {
       "id": "pagos",
