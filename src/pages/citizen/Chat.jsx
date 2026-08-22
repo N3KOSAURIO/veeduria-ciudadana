@@ -7,6 +7,7 @@ import QuickActions from '../../components/QuickActions.jsx';
 import FileUpload from '../../components/FileUpload.jsx';
 import PetitionFlow from '../../components/PetitionFlow.jsx';
 import VoiceInput from '../../components/VoiceInput.jsx';
+import AnalisisIA from './AnalisisIA.jsx';
 import { processQuery } from '../../utils/chatEngine.js';
 import { analyzeFile } from '../../utils/fileAnalyzer.js';
 
@@ -54,6 +55,7 @@ export default function Chat() {
   const [isTyping, setIsTyping] = useState(false);
   const [uploadingFile, setUploadingFile] = useState(null);
   const [mode, setMode] = useState('chat'); // 'chat' | 'petition'
+  const [showIA, setShowIA] = useState(false); // panel Análisis IA (F3)
   const chatEndRef = useRef(null);
   const inputRef = useRef(null);
 
@@ -318,6 +320,13 @@ export default function Chat() {
             📋
           </button>
           <button
+            onClick={() => setShowIA(true)}
+            className="w-9 h-9 flex items-center justify-center rounded-lg text-blue-200 hover:text-white hover:bg-white/10 transition-colors"
+            title="Análisis IA (5 funciones)"
+          >
+            🤖
+          </button>
+          <button
             onClick={() => onNavigate('pqr')}
             className="text-sm text-green-200 hover:text-white px-1"
             title="PQR"
@@ -438,6 +447,8 @@ export default function Chat() {
           </button>
         </div>
       </div>
+
+      {showIA && <AnalisisIA onClose={() => setShowIA(false)} />}
     </div>
   );
 }
