@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
-import { metricasComportamientoDemo, SERVICIOS_META } from '../../services/admin/metricasComportamiento.js';
+import { obtenerMetricasAdmin } from '../../services/admin/adminMetrics.api.js';
+import { SERVICIOS_META } from '../../services/admin/metricasComportamiento.js';
 
 /* ------------------------------------------------------------------ */
 /*  Dashboard: Perfil de Comportamiento (ADMIN ONLY)                  */
 /*  FASE 5 — Recolección de metadatos de activity_log.                */
-/*  ⚠️ DEMO ONLY: datos ficticios de ejemplo.                          */
-/*  El guard lo provee AdminLayout (user.role === 'admin').            */
-/*  El eje central es el SELECTOR DE USUARIO: al elegir uno, las      */
-/*  KPIs y las 3 gráficas muestran la actividad de ESE usuario.       */
+/*  ✅ B1 (2026-08-22): datos REALES desde GET /api/admin/metricas.   */
+/*                                                                    */
+/*  El guard lo provee AdminLayout (user.role === 'admin') + el       */
+/*  endpoint exige RequireAdmin server-side (cookie httpOnly).        */
+/*  Ley 1581: solo admin ve esto; el ciudadano nunca alcanza estas    */
+/*  rutas.                                                            */
+/*                                                                    */
+/*  Eje central: SELECTOR DE USUARIO. Al elegir uno, KPIs y las 3     */
+/*  gráficas muestran la actividad de ESE usuario (datos reales).     */
 /* ------------------------------------------------------------------ */
 
 function BarraGrafica({ data, valorKey, labelKey, maxValor, colorBase }) {
@@ -48,7 +54,10 @@ function KpiCard({ icono, label, valor, sub }) {
 export default function PerfilComportamiento() {
   const { user } = useUser();
   const navigate = useNavigate();
-  const [usuarioId, setUsuarioId] = useState(metricasComportamientoDemo.por_perfil[0]?.usuario_id || '');
+  const [usuarioId, setUsuarioId] = useState('');
+  const [metricas, setMetricas] = useState(null);
+  const [cargando, setCargando] = useState(true);
+  const [error, setError] = useState(null);
 
   const onNavigate = (target, extra) => {
     const routes = {
@@ -70,25 +79,73 @@ export default function PerfilComportamiento() {
     navigate(routes[target] || '/');
   };
 
-  // El usuario seleccionado + sus métricas individuales
-  const perfiles = metricasComportamientoDemo.por_perfil;
-  const perfilSeleccionado = perfiles.find((p) => p.usuario_id === usuarioId) || perfiles[0];
-  const detalle = metricasComportamientoDemo.por_perfil_detalle[perfilSeleccionado?.usuario_id]
+  // Cargar métricas reales al montar (una sola vez).
+  useEffect(() => {
+    let activo = true;
+    obtenerMetricasAdmin()
+      .then((data) => {
+        if (!activo) return;
+        setMetricas(data);
+        setUsuarioId(data.por_perfil?.[0]?.usuario_id || '');
+      })
+      .catch((e) => {
+        if (!activo) return;
+        setError(e.message || 'No se pudo cargar las métricas');
+      })
+      .finally(() => activo && setCargando(false));
+    return () => { activo = false; };
+  }, []);
+
+  // Datos derivados del usuario seleccionado (dato real).
+  const perfiles = metricas?.por_perfil || [];
+  const perfilSeleccionado = perfiles.find((p) => p.usuario_id === usuarioId) || perfiles[0] || null;
+  const detalle = perfilSeleccionado && metricas?.por_perfil_detalle
+    ? metricas.por_perfil_detalle[perfilSeleccionado.usuario_id]
+    : null;
+
+  const detalleSeguro = detalle
     || { total_eventos: 0, eventos_hoy: 0, servicios_usados: 0, por_tipo: [], por_servicio: [], por_dia: [] };
 
-  const maxTipo = detalle.por_tipo.length ? Math.max(...detalle.por_tipo.map((t) => t.eventos)) : 1;
-  const maxServicio = detalle.por_servicio.length ? Math.max(...detalle.por_servicio.map((s) => s.eventos)) : 1;
-  const maxDia = detalle.por_dia.length ? Math.max(...detalle.por_dia.map((d) => d.eventos)) : 1;
+  const maxTipo = detalleSeguro.por_tipo?.length ? Math.max(...detalleSeguro.por_tipo.map((t) => t.eventos)) : 1;
+  const maxServicio = detalleSeguro.por_servicio?.length ? Math.max(...detalleSeguro.por_servicio.map((s) => s.eventos)) : 1;
+  const maxDia = detalleSeguro.por_dia?.length ? Math.max(...detalleSeguro.por_dia.map((d) => d.eventos)) : 1;
 
   const formatoFecha = (iso) => {
+    if (!iso) return '—';
     const d = new Date(iso);
     return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   };
 
+  // Estados: carga / error / vacío.
+  if (cargando) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
+        <p className="text-gray-500">Cargando métricas…</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
+        <div className="text-center max-w-md">
+          <p className="text-lg font-semibold text-azul-oscuro mb-2">No se pudieron cargar las métricas</p>
+          <p className="text-sm text-gray-500 mb-4">{error}</p>
+          <button
+            onClick={() => { window.location.reload(); }}
+            className="inline-flex items-center gap-1 text-sm text-azul-medio hover:text-azul-oscuro transition-colors"
+          >
+            ↻ Reintentar
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   if (!perfilSeleccionado) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
-        <p className="text-gray-500">No hay usuarios para mostrar.</p>
+        <p className="text-gray-500">No hay usuarios con actividad registrada.</p>
       </div>
     );
   }
@@ -115,7 +172,7 @@ export default function PerfilComportamiento() {
       </Header>
 
       <main className="flex-1 px-4 md:px-6 py-6 max-w-6xl mx-auto w-full">
-        {/* Encabezado + banner DEMO + guard rol */}
+        {/* Encabezado + badge estado + guard rol */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 gap-3">
           <div>
             <h2 className="text-xl md:text-2xl font-bold text-azul-oscuro">
@@ -126,8 +183,8 @@ export default function PerfilComportamiento() {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1.5 rounded-full">
-              ⚠️ DEMO · datos ficticios de ejemplo
+            <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1.5 rounded-full">
+              ✓ Datos reales
             </span>
             {user && (
               <span className="inline-flex items-center gap-1.5 bg-azul-oscuro/10 text-azul-oscuro text-xs font-semibold px-3 py-1.5 rounded-full">
@@ -150,44 +207,44 @@ export default function PerfilComportamiento() {
           >
             {perfiles.map((p) => (
               <option key={p.usuario_id} value={p.usuario_id}>
-                {p.nombre} · {p.ciudad}
+                {p.nombre || p.email} · {p.ciudad || '—'}
               </option>
             ))}
           </select>
           <p className="text-xs text-gray-400 mt-2">
-            Mostrando el perfil de <strong className="text-azul-oscuro">{perfilSeleccionado.nombre}</strong> ({perfilSeleccionado.email}) · {perfilSeleccionado.ciudad}
+            Mostrando el perfil de <strong className="text-azul-oscuro">{perfilSeleccionado.nombre || perfilSeleccionado.email}</strong> ({perfilSeleccionado.email}) · {perfilSeleccionado.ciudad || '—'}
           </p>
         </div>
 
         {/* ---- KPIs (del usuario seleccionado) ---- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <KpiCard icono="🧮" label="Total eventos" valor={detalle.total_eventos.toLocaleString('es-CO')} sub={perfilSeleccionado.nombre} />
-          <KpiCard icono="⚡" label="Eventos hoy" valor={detalle.eventos_hoy} sub="últimas 24 h" />
-          <KpiCard icono="🧩" label="Servicios usados" valor={detalle.servicios_usados} sub="de los activos" />
-          <KpiCard icono="📌" label="última actividad" valor={formatoFecha(perfilSeleccionado.ultima_actividad)} sub={perfilSeleccionado.ciudad} />
+          <KpiCard icono="🧮" label="Total eventos" valor={detalleSeguro.total_eventos.toLocaleString('es-CO')} sub={perfilSeleccionado.nombre || perfilSeleccionado.email} />
+          <KpiCard icono="⚡" label="Eventos hoy" valor={detalleSeguro.eventos_hoy} sub="últimas 24 h" />
+          <KpiCard icono="🧩" label="Servicios usados" valor={detalleSeguro.servicios_usados} sub="de los activos" />
+          <KpiCard icono="📌" label="última actividad" valor={formatoFecha(perfilSeleccionado.ultima_actividad)} sub={perfilSeleccionado.ciudad || '—'} />
         </div>
 
         {/* ---- Gráficas (del usuario seleccionado) ---- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Tipo de comportamiento · {perfilSeleccionado.nombre.split(' ')[0]}
+              Tipo de comportamiento · {(perfilSeleccionado.nombre || 'Usuario').split(' ')[0]}
             </h3>
-            <BarraGrafica data={detalle.por_tipo} valorKey="eventos" labelKey="tipo" maxValor={maxTipo} colorBase="bg-azul-medio" />
+            <BarraGrafica data={detalleSeguro.por_tipo} valorKey="eventos" labelKey="tipo" maxValor={maxTipo} colorBase="bg-azul-medio" />
           </div>
 
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Uso por servicio · {perfilSeleccionado.nombre.split(' ')[0]}
+              Uso por servicio · {(perfilSeleccionado.nombre || 'Usuario').split(' ')[0]}
             </h3>
-            <BarraGrafica data={detalle.por_servicio} valorKey="eventos" labelKey="servicio" maxValor={maxServicio} colorBase="bg-dorado" />
+            <BarraGrafica data={detalleSeguro.por_servicio} valorKey="eventos" labelKey="servicio" maxValor={maxServicio} colorBase="bg-dorado" />
           </div>
 
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
               Actividad en el tiempo (7 días)
             </h3>
-            <BarraGrafica data={detalle.por_dia} valorKey="eventos" labelKey="dia" maxValor={maxDia} colorBase="bg-azul-oscuro" />
+            <BarraGrafica data={detalleSeguro.por_dia} valorKey="eventos" labelKey="dia" maxValor={maxDia} colorBase="bg-azul-oscuro" />
           </div>
         </div>
 
@@ -195,10 +252,10 @@ export default function PerfilComportamiento() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-              Usuarios disponibles · comportamiento
+              Usuarios con actividad · comportamiento
             </h3>
-            <span className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">
-              ⚠️ ficticio
+            <span className="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-700 text-xs font-semibold px-3 py-1 rounded-full">
+              ✓ {perfiles.length} usuario{perfiles.length === 1 ? '' : 's'}
             </span>
           </div>
           <div className="overflow-x-auto">
@@ -220,13 +277,13 @@ export default function PerfilComportamiento() {
                     className={`transition-colors cursor-pointer ${p.usuario_id === perfilSeleccionado.usuario_id ? 'bg-azul-claro font-medium' : 'hover:bg-azul-claro/60'}`}
                   >
                     <td className="px-5 py-3 font-medium text-azul-oscuro">
-                      {p.nombre}
+                      {p.nombre || '—'}
                       <div className="text-xs text-gray-400 font-normal">{p.email}</div>
                     </td>
-                    <td className="px-5 py-3 text-gray-500">{p.ciudad}</td>
+                    <td className="px-5 py-3 text-gray-500">{p.ciudad || '—'}</td>
                     <td className="px-5 py-3">
                       <div className="flex gap-1 flex-wrap">
-                        {p.servicios_uso.map((s) => (
+                        {(p.servicios_uso || []).map((s) => (
                           <span
                             key={s}
                             className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${SERVICIOS_META[s]?.color || 'bg-gray-200'} text-white`}
@@ -257,7 +314,7 @@ export default function PerfilComportamiento() {
       </main>
 
       <footer className="text-center py-3 text-[11px] text-gray-400 border-t border-gray-200 bg-white/50">
-        Veeduría Ciudadana 2026 · Datos ficticios de ejemplo · Solo administración · Ley 1581
+        Veeduría Ciudadana 2026 · Solo administración · Ley 1581
       </footer>
     </div>
   );

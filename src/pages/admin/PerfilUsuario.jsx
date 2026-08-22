@@ -1,65 +1,57 @@
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Header from '../../components/Header.jsx';
-import { metricasComportamientoDemo, SERVICIOS_META } from '../../services/admin/metricasComportamiento.js';
+import { obtenerMetricasAdmin } from '../../services/admin/adminMetrics.api.js';
+import { SERVICIOS_META } from '../../services/admin/metricasComportamiento.js';
 
 /* ------------------------------------------------------------------ */
 /*  Detalle del perfil de usuario (ADMIN ONLY) — FASE 5               */
-/*  ⚠️ DEMO ONLY: datos ficticios de ejemplo.                          */
-/*  Muestra el comportamiento individual (activity_log) de UN perfil.  */
-/*  Guard: AdminLayout (user.role === 'admin'). El ciudadano no ve estos. */
+/*  ✅ B1 (2026-08-22): datos REALES desde GET /api/admin/metricas.   */
+/*  Guard: AdminLayout (user.role === 'admin'). El ciudadano no ve    */
+/*  estas rutas ni estos datos (Ley 1581).                            */
+/*                                                                    */
+/*  Muestra el comportamiento agregado de UN perfil: identidad (nombre,*/
+/*  email, ciudad), KPIs (total eventos, servicios, última actividad)  */
+/*  y las 3 métricas (por_tipo / por_servicio / por_dia).             */
+/*  NOTA: el historial crudo de eventos NO se expone desde el endpoint */
+/*  admin (deliberado, Ley 1581: no se leen payloads individuales).   */
+/*  Solo se muestran agregados administrativos.                       */
 /* ------------------------------------------------------------------ */
 
-// Historial ficticio de eventos por usuario (enlace a "los datos de cada perfil").
-const HISTORIAL_DEMO = {
-  'u-01': [
-    { tipo: 'consulta', servicio: 'veeduria', detalle: 'Consulta sobre contratación estatal', fecha: '2026-08-22T08:15:00Z' },
-    { tipo: 'comentario', servicio: 'comunidad', detalle: 'Comentó una publicación de obra civil', fecha: '2026-08-22T08:02:00Z' },
-    { tipo: 'voto', servicio: 'comunidad', detalle: 'Votó una publicación de infraestructura', fecha: '2026-08-21T20:10:00Z' },
-    { tipo: 'trámite', servicio: 'veeduria', detalle: 'Inició trámite de derecho de petición', fecha: '2026-08-21T14:45:00Z' },
-    { tipo: 'login', servicio: 'veeduria', detalle: 'Inicio de sesión', fecha: '2026-08-21T08:00:00Z' },
-  ],
-  'u-02': [
-    { tipo: 'consulta', servicio: 'veeduria', detalle: 'Consulta sobre obra pública municipal', fecha: '2026-08-22T09:40:00Z' },
-    { tipo: 'login', servicio: 'veeduria', detalle: 'Inicio de sesión', fecha: '2026-08-22T09:39:00Z' },
-    { tipo: 'trámite', servicio: 'veeduria', detalle: 'Generó informe ejecutivo', fecha: '2026-08-21T16:20:00Z' },
-  ],
-  'u-03': [
-    { tipo: 'reporte', servicio: 'veeduria', detalle: 'Reportó obra sin finalizar', fecha: '2026-08-21T18:20:00Z' },
-    { tipo: 'comentario', servicio: 'comunidad', detalle: 'Comentó un post de salud pública', fecha: '2026-08-21T11:00:00Z' },
-    { tipo: 'login', servicio: 'veeduria', detalle: 'Inicio de sesión', fecha: '2026-08-21T09:30:00Z' },
-  ],
-  'u-04': [
-    { tipo: 'voto', servicio: 'comunidad', detalle: 'Votó una publicación de transporte', fecha: '2026-08-21T15:05:00Z' },
-    { tipo: 'login', servicio: 'comunidad', detalle: 'Inicio de sesión', fecha: '2026-08-21T15:00:00Z' },
-  ],
-  'u-05': [
-    { tipo: 'consulta', servicio: 'veeduria', detalle: 'Consulta sobre contratos públicos', fecha: '2026-08-22T07:55:00Z' },
-    { tipo: 'reporte', servicio: 'veeduria', detalle: 'Reportó posible irregularidad', fecha: '2026-08-20T13:30:00Z' },
-    { tipo: 'comentario', servicio: 'comunidad', detalle: 'Comentó un post de medio ambiente', fecha: '2026-08-19T10:15:00Z' },
-  ],
-  'u-06': [
-    { tipo: 'trámite', servicio: 'veeduria', detalle: 'Acción popular en curso', fecha: '2026-08-20T11:30:00Z' },
-    { tipo: 'login', servicio: 'veeduria', detalle: 'Inicio de sesión', fecha: '2026-08-20T11:00:00Z' },
-  ],
-  'u-07': [
-    { tipo: 'consulta', servicio: 'comunidad', detalle: 'Consultó comunidades activas', fecha: '2026-08-20T14:10:00Z' },
-    { tipo: 'login', servicio: 'comunidad', detalle: 'Inicio de sesión', fecha: '2026-08-20T14:00:00Z' },
-  ],
-};
+function Barra({ data, valorKey, labelKey, maxValor, colorBase }) {
+  return (
+    <div className="flex items-end justify-between gap-2 h-28">
+      {data.map((item, i) => {
+        const altura = maxValor > 0 ? (item[valorKey] / maxValor) * 100 : 0;
+        return (
+          <div key={i} className="flex-1 flex flex-col items-center gap-1 h-full justify-end">
+            <span className="text-[10px] font-semibold text-azul-oscuro">{item[valorKey]}</span>
+            <div
+              className={`w-full max-w-[40px] rounded-t-md ${colorBase || 'bg-azul-medio'}`}
+              style={{ height: `${altura}%` }}
+            />
+            <span className="text-[10px] text-gray-400 font-medium">{labelKey ? item[labelKey] : ''}</span>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 
-const ICONOS = { consulta: '💬', trámite: '📋', reporte: '🚨', comentario: '💭', voto: '👍', login: '🔐' };
-const COLORES = {
-  consulta: 'bg-blue-100 text-blue-700',
-  trámite: 'bg-indigo-100 text-indigo-700',
-  reporte: 'bg-red-100 text-red-700',
-  comentario: 'bg-green-100 text-green-700',
-  voto: 'bg-yellow-100 text-yellow-700',
-  login: 'bg-gray-100 text-gray-700',
-};
+function Kpi({ label, valor }) {
+  return (
+    <div>
+      <p className="text-xs text-gray-400 uppercase tracking-wide">{label}</p>
+      <p className="text-2xl font-bold text-azul-oscuro">{valor}</p>
+    </div>
+  );
+}
 
 export default function PerfilUsuario() {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const [metricas, setMetricas] = useState(null);
+  const [error, setError] = useState(null);
 
   const onNavigate = (target) => {
     const routes = {
@@ -72,14 +64,38 @@ export default function PerfilUsuario() {
     navigate(routes[target] || '/');
   };
 
-  const perfil = metricasComportamientoDemo.por_perfil.find((p) => p.usuario_id === userId);
-  const historial = HISTORIAL_DEMO[userId] || [];
+  useEffect(() => {
+    let activo = true;
+    obtenerMetricasAdmin()
+      .then((data) => activo && setMetricas(data))
+      .catch((e) => activo && setError(e.message || 'No se pudo cargar las métricas'));
+    return () => { activo = false; };
+  }, []);
 
-  if (!perfil) {
+  // error de carga
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
+        <p className="text-gray-500">{error}</p>
+      </div>
+    );
+  }
+  if (!metricas) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
+        <p className="text-gray-500">Cargando…</p>
+      </div>
+    );
+  }
+
+  const perfil = (metricas.por_perfil || []).find((p) => p.usuario_id === userId);
+  const detalle = metricas.por_perfil_detalle?.[userId];
+
+  if (!perfil || !detalle) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
         <div className="text-center p-8">
-          <p className="text-gray-500 mb-4">⚠️ Perfil no encontrado (dato ficticio)</p>
+          <p className="text-gray-500 mb-4">⚠️ Perfil no encontrado o sin actividad registrada.</p>
           <button onClick={() => onNavigate('perfilComportamiento')} className="text-azul-medio underline">← Volver</button>
         </div>
       </div>
@@ -87,7 +103,11 @@ export default function PerfilUsuario() {
   }
 
   const formatoFecha = (iso) =>
-    new Date(iso).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+    iso ? new Date(iso).toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : '—';
+
+  const maxTipo = detalle.por_tipo?.length ? Math.max(...detalle.por_tipo.map((t) => t.eventos)) : 1;
+  const maxServicio = detalle.por_servicio?.length ? Math.max(...detalle.por_servicio.map((s) => s.eventos)) : 1;
+  const maxDia = detalle.por_dia?.length ? Math.max(...detalle.por_dia.map((d) => d.eventos)) : 1;
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
@@ -114,16 +134,11 @@ export default function PerfilUsuario() {
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-6">
           <div className="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-              <div className="flex items-center gap-2">
-                <h2 className="text-xl font-bold text-azul-oscuro">{perfil.nombre}</h2>
-                <span className="inline-flex items-center gap-1 bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
-                  ⚠️ ficticio
-                </span>
-              </div>
-              <p className="text-sm text-gray-500 mt-0.5">{perfil.email} · {perfil.ciudad}</p>
+              <h2 className="text-xl font-bold text-azul-oscuro">{perfil.nombre || perfil.email}</h2>
+              <p className="text-sm text-gray-500 mt-0.5">{perfil.email} · {perfil.ciudad || '—'}</p>
             </div>
             <div className="flex items-center gap-2">
-              {perfil.servicios_uso.map((s) => (
+              {(perfil.servicios_uso || []).map((s) => (
                 <span key={s} className={`text-[10px] font-bold px-2 py-1 rounded-full ${SERVICIOS_META[s]?.color || 'bg-gray-200'} text-white`}>
                   {SERVICIOS_META[s]?.label || s}
                 </span>
@@ -131,14 +146,8 @@ export default function PerfilUsuario() {
             </div>
           </div>
           <div className="px-6 py-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wide">Total eventos</p>
-              <p className="text-2xl font-bold text-azul-oscuro">{perfil.eventos}</p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-400 uppercase tracking-wide">Servicios usados</p>
-              <p className="text-2xl font-bold text-azul-oscuro">{perfil.servicios_uso.length}</p>
-            </div>
+            <Kpi label="Total eventos" valor={detalle.total_eventos.toLocaleString('es-CO')} />
+            <Kpi label="Eventos hoy" valor={detalle.eventos_hoy} />
             <div>
               <p className="text-xs text-gray-400 uppercase tracking-wide">Última actividad</p>
               <p className="text-lg font-semibold text-azul-oscuro">{formatoFecha(perfil.ultima_actividad)}</p>
@@ -146,36 +155,25 @@ export default function PerfilUsuario() {
           </div>
         </div>
 
-        {/* Historial de activity_log del perfil */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-              Historial de comportamiento (activity_log)
-            </h3>
+        {/* Métricas agregadas del perfil */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Tipo de comportamiento</h3>
+            <Barra data={detalle.por_tipo} valorKey="eventos" labelKey="tipo" maxValor={maxTipo} colorBase="bg-azul-medio" />
           </div>
-          <div className="divide-y divide-gray-50">
-            {historial.length === 0 && (
-              <div className="px-5 py-6 text-center text-sm text-gray-400">
-                Sin eventos registrados (dato ficticio).
-              </div>
-            )}
-            {historial.map((h, i) => (
-              <div key={i} className="px-5 py-3 flex gap-3 items-start">
-                <span className={`text-xs px-1.5 py-0.5 rounded-full shrink-0 ${COLORES[h.tipo]}`}>{ICONOS[h.tipo]}</span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-sm text-gray-700 leading-snug">{h.detalle}</p>
-                  <p className="text-[11px] text-gray-400 mt-0.5">
-                    {h.tipo} · {SERVICIOS_META[h.servicio]?.label || h.servicio} · {formatoFecha(h.fecha)}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Uso por servicio</h3>
+            <Barra data={detalle.por_servicio} valorKey="eventos" labelKey="servicio" maxValor={maxServicio} colorBase="bg-dorado" />
+          </div>
+          <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Actividad en el tiempo (7 días)</h3>
+            <Barra data={detalle.por_dia} valorKey="eventos" labelKey="dia" maxValor={maxDia} colorBase="bg-azul-oscuro" />
           </div>
         </div>
       </main>
 
       <footer className="text-center py-3 text-[11px] text-gray-400 border-t border-gray-200 bg-white/50">
-        Veeduría Ciudadana 2026 · Datos ficticios de ejemplo · Solo administración · Ley 1581
+        Veeduría Ciudadana 2026 · Solo administración · Ley 1581
       </footer>
     </div>
   );
