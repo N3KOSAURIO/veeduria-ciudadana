@@ -41,4 +41,9 @@ export default defineConfig({
       devOptions: { enabled: true }
     })
   ],
+  test: {
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: './src/test/setup.js',
+  },
 })
