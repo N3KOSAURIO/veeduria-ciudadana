@@ -1,53 +1,52 @@
 /**
  * Servicio administrativo — datos de clientes, pagos, sesiones, actividad.
- * ⚠️ En producción: estos datos viven en el backend y se sirven con autorización.
- * El frontend NUNCA debe tener acceso directo a datos administrativos.
+ * 🔒 FASE 2: los datos admin viven SOLO en el backend Go (con autorización
+ * server-side). El frontend NUNCA recibe estos datos directamente ni del bundle.
+ * C8 resuelto: ya no hay fakeClients/fakePayments/fakeSessions/fakeActivity
+ * en el frontend.
+ *
+ * Metadatos admin NUNCA consultables desde el frontend ciudadano
+ * (Ley 1581 / App-Comunitaria-Arquitectura). Solo roles admin autorizados.
  */
-
-import fakeClients from '../data/fakeClients.js';
-import fakePayments from '../data/fakePayments.js';
-import FAKE_SESSIONS from '../data/fakeSessions.js';
-import FAKE_ACTIVITY from '../data/fakeActivity.js';
+import { authApi } from '../core/api/apiClient';
 
 /**
- * Retorna todos los clientes registrados.
- * 🔒 Solo admin autorizado.
+ * Los datos administrativos se obtienen del backend. Requiere autenticación.
+ * En producción, llamar a los endpoints admin (ej. /api/admin/clients).
+ * Si no hay sesión valida, devuelve estructura vacía (NUNCA datos inventados).
  */
-export function getClients() {
-  return fakeClients;
+export async function getClients() {
+  try {
+    // Endpoint real (admin-only). Si no existe aún en el backend, 404/401 aquí
+    // NO se pisa: devolvemos vacío para no exponer datos falsos.
+    const res = await authApi.me();
+    if (!res || res.role !== 'admin') return [];
+    // TODO fase 4: GET /api/admin/clients
+    return [];
+  } catch {
+    return [];
+  }
 }
 
-/**
- * Retorna un cliente por ID.
- * 🔒 Solo admin autorizado.
- */
-export function getClientById(id) {
-  return fakeClients.find(c => c.id === Number(id)) || null;
+export async function getClientById(id) {
+  const clients = await getClients();
+  return clients.find((c) => Number(c.id) === Number(id)) || null;
 }
 
-/**
- * Retorna todos los pagos registrados.
- * 🔒 Solo admin autorizado.
- */
-export function getPayments() {
-  return fakePayments;
+export async function getPayments() {
+  try {
+    const res = await authApi.me();
+    if (!res || res.role !== 'admin') return [];
+    return [];
+  } catch {
+    return [];
+  }
 }
 
-/**
- * Retorna el historial de sesiones de un cliente.
- * 🔒 Solo admin autorizado (NO el propio ciudadano).
- */
-export function getSessions(clientId) {
-  // En producción: filtrar por clientId real.
-  // Por ahora devolvemos datos simulados para cualquier cliente.
-  return FAKE_SESSIONS;
+export async function getSessions() {
+  return [];
 }
 
-/**
- * Retorna la actividad reciente de un cliente.
- * 🔒 Solo admin autorizado (NO el propio ciudadano).
- */
-export function getActivity(clientId) {
-  // En producción: filtrar por clientId real.
-  return FAKE_ACTIVITY;
+export async function getActivity() {
+  return [];
 }

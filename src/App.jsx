@@ -3,6 +3,8 @@ import PublicLayout from './layouts/PublicLayout.jsx';
 import CitizenLayout from './layouts/CitizenLayout.jsx';
 import AdminLayout from './layouts/AdminLayout.jsx';
 import Landing from './pages/public/Landing.jsx';
+import Inicio from './shell/pages/Inicio.jsx';
+import ServiceRouter from './shell/pages/ServiceRouter.jsx';
 import Login from './pages/public/Login.jsx';
 import Registro from './pages/public/Registro.jsx';
 import Terminos from './pages/public/Terminos.jsx';
@@ -23,8 +25,8 @@ import CitizenAjustes from './pages/citizen/Ajustes.jsx';
 
 /**
  * Wrapper que traduce onNavigate (API vieja) → navigate (React Router).
- * Esto evita tocar 68+ call sites en 15 archivos durante Fase 1.
- * Fase 2: reemplazar onNavigate por useNavigate() directo en cada página.
+ * FASE 2: se está reemplazando por useNavigate() directo. Las nuevas rutas de
+ * shell (/, /inicio, /servicios/*) usan routing directo, sin PageWrapper.
  */
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -35,6 +37,7 @@ function PageWrapper({ Component, extraProps }) {
   const onNavigate = (target, extra) => {
     const routes = {
       landing: '/',
+      inicio: '/inicio',
       dashboard: '/admin',
       chat: '/chat',
       perfil: '/perfil',
@@ -84,9 +87,9 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Públicas */}
+        {/* Públicas — Landing central comunitaria (lee services.json) */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<PageWrapper Component={Landing} />} />
+          <Route path="/" element={<Landing />} />
           <Route path="/login" element={<PageWrapper Component={Login} />} />
           <Route path="/registro" element={<PageWrapper Component={Registro} />} />
           <Route path="/terminos" element={<PageWrapper Component={Terminos} />} />
@@ -94,6 +97,10 @@ export default function App() {
           <Route path="/cookies" element={<PageWrapper Component={Cookies} />} />
           <Route path="/informacion" element={<PageWrapper Component={Informacion} />} />
         </Route>
+
+        {/* Shell — Inicio (hogar post-login) y router de servicios */}
+        <Route path="/inicio" element={<Inicio />} />
+        <Route path="/servicios/:id" element={<ServiceRouter />} />
 
         {/* Ciudadano */}
         <Route element={<CitizenLayout />}>

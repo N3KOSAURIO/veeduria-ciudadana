@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useUser } from '../../context/UserContext.jsx';
 import { getPlans } from '../../services/citizen.service.js';
-import { changePassword } from '../../services/auth.service.js';
+import { authApi } from '../../core/api/apiClient.js';
 import Header from '../../components/Header.jsx';
 
 function exportarDatos(user, planActual) {
@@ -68,7 +68,7 @@ export default function Perfil({ onNavigate }) {
     setTimeout(() => setMsg(''), 3000);
   };
 
-  const handleCambiarPassword = (e) => {
+  const handleCambiarPassword = async (e) => {
     e.preventDefault();
     const { actual, nueva, confirmar } = passwordForm;
     if (nueva !== confirmar) {
@@ -79,13 +79,14 @@ export default function Perfil({ onNavigate }) {
       setPassMsg('Mínimo 6 caracteres.');
       return;
     }
-    const result = changePassword(user.email, actual, nueva);
-    if (!result.success) {
-      setPassMsg(result.error);
-      return;
+    setPassMsg('Actualizando...');
+    try {
+      await authApi.changePassword({ actual, nueva });
+      setPasswordForm({ actual: '', nueva: '', confirmar: '' });
+      setPassMsg('Contraseña actualizada.');
+    } catch (err) {
+      setPassMsg(err.message === 'password_incorrecto' ? 'La contraseña actual es incorrecta.' : 'No se pudo actualizar la contraseña.');
     }
-    setPasswordForm({ actual: '', nueva: '', confirmar: '' });
-    setPassMsg('Contraseña actualizada.');
     setTimeout(() => setPassMsg(''), 3000);
   };
 

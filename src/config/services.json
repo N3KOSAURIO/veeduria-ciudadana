@@ -1,0 +1,34 @@
+{
+  "services": [
+    {
+      "id": "veeduria",
+      "name": "Veeduría Ciudadana",
+      "path": "/servicios/veeduria",
+      "icon": "🏛",
+      "status": "active",
+      "backed": true,
+      "paid": true,
+      "note": "Servicio principal y ÚNICO de pago. En BETA solo se habilita el apartado/UI (sin pasarela ni planes activos). Incluye el chatbot IA (exclusivo de Veeduría)."
+    },
+    {
+      "id": "comunidad",
+      "name": "Comunidades",
+      "path": "/servicios/comunidad",
+      "icon": "🤝",
+      "status": "beta",
+      "backed": true,
+      "paid": false,
+      "note": "Estilo Reddit. Post-fase (FASE 6, OSS-first)."
+    },
+    {
+      "id": "pagos",
+      "name": "Planes y Pagos",
+      "path": "/servicios/pagos",
+      "icon": "💳",
+      "status": "idea",
+      "backed": false,
+      "paid": false,
+      "note": "BETA: solo UI/apartado. Sin pasarela, sin planes, sin suscripciones activas."
+    }
+  ]
+}

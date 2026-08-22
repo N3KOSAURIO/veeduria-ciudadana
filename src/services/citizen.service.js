@@ -2,7 +2,7 @@
  * Servicio ciudadano — datos y acciones del usuario normal.
  */
 
-import PLANES from '../data/plans.js';
+import PLANES from '../services/veeduria/data/plans.js';
 
 /**
  * Retorna todos los planes disponibles.

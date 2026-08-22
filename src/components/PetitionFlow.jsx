@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import ChatBubble from './ChatBubble.jsx';
-import { buscarEntidad, getEntidadById } from '../data/entidades.js';
+import { buscarEntidad, getEntidadById } from '../services/veeduria/data/entidades.js';
 import { generarDocumento, generarPreview, sugerirAsunto } from '../utils/petitionGenerator.js';
 import { generarRadicado, generarADN, guardarPeticion } from '../utils/radicadoSystem.js';
 import { enviarDerechoPeticion, isEmailJSConfigured } from '../services/email.service.js';

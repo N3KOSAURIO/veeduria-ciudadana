@@ -1,4 +1,4 @@
-import FLUJOS from '../data/flujos.js';
+import FLUJOS from '../services/veeduria/data/flujos.js';
 
 /**
  * Normaliza texto: minúsculas, quita tildes y signos de puntuación.
