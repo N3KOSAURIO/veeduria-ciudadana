@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
@@ -8,6 +9,8 @@ import { metricasComportamientoDemo, SERVICIOS_META } from '../../services/admin
 /*  FASE 5 — Recolección de metadatos de activity_log.                */
 /*  ⚠️ DEMO ONLY: datos ficticios de ejemplo.                          */
 /*  El guard lo provee AdminLayout (user.role === 'admin').            */
+/*  El eje central es el SELECTOR DE USUARIO: al elegir uno, las      */
+/*  KPIs y las 3 gráficas muestran la actividad de ESE usuario.       */
 /* ------------------------------------------------------------------ */
 
 function BarraGrafica({ data, valorKey, labelKey, maxValor, colorBase }) {
@@ -23,7 +26,7 @@ function BarraGrafica({ data, valorKey, labelKey, maxValor, colorBase }) {
               style={{ height: `${altura}%` }}
               title={`${labelKey ? item[labelKey] : ''}: ${item[valorKey]} eventos`}
             />
-            <span className="text-[11px] text-gray-400 font-medium">{item[labelKey]}</span>
+            <span className="text-[11px] text-gray-400 font-medium">{labelKey ? item[labelKey] : ''}</span>
           </div>
         );
       })}
@@ -45,6 +48,7 @@ function KpiCard({ icono, label, valor, sub }) {
 export default function PerfilComportamiento() {
   const { user } = useUser();
   const navigate = useNavigate();
+  const [usuarioId, setUsuarioId] = useState(metricasComportamientoDemo.por_perfil[0]?.usuario_id || '');
 
   const onNavigate = (target, extra) => {
     const routes = {
@@ -54,7 +58,7 @@ export default function PerfilComportamiento() {
       chat: '/chat',
       perfil: '/perfil',
       planes: '/planes',
-      perfilComportamiento: `/admin/perfil-comportamiento`,
+      perfilComportamiento: '/admin/perfil-comportamiento',
       perfilUsuario: `/admin/perfil-comportamiento/usuarios/${extra}`,
       terminos: '/terminos',
       privacidad: '/privacidad',
@@ -66,15 +70,28 @@ export default function PerfilComportamiento() {
     navigate(routes[target] || '/');
   };
 
-  const m = metricasComportamientoDemo;
-  const maxTipo = Math.max(...m.por_tipo.map((t) => t.eventos));
-  const maxServicio = Math.max(...m.por_servicio.map((s) => s.eventos));
-  const maxDia = Math.max(...m.por_dia.map((d) => d.eventos));
+  // El usuario seleccionado + sus métricas individuales
+  const perfiles = metricasComportamientoDemo.por_perfil;
+  const perfilSeleccionado = perfiles.find((p) => p.usuario_id === usuarioId) || perfiles[0];
+  const detalle = metricasComportamientoDemo.por_perfil_detalle[perfilSeleccionado?.usuario_id]
+    || { total_eventos: 0, eventos_hoy: 0, servicios_usados: 0, por_tipo: [], por_servicio: [], por_dia: [] };
+
+  const maxTipo = detalle.por_tipo.length ? Math.max(...detalle.por_tipo.map((t) => t.eventos)) : 1;
+  const maxServicio = detalle.por_servicio.length ? Math.max(...detalle.por_servicio.map((s) => s.eventos)) : 1;
+  const maxDia = detalle.por_dia.length ? Math.max(...detalle.por_dia.map((d) => d.eventos)) : 1;
 
   const formatoFecha = (iso) => {
     const d = new Date(iso);
     return d.toLocaleDateString('es-CO', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
   };
+
+  if (!perfilSeleccionado) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-blue-50">
+        <p className="text-gray-500">No hay usuarios para mostrar.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-blue-50">
@@ -105,7 +122,7 @@ export default function PerfilComportamiento() {
               Perfil de Comportamiento
             </h2>
             <p className="text-sm text-gray-500 mt-0.5">
-              Metadatos de activity_log · recolección de uso · Solo administración
+              Selecciona un usuario para ver su comportamiento · Solo administración
             </p>
           </div>
           <div className="flex items-center gap-3">
@@ -120,46 +137,65 @@ export default function PerfilComportamiento() {
           </div>
         </div>
 
-        {/* ---- KPIs ---- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <KpiCard icono="🧮" label="Total eventos" valor={m.total_eventos.toLocaleString('es-CO')} sub="acumulado en activity_log" />
-          <KpiCard icono="👥" label="Usuarios activos" valor={m.usuarios_activos} sub="con actividad registrada" />
-          <KpiCard icono="⚡" label="Eventos hoy" valor={m.eventos_hoy} sub="últimas 24 h" />
-          <KpiCard icono="🧩" label="Servicios usados" valor={m.servicios_usados} sub="de los servicios activos" />
+        {/* ---- Selector de usuario ---- */}
+        <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 mb-8">
+          <label htmlFor="selector-usuario" className="block text-sm font-semibold text-gray-600 uppercase tracking-wide mb-2">
+            👤 Usuario a analizar
+          </label>
+          <select
+            id="selector-usuario"
+            value={perfilSeleccionado.usuario_id}
+            onChange={(e) => setUsuarioId(e.target.value)}
+            className="w-full sm:w-96 bg-white border border-gray-200 rounded-lg px-3 py-2.5 text-azul-oscuro font-medium focus:outline-none focus:ring-2 focus:ring-dorado focus:border-transparent"
+          >
+            {perfiles.map((p) => (
+              <option key={p.usuario_id} value={p.usuario_id}>
+                {p.nombre} · {p.ciudad}
+              </option>
+            ))}
+          </select>
+          <p className="text-xs text-gray-400 mt-2">
+            Mostrando el perfil de <strong className="text-azul-oscuro">{perfilSeleccionado.nombre}</strong> ({perfilSeleccionado.email}) · {perfilSeleccionado.ciudad}
+          </p>
         </div>
 
-        {/* ---- Gráficas ---- */}
+        {/* ---- KPIs (del usuario seleccionado) ---- */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <KpiCard icono="🧮" label="Total eventos" valor={detalle.total_eventos.toLocaleString('es-CO')} sub={perfilSeleccionado.nombre} />
+          <KpiCard icono="⚡" label="Eventos hoy" valor={detalle.eventos_hoy} sub="últimas 24 h" />
+          <KpiCard icono="🧩" label="Servicios usados" valor={detalle.servicios_usados} sub="de los activos" />
+          <KpiCard icono="📌" label="última actividad" valor={formatoFecha(perfilSeleccionado.ultima_actividad)} sub={perfilSeleccionado.ciudad} />
+        </div>
+
+        {/* ---- Gráficas (del usuario seleccionado) ---- */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          {/* Tipo de comportamiento */}
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Tipo de comportamiento
+              Tipo de comportamiento · {perfilSeleccionado.nombre.split(' ')[0]}
             </h3>
-            <BarraGrafica data={m.por_tipo} valorKey="eventos" labelKey="tipo" maxValor={maxTipo} colorBase="bg-azul-medio" />
+            <BarraGrafica data={detalle.por_tipo} valorKey="eventos" labelKey="tipo" maxValor={maxTipo} colorBase="bg-azul-medio" />
           </div>
 
-          {/* Uso por servicio */}
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
-              Uso por servicio
+              Uso por servicio · {perfilSeleccionado.nombre.split(' ')[0]}
             </h3>
-            <BarraGrafica data={m.por_servicio} valorKey="eventos" labelKey="servicio" maxValor={maxServicio} colorBase="bg-dorado" />
+            <BarraGrafica data={detalle.por_servicio} valorKey="eventos" labelKey="servicio" maxValor={maxServicio} colorBase="bg-dorado" />
           </div>
 
-          {/* Actividad en el tiempo */}
           <div className="lg:col-span-1 bg-white rounded-xl p-5 shadow-sm border border-gray-100">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">
               Actividad en el tiempo (7 días)
             </h3>
-            <BarraGrafica data={m.por_dia} valorKey="eventos" labelKey="dia" maxValor={maxDia} colorBase="bg-azul-oscuro" />
+            <BarraGrafica data={detalle.por_dia} valorKey="eventos" labelKey="dia" maxValor={maxDia} colorBase="bg-azul-oscuro" />
           </div>
         </div>
 
-        {/* ---- Tabla: Comportamiento por perfil de usuario ---- */}
+        {/* ---- Tabla: todos los perfiles (referencia para elegir) ---- */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide">
-              Comportamiento por perfil de usuario
+              Usuarios disponibles · comportamiento
             </h3>
             <span className="inline-flex items-center gap-1.5 bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full">
               ⚠️ ficticio
@@ -177,11 +213,11 @@ export default function PerfilComportamiento() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-50">
-                {m.por_perfil.map((p) => (
+                {perfiles.map((p) => (
                   <tr
                     key={p.usuario_id}
-                    onClick={() => onNavigate('perfilUsuario', p.usuario_id)}
-                    className="hover:bg-azul-claro transition-colors cursor-pointer"
+                    onClick={() => { setUsuarioId(p.usuario_id); }}
+                    className={`transition-colors cursor-pointer ${p.usuario_id === perfilSeleccionado.usuario_id ? 'bg-azul-claro font-medium' : 'hover:bg-azul-claro/60'}`}
                   >
                     <td className="px-5 py-3 font-medium text-azul-oscuro">
                       {p.nombre}

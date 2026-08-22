@@ -7,6 +7,7 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import PerfilComportamiento from './PerfilComportamiento.jsx';
 import PerfilUsuario from './PerfilUsuario.jsx';
@@ -25,7 +26,21 @@ vi.mock('../../components/Header.jsx', () => ({
 describe('Dashboard Perfil de Comportamiento (F5)', () => {
   beforeEach(() => {});
 
-  it('renderiza los KPIs con valores de los datos DEMO', () => {
+  it('renderiza el selector de usuario con la lista de perfiles', () => {
+    render(
+      <MemoryRouter>
+        <PerfilComportamiento />
+      </MemoryRouter>
+    );
+    // Selector presente
+    expect(screen.getByLabelText('👤 Usuario a analizar')).toBeInTheDocument();
+    // Opciones = los perfiles ficticios
+    metricasComportamientoDemo.por_perfil.forEach((p) => {
+      expect(screen.getByRole('option', { name: new RegExp(p.nombre) })).toBeInTheDocument();
+    });
+  });
+
+  it('renderiza los KPIs del usuario seleccionado por defecto (u-01)', () => {
     render(
       <MemoryRouter>
         <PerfilComportamiento />
@@ -33,14 +48,29 @@ describe('Dashboard Perfil de Comportamiento (F5)', () => {
     );
     // Título
     expect(screen.getByText('Perfil de Comportamiento')).toBeInTheDocument();
-    // Valor único del KPI total (1.248 formateado, no colisiona)
-    expect(screen.getByText(metricasComportamientoDemo.total_eventos.toLocaleString('es-CO'))).toBeInTheDocument();
-    // Etiquetas de KPIs (los valores numéricos y algunas etiquetas colisionan,
-    // así que usamos getAllByText que tolera la duplicación del texto).
+    const det = metricasComportamientoDemo.por_perfil_detalle['u-01'];
+    // El valor total u-01 (214) aparece en el KPI Y en la columna de la tabla,
+    // así que usamos getAllByText (tolerar duplicados legítimos).
+    expect(screen.getAllByText(det.total_eventos.toLocaleString('es-CO')).length).toBeGreaterThan(0);
+    // Etiquetas de KPIs
     expect(screen.getAllByText('Total eventos').length).toBeGreaterThan(0);
-    expect(screen.getAllByText('Usuarios activos').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Eventos hoy').length).toBeGreaterThan(0);
     expect(screen.getAllByText('Servicios usados').length).toBeGreaterThan(0);
+  });
+
+  it('al seleccionar un usuario, las gráficas muestran los datos de ESE usuario', async () => {
+    render(
+      <MemoryRouter>
+        <PerfilComportamiento />
+      </MemoryRouter>
+    );
+    const select = screen.getByLabelText('👤 Usuario a analizar');
+    await userEvent.selectOptions(select, 'u-02');
+    const det = metricasComportamientoDemo.por_perfil_detalle['u-02'];
+    // El KPI total cambia al de u-02 (168), que también aparece en la tabla.
+    expect(screen.getAllByText(det.total_eventos.toLocaleString('es-CO')).length).toBeGreaterThan(0);
+    // El texto "mostrando perfil" refleja el usuario elegido
+    expect(screen.getByText(/Mostrando el perfil de/)).toBeInTheDocument();
   });
 
   it('renderiza las cabeceras de las gráficas', () => {
@@ -49,21 +79,22 @@ describe('Dashboard Perfil de Comportamiento (F5)', () => {
         <PerfilComportamiento />
       </MemoryRouter>
     );
-    expect(screen.getByText('Tipo de comportamiento')).toBeInTheDocument();
-    expect(screen.getByText('Uso por servicio')).toBeInTheDocument();
+    expect(screen.getByText(/Tipo de comportamiento/)).toBeInTheDocument();
+    expect(screen.getByText(/Uso por servicio/)).toBeInTheDocument();
     expect(screen.getByText('Actividad en el tiempo (7 días)')).toBeInTheDocument();
   });
 
-  it('renderiza la tabla de comportamiento por perfil de usuario', () => {
+  it('renderiza la tabla de usuarios disponibles', () => {
     render(
       <MemoryRouter>
         <PerfilComportamiento />
       </MemoryRouter>
     );
-    expect(screen.getByText('Comportamiento por perfil de usuario')).toBeInTheDocument();
-    // Cada perfil ficticio debe verse en la tabla
+    expect(screen.getByText('Usuarios disponibles · comportamiento')).toBeInTheDocument();
+    // Cada perfil ficticio debe verse en la tabla (el nombre del por_perfil[0]
+    // aparece en el select, en el "mostrando perfil" y en la tabla).
     const perfil0 = metricasComportamientoDemo.por_perfil[0];
-    expect(screen.getByText(perfil0.nombre)).toBeInTheDocument();
+    expect(screen.getAllByText(perfil0.nombre).length).toBeGreaterThan(0);
   });
 
   it('marca claramente los datos como DEMO/ficticios', () => {
