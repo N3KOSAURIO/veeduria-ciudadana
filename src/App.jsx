@@ -19,6 +19,8 @@ import Checkout from './pages/citizen/Checkout.jsx';
 import Dashboard from './pages/admin/Dashboard.jsx';
 import ClientProfile from './pages/admin/ClientProfile.jsx';
 import AdminAjustes from './pages/admin/Ajustes.jsx';
+import PerfilComportamiento from './pages/admin/PerfilComportamiento.jsx';
+import PerfilUsuario from './pages/admin/PerfilUsuario.jsx';
 import Informacion from './pages/public/Informacion.jsx';
 import PQR from './pages/citizen/PQR.jsx';
 import CitizenAjustes from './pages/citizen/Ajustes.jsx';
@@ -58,6 +60,8 @@ export default function App() {
           <Route path="/admin" element={<Dashboard />} />
           <Route path="/admin/clients/:clientId" element={<ClientProfile />} />
           <Route path="/admin/ajustes" element={<AdminAjustes />} />
+          <Route path="/admin/perfil-comportamiento" element={<PerfilComportamiento />} />
+          <Route path="/admin/perfil-comportamiento/usuarios/:userId" element={<PerfilUsuario />} />
         </Route>
       </Routes>
   );

@@ -137,6 +137,7 @@ export default function Dashboard() {
       informacion: '/informacion',
       pqr: '/pqr',
       clientProfile: `/admin/clients/${extra}`,
+      perfilComportamiento: '/admin/perfil-comportamiento',
       checkout: `/checkout/${extra}`,
     };
     navigate(routes[target] || '/');
@@ -234,7 +235,7 @@ export default function Dashboard() {
         </div>
 
         {/* ---- ACCESO RÁPIDO ---- */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-8">
           <button
             onClick={() => onNavigate('chat')}
             className="group bg-white rounded-xl p-5 shadow-sm border-2 border-transparent hover:border-dorado transition-all text-left"
@@ -263,6 +264,22 @@ export default function Dashboard() {
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
                   Compará planes y subí tu cuenta
+                </p>
+              </div>
+            </div>
+          </button>
+          <button
+            onClick={() => onNavigate('perfilComportamiento')}
+            className="group bg-white rounded-xl p-5 shadow-sm border-2 border-transparent hover:border-dorado transition-all text-left"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-3xl">📈</span>
+              <div>
+                <h3 className="font-bold text-azul-oscuro group-hover:text-dorado transition-colors">
+                  Perfil de comportamiento
+                </h3>
+                <p className="text-xs text-gray-500 mt-0.5">
+                  Metadatos de actividad de los usuarios
                 </p>
               </div>
             </div>
