@@ -202,4 +202,149 @@ export async function descargarPDF(params) {
   return nombreArchivo;
 }
 
+/**
+ * Genera un Informe de Veeduría (ejecutivo o detallado), no un derecho de petición.
+ * Estructura del boseto v0.1: hallazgos, normas, entidad responsable, acción sugerida.
+ * Es un documento de control social ciudadano (transparencia en contratación pública).
+ *
+ * @param {object} params
+ *  - tipo: 'executivo' | 'detallado'
+ *  - caso: string (descripción del caso)
+ *  - normas: string[] (normas aplicables)
+ *  - jurisprudencia: string[]
+ *  - hallazgos: { check: string, estado: string, alerta: string }[]
+ *  - entidad: string (quién genera)
+ *  - usuario: string (ciudadano que reporta, opcional)
+ */
+export async function generarInformeVeeduria(params) {
+  const jsPDF = await getJsPDF();
+  const { tipo = 'executivo', caso, normas = [], jurisprudencia = [], hallazgos = [], entidad = 'Veeduría Ciudadana', usuario = 'Ciudadano' } = params;
+  const detallado = tipo === 'detallado';
+
+  const doc = new jsPDF({ unit: 'mm', format: 'letter' });
+  const margen = 22;
+  const ancho = doc.internal.pageSize.getWidth() - margen * 2;
+  let y = 30;
+  const fecha = new Date().toLocaleDateString('es-CO', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+  function linea(texto, opts = {}) {
+    const { size = 10, bold = false, color = [0, 0, 0] } = opts;
+    doc.setFontSize(size);
+    doc.setTextColor(...color);
+    doc.setFont('helvetica', bold ? 'bold' : 'normal');
+    const lineas = doc.splitTextToSize(texto, ancho);
+    lineas.forEach((l) => {
+      if (y > 265) { doc.addPage(); y = 25; }
+      doc.text(l, margen, y);
+      y += size * 0.45;
+    });
+    y += size * 0.3;
+  }
+  function separador() {
+    y += 2;
+    doc.setDrawColor(0, 51, 102);
+    doc.setLineWidth(0.3);
+    doc.line(margen, y, margen + ancho, y);
+    y += 4;
+  }
+
+  // === ENCABEZADO ===
+  doc.setFontSize(7);
+  doc.setTextColor(120, 120, 120);
+  doc.text('Veeduría Ciudadana — Herramienta de Control Social', margen, 15);
+  doc.text(`Generado: ${fecha}`, margen + ancho, 15, { align: 'right' });
+  doc.setDrawColor(0, 51, 102);
+  doc.setLineWidth(0.5);
+  doc.line(margen, 18, margen + ancho, 18);
+  y = 26;
+
+  // === TÍTULO ===
+  linea(detallado ? 'INFORME DETALLADO DE VEEDURÍA CIUDADANA' : 'INFORME EJECUTIVO DE VEEDURÍA CIUDADANA', { size: 13, bold: true, color: [0, 51, 102] });
+  linea('Control social de la gestión pública — transparencia en la contratación', { size: 8, color: [90, 90, 90] });
+  linea(`Reportado por: ${usuario}`, { size: 8, color: [90, 90, 90] });
+  y += 2;
+
+  // === CASO ===
+  separador();
+  linea('1. CASO ANALIZADO', { size: 10, bold: true, color: [0, 51, 102] });
+  linea(caso || 'Sin descripción.', { size: 9 });
+  y += 2;
+
+  // === HALLAZGOS ===
+  separador();
+  linea('2. HALLAZGOS DETECTADOS', { size: 10, bold: true, color: [0, 51, 102] });
+  if (hallazgos.length === 0) {
+    linea('No se detectaron hallazgos críticos en el checklist.', { size: 9, color: [60, 130, 60] });
+  } else {
+    hallazgos.forEach((h, i) => {
+      const criticidad = /No/.test(h.estado) ? '🔴 ' : '🟡 ';
+      linea(`${i + 1}. ${criticidad}${h.check} — ${h.estado}`, { size: 9, bold: /No/.test(h.estado) });
+      linea(`    ${h.alerta}`, { size: 8, color: [80, 80, 80] });
+    });
+  }
+  if (detallado) {
+    linea('Fase contractual evaluada: ejecución. Verificar en SECOP los informes de supervisión e interventoría.', { size: 8, color: [80, 80, 80] });
+  }
+  y += 2;
+
+  // === NORMAS APLICABLES ===
+  separador();
+  linea('3. NORMAS APLICABLES', { size: 10, bold: true, color: [0, 51, 102] });
+  if (normas.length === 0) {
+    linea('• Ley 80/1993 — Estatuto General de Contratación (participación comunitaria, interventoría).', { size: 9 });
+    linea('• Ley 850/2003 — Veedurías ciudadanas.', { size: 9 });
+    linea('• Ley 1712/2014 — Transparencia y acceso a la información pública.', { size: 9 });
+  } else {
+    normas.forEach((n) => linea(`• ${n}`, { size: 9 }));
+  }
+
+  // === JURISPRUDENCIA (detallado) ===
+  if (detallado && jurisprudencia.length > 0) {
+    separador();
+    linea('4. JURISPRUDENCIA RELACIONADA', { size: 10, bold: true, color: [0, 51, 102] });
+    jurisprudencia.forEach((j) => linea(`• ${j}`, { size: 8, color: [80, 80, 80] }));
+  }
+
+  // === ACCIÓN SUGERIDA ===
+  separador();
+  linea(detallado ? '5. ACCIÓN SUGERIDA' : '4. ACCIÓN SUGERIDA', { size: 10, bold: true, color: [0, 51, 102] });
+  linea('Radicar un derecho de petición ante la entidad contratante solicitando:', { size: 9 });
+  linea('(a) el contrato y los informes de supervisión/interventoría;', { size: 9 });
+  linea('(b) verificación del estado de la obra y las pólizas;', { size: 9 });
+  linea('(c) copia del plan de manejo de tráfico y licencias vigentes.', { size: 9 });
+  linea('Si la irregularidad persiste, informar a la Contraloría (control fiscal) o a la Personería.', { size: 9, color: [80, 80, 80] });
+
+  // === PIE ===
+  y += 4;
+  doc.setFontSize(7);
+  doc.setTextColor(140, 140, 140);
+  doc.text('IA=asistente · el ciudadano decide. Este documento es de control social ciudadano y no constituye asesoría legal ni una denuncia formal.', margen, y);
+  doc.setProperties({
+    title: `Informe ${detallado ? 'Detallado' : 'Ejecutivo'} de Veeduría`,
+    subject: 'Control social de la gestión pública',
+    author: usuario,
+    creator: entidad,
+    keywords: 'veeduria, control social, informe, transparencia, contratacion publica',
+  });
+  return doc.output('blob');
+}
+
+/**
+ * Descarga la versión ejecutiva o detallada del informe de veeduría.
+ */
+export async function descargarInformeVeeduria(params) {
+  const detallado = params.tipo === 'detallado';
+  const blob = await generarInformeVeeduria(params);
+  const nombreArchivo = `Informe_${detallado ? 'Detallado' : 'Ejecutivo'}_Veeduria_${Date.now()}.pdf`;
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = nombreArchivo;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  return nombreArchivo;
+}
+
 export { sugerirAsunto };

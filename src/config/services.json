@@ -8,7 +8,7 @@
       "status": "active",
       "backed": true,
       "paid": true,
-      "note": "Servicio principal y ÚNICO de pago. En BETA solo se habilita el apartado/UI (sin pasarela ni planes activos). Incluye el chatbot IA (exclusivo de Veeduría)."
+      "note": "Servicio principal y ÚNICO de pago. En BETA solo se habilita el apartado/UI (sin pasarela ni planes activos). Incluye el chatbot IA (exclusivo de Veeduría) y el flujo guiado 'Reporta un caso'."
     },
     {
       "id": "comunidad",
