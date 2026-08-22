@@ -1,5 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './context/UserContext.jsx'
 import { TOSProvider } from './context/TOSContext.jsx'
 import { ThemeProvider } from './context/ThemeContext.jsx'
@@ -8,12 +9,14 @@ import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <UserProvider>
-      <TOSProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
-      </TOSProvider>
-    </UserProvider>
+    <BrowserRouter>
+      <UserProvider>
+        <TOSProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </TOSProvider>
+      </UserProvider>
+    </BrowserRouter>
   </StrictMode>,
 )

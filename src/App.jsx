@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import PublicLayout from './layouts/PublicLayout.jsx';
 import CitizenLayout from './layouts/CitizenLayout.jsx';
 import AdminLayout from './layouts/AdminLayout.jsx';
@@ -25,9 +25,8 @@ import CitizenAjustes from './pages/citizen/Ajustes.jsx';
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        {/* Públicas — Landing central comunitaria (lee services.json) */}
+    <Routes>
+      {/* Públicas — Landing central comunitaria (lee services.json) */}
         <Route element={<PublicLayout />}>
           <Route path="/" element={<Landing />} />
           <Route path="/login" element={<Login />} />
@@ -61,6 +60,5 @@ export default function App() {
           <Route path="/admin/ajustes" element={<AdminAjustes />} />
         </Route>
       </Routes>
-    </BrowserRouter>
   );
 }
