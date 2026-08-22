@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
 import ChatBubble from '../../components/ChatBubble.jsx';
@@ -15,8 +16,38 @@ const MENSAJE_INICIAL = {
   showQuickActions: true,
 };
 
-export default function Chat({ onNavigate, onDerivar }) {
+export default function Chat() {
   const { user, incrementConsultas } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza los props del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
+
+  const onDerivar = (flowId) => {
+    navigate(`/derivacion/${flowId}`);
+  };
+
   const [messages, setMessages] = useState([MENSAJE_INICIAL]);
   const [input, setInput] = useState('');
   const [showQuickActions, setShowQuickActions] = useState(true);

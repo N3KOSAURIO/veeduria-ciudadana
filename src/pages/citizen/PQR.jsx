@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header.jsx';
 
 const TIPOS_PQR = [
@@ -10,7 +11,33 @@ const TIPOS_PQR = [
 
 const STORAGE_KEY = 'veeduria_pqr';
 
-export default function PQR({ onNavigate }) {
+export default function PQR() {
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
+
   const [form, setForm] = useState({
     tipo: '',
     asunto: '',

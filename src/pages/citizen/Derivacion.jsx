@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
 import { descargarPDF, sugerirAsunto } from '../../services/pdf.service.js';
@@ -8,8 +9,36 @@ import {
   isEmailJSConfigured,
 } from '../../services/email.service.js';
 
-export default function Derivacion({ onNavigate, onBack, flowId }) {
+export default function Derivacion() {
   const { user } = useUser();
+  const navigate = useNavigate();
+  const { flowId } = useParams();
+
+  // Routing directo con React Router (reemplaza los props del PageWrapper)
+  const onNavigate = (target) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+    };
+    navigate(routes[target] || '/');
+  };
+
+  const onBack = () => {
+    navigate(-1);
+  };
 
   const [form, setForm] = useState({
     entidad: '',

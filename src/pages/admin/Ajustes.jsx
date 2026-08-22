@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext.jsx';
 
 /* ------------------------------------------------------------------ */
@@ -39,7 +40,31 @@ function ChevronRight() {
 /* ================================================================== */
 /*  AJUSTES PAGE                                                       */
 /* ================================================================== */
-export default function Ajustes({ onNavigate }) {
+export default function Ajustes() {
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+    };
+    navigate(routes[target] || '/');
+  };
+
   // --- Theme desde ThemeContext del agente #2 ---
   const { isDark, toggleTheme } = useTheme();
 

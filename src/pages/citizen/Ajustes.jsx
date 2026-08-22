@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../../context/ThemeContext.jsx';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
@@ -41,9 +42,32 @@ function ChevronRight() {
 /* ================================================================== */
 /*  AJUSTES PAGE (Citizen)                                             */
 /* ================================================================== */
-export default function Ajustes({ onNavigate }) {
+export default function Ajustes() {
   const { theme, isDark, toggleTheme } = useTheme();
   const { user, logout } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+    };
+    navigate(routes[target] || '/');
+  };
 
   // --- Notification toggles (placeholder) ---
   const [notifEmail, setNotifEmail] = useState(true);

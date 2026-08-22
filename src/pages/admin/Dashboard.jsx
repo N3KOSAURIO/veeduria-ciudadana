@@ -1,4 +1,5 @@
 import { useUser } from '../../context/UserContext.jsx';
+import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header.jsx';
 import { getClients, getPayments } from '../../services/admin.service.js';
 import { exportClients, exportPayments } from '../../services/excel.service.js';
@@ -113,8 +114,33 @@ function Badge({ children, color = 'dorado' }) {
 /* ================================================================== */
 /*  DASHBOARD PRINCIPAL                                                */
 /* ================================================================== */
-export default function Dashboard({ onNavigate }) {
+export default function Dashboard() {
   const { user, logout } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
 
   const clients = getClients();
   const payments = getPayments();

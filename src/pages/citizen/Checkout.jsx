@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import { getPlans } from '../../services/citizen.service.js';
 import Header from '../../components/Header.jsx';
@@ -11,8 +12,35 @@ const METODOS = [
 
 const PLANES = getPlans();
 
-export default function Checkout({ onNavigate, planId }) {
+export default function Checkout() {
   const { updatePlan } = useUser();
+  const navigate = useNavigate();
+  const { planId } = useParams();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
+
   const plan = PLANES[planId] || PLANES.pro;
 
   const [metodo, setMetodo] = useState('tarjeta');

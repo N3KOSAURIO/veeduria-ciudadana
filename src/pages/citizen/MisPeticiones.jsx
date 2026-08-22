@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import Header from '../../components/Header.jsx';
 import {
@@ -10,8 +11,32 @@ import {
 } from '../../utils/radicadoSystem.js';
 import { analizarRespuesta, analizarPlazos } from '../../utils/responseAnalyzer.js';
 
-export default function MisPeticiones({ onNavigate }) {
+export default function MisPeticiones() {
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+    };
+    navigate(routes[target] || '/');
+  };
+
   const [peticiones, setPeticiones] = useState([]);
   const [selected, setSelected] = useState(null);
   const [respuestaText, setRespuestaText] = useState('');

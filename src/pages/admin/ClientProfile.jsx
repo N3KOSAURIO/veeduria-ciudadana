@@ -1,3 +1,4 @@
+import { useNavigate, useParams } from 'react-router-dom';
 import { getClientById, getActivity } from '../../services/admin.service.js';
 import Header from '../../components/Header.jsx';
 
@@ -9,7 +10,32 @@ function getClientActivity(clientId) {
   }));
 }
 
-export default function ClientProfile({ onNavigate, clientId }) {
+export default function ClientProfile() {
+  const navigate = useNavigate();
+  const { clientId } = useParams();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+    };
+    navigate(routes[target] || '/');
+  };
+
   const client = getClientById(clientId);
 
   if (!client) {

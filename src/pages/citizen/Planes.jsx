@@ -1,9 +1,35 @@
 import { useUser } from '../../context/UserContext.jsx';
+import { useNavigate } from 'react-router-dom';
 import { getPlans } from '../../services/citizen.service.js';
 import Header from '../../components/Header.jsx';
 
-export default function Planes({ onNavigate }) {
+export default function Planes() {
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
+
   const PLANES = getPlans();
   const planActual = user?.plan || 'gratis';
 

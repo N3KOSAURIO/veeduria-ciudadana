@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/UserContext.jsx';
 import { getPlans } from '../../services/citizen.service.js';
 import { authApi } from '../../core/api/apiClient.js';
@@ -40,8 +41,34 @@ function eliminarCuenta(logout, onNavigate) {
   onNavigate('landing');
 }
 
-export default function Perfil({ onNavigate }) {
+export default function Perfil() {
   const { user, updateUser, logout } = useUser();
+  const navigate = useNavigate();
+
+  // Routing directo con React Router (reemplaza el onNavigate del PageWrapper)
+  const onNavigate = (target, extra) => {
+    const routes = {
+      landing: '/',
+      inicio: '/inicio',
+      dashboard: '/admin',
+      chat: '/chat',
+      perfil: '/perfil',
+      planes: '/planes',
+      'mis-peticiones': '/mis-peticiones',
+      login: '/login',
+      registro: '/registro',
+      terminos: '/terminos',
+      privacidad: '/privacidad',
+      cookies: '/cookies',
+      ajustes: '/ajustes',
+      informacion: '/informacion',
+      pqr: '/pqr',
+      clientProfile: `/admin/clients/${extra}`,
+      checkout: `/checkout/${extra}`,
+    };
+    navigate(routes[target] || '/');
+  };
+
   const plans = getPlans();
   const planActual = plans[user?.plan] || plans.gratis;
 
