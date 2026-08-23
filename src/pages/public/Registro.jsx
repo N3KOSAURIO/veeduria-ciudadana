@@ -75,23 +75,9 @@ export default function Registro({ onNavigate }) {
         setError(result.error);
         setLoading(false);
       } else {
-        // Al registrarse con el checkbox de T&C activo, se persiste el
-        // consentimiento de términos y de cookies para que ni el bloqueo TOS
-        // ni el banner de cookies reaparezcan para este usuario.
-        localStorage.setItem('veeduria_tos_accepted', JSON.stringify({
-          accepted: true,
-          version: '1.0',
-          timestamp: new Date().toISOString(),
-        }));
-        localStorage.setItem('veeduria_cookies_accepted', JSON.stringify({
-          accepted: true,
-          preferences: { essential: true, analytics: false, advertising: false },
-          timestamp: new Date().toISOString(),
-        }));
         setSuccess(true);
         setTimeout(() => {
-          // Usuario ya queda autenticado tras el registro → directo a Inicio.
-          onNavigate('inicio');
+          onNavigate('chat');
         }, 1200);
       }
     }, 600);

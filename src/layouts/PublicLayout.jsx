@@ -11,7 +11,6 @@ export default function PublicLayout() {
   const onNavigate = (target) => {
     const routes = {
       landing: '/',
-      inicio: '/inicio',
       terminos: '/terminos',
       privacidad: '/privacidad',
       cookies: '/cookies',
@@ -28,11 +27,10 @@ export default function PublicLayout() {
     );
   }
 
-  // Si ya autenticado en landing/login/registro → ir al hogar (Inicio).
-  // El registro ya deja la sesión activa, así que "crear cuenta" aterriza aquí.
+  // Si ya autenticado en landing/login/registro → redirigir
   const authRedirectPages = ['/', '/login', '/registro'];
   if (isAuthenticated && authRedirectPages.includes(location.pathname)) {
-    return <Navigate to="/inicio" replace />;
+    return <Navigate to={isAdmin ? '/admin' : '/chat'} replace />;
   }
 
   return (
