@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../components/Header.jsx';
 
 const TIPOS_PQR = [
-  { value: '', label: 'Seleccioná el tipo...' },
+  { value: '', label: 'Selecciona el tipo...' },
   { value: 'Petición', label: 'Petición' },
   { value: 'Queja', label: 'Queja' },
   { value: 'Reclamo', label: 'Reclamo' },
@@ -215,7 +215,7 @@ export default function PQR() {
               onChange={handleChange}
               disabled={status === 'loading'}
               rows={6}
-              placeholder="Describí los hechos con el mayor detalle posible: qué, dónde, cuándo, quiénes..."
+              placeholder="Describe los hechos con el mayor detalle posible: qué, dónde, cuándo, quiénes..."
               className="w-full px-4 py-2.5 border border-gray-300 dark:border-dark-border rounded-xl text-sm bg-white dark:bg-dark-bg text-gray-800 dark:text-dark-text placeholder:text-gray-400 dark:placeholder:text-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-azul-medio transition-colors resize-vertical disabled:opacity-50 disabled:cursor-not-allowed"
             />
             {form.descripcion && form.descripcion.trim().length < 20 && (

@@ -42,9 +42,9 @@ export default function VoiceInput({ onText, disabled }) {
       console.warn('Voice error:', event.error);
       const msgs = {
         'not-allowed': 'Permiso de micrófono denegado',
-        'no-speech': 'No se detectó voz. Intentá de nuevo.',
+        'no-speech': 'No se detectó voz. Intenta de nuevo.',
         'audio-capture': 'No se encontró micrófono.',
-        'network': 'Error de red. Verificá tu conexión.',
+        'network': 'Error de red. Verifica tu conexión.',
         'aborted': 'Grabación cancelada.',
       };
       setError(msgs[event.error] || `Error: ${event.error}`);

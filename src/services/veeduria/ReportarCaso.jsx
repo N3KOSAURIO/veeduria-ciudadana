@@ -164,15 +164,32 @@ export default function ReportarCaso({ onBack }) {
           </p>
 
           {/* Stepper */}
-          <div className="flex gap-2 mb-8 text-xs font-semibold text-gray-500 dark:text-gray-400">
-            {['Situación', 'Checklist', 'Resultado'].map((s, i) => (
-              <div key={s} className="flex items-center gap-2">
-                <span className={`px-2 py-1 rounded-full ${paso === i + 1 ? 'bg-azul-oscuro text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400'}`}>
-                  {i + 1}. {s}
-                </span>
-                {i < 2 && <span className="text-gray-300 dark:text-gray-600">→</span>}
-              </div>
-            ))}
+          <div className="flex flex-wrap items-center gap-2 mb-8 text-xs font-semibold">
+            {['Situación', 'Checklist', 'Resultado'].map((s, i) => {
+              const activo = paso === i + 1;
+              const completado = paso > i + 1;
+              return (
+                <div key={s} className="flex items-center gap-2">
+                  <span
+                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border transition-colors ${
+                      activo
+                        ? 'bg-azul-oscuro text-white border-azul-oscuro shadow-sm'
+                        : completado
+                        ? 'bg-green-100 text-green-800 border-green-300 dark:bg-green-900/40 dark:text-green-200 dark:border-green-700'
+                        : 'bg-white text-gray-600 border-gray-300 dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600'
+                    }`}
+                  >
+                    <span className={`inline-flex items-center justify-center h-4 w-4 rounded-full text-[10px] font-bold ${
+                      activo ? 'bg-white/25 text-white' : completado ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 dark:bg-gray-600 dark:text-gray-200'
+                    }`}>
+                      {completado ? '✓' : i + 1}
+                    </span>
+                    {s}
+                  </span>
+                  {i < 2 && <span className="text-gray-400 dark:text-gray-500" aria-hidden="true">→</span>}
+                </div>
+              );
+            })}
           </div>
 
           {/* PASO 1 — Situación */}
@@ -180,30 +197,30 @@ export default function ReportarCaso({ onBack }) {
             <div className="space-y-6">
               <div>
                 <label className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">
-                  ¿Qué encontraste? Describí la situación con tus palabras
+                  ¿Qué encontraste? Describe la situación con tus palabras
                 </label>
                 <textarea
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
-                  rows={3}
+                  rows={4}
                   placeholder="Ej: En la calle 45 están excavando un hueco, hay maquinaria pero no hay ningún aviso que diga quién construye..."
-                  className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-azul-medio placeholder-gray-400"
+                  className="w-full px-4 py-3 border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-azul-medio placeholder-gray-400 resize-y"
                 />
               </div>
 
               <div>
-                <p className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-2">
-                  O elegí una situación rápida:
+                <p className="text-sm font-bold text-gray-700 dark:text-gray-200 mb-3">
+                  O elige una situación rápida:
                 </p>
-                <div className="flex flex-wrap gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                   {TIPOS_RAPIDOS.map((t) => (
                     <button
                       key={t.label}
                       onClick={() => handleTipoRapido(t)}
-                      className={`px-3 py-2 rounded-lg border text-sm cursor-pointer transition-colors ${
+                      className={`px-3.5 py-2.5 rounded-xl border-2 text-sm font-medium text-left cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-azul-medio ${
                         tipo === t.label
-                          ? 'border-azul-medio bg-azul-claro text-azul-oscuro dark:bg-blue-900 dark:text-white'
-                          : 'border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-azul-medio'
+                          ? 'border-azul-medio bg-azul-claro text-azul-oscuro dark:bg-blue-900 dark:text-white shadow-sm'
+                          : 'border-gray-200 bg-white dark:bg-gray-800 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-azul-medio hover:bg-azul-claro/40 dark:hover:bg-gray-700'
                       }`}
                     >
                       {t.label}
@@ -213,26 +230,31 @@ export default function ReportarCaso({ onBack }) {
               </div>
 
               {!isAuthenticated && (
-                <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 rounded-lg p-4 text-sm text-amber-800 dark:text-amber-200">
-                  <strong>¿Ya tenés cuenta?</strong>{' '}
-                  <button onClick={() => navigate('/login')} className="underline cursor-pointer">
-                    Iniciá sesión
+                <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-700 rounded-xl p-4 text-sm text-amber-800 dark:text-amber-200">
+                  <strong>¿Ya tienes cuenta?</strong>{' '}
+                  <button onClick={() => navigate('/login')} className="underline cursor-pointer font-semibold">
+                    Inicia sesión
                   </button>{' '}
                   o{' '}
-                  <button onClick={() => navigate('/registro')} className="underline cursor-pointer">
-                    registrate gratis
+                  <button onClick={() => navigate('/registro')} className="underline cursor-pointer font-semibold">
+                    regístrate gratis
                   </button>{' '}
                   para guardar tu historial.
                 </div>
               )}
 
-              <button
-                onClick={() => irPaso(2)}
-                disabled={!descripcion.trim()}
-                className="w-full sm:w-auto px-6 py-3 bg-azul-oscuro text-white rounded-lg font-bold hover:bg-azul-medio disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                Continuar →
-              </button>
+              <div className="flex justify-end pt-2">
+                <button
+                  onClick={() => irPaso(2)}
+                  disabled={!descripcion.trim()}
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-azul-oscuro text-white rounded-xl font-bold text-base shadow-md hover:bg-azul-medio hover:shadow-lg transition-all disabled:opacity-55 disabled:cursor-not-allowed disabled:shadow-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-azul-medio focus:ring-offset-2"
+                >
+                  Continuar
+                  <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </button>
+              </div>
             </div>
           )}
 
@@ -245,7 +267,7 @@ export default function ReportarCaso({ onBack }) {
                 </h2>
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                   Basado en la Ley 80/1993, Ley 1150/2007 y la metodología CGR.
-                  Marcá el estado de cada ítem. Lo que marques "No" o "No sé" se
+                  Marca el estado de cada ítem. Lo que marques "No" o "No sé" se
                   convierte en hallazgo en tu informe.
                 </p>
 
@@ -333,7 +355,7 @@ export default function ReportarCaso({ onBack }) {
                   </h3>
                   {riesgosTop.length === 0 ? (
                     <p className="text-sm text-gray-500 dark:text-gray-400">
-                      No marcaste irregularidades. Revisá el checklist por si algo
+                      No marcaste irregularidades. Revisa el checklist por si algo
                       se te pasó.
                     </p>
                   ) : (

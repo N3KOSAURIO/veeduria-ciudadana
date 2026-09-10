@@ -36,14 +36,14 @@ export default function Footer({ onNavigate }) {
         </div>
 
         {/* Separador */}
-        <div className="border-t border-blue-900/50 w-32 mx-auto mb-4" />
+        <div className="border-t border-blue-700/60 w-32 mx-auto mb-4" />
 
         {/* Copyright */}
         <div className="text-center">
-          <p className="text-xs text-blue-300/80">
+          <p className="text-xs text-blue-100">
             &copy; {year} Veeduría Ciudadana. Todos los derechos reservados.
           </p>
-          <p className="text-xs text-blue-400/50 mt-1">
+          <p className="text-xs text-blue-200 mt-1">
             República de Colombia — Herramienta digital de control social ciudadano
           </p>
         </div>

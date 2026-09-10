@@ -23,7 +23,7 @@ export function analizarRespuesta({ peticionOriginal, respuestaEntidad }) {
     return {
       tipo: 'sin_respuesta',
       titulo: 'Sin contenido para analizar',
-      resumen: 'No se encontró texto en la respuesta cargada. Si escaneaste un documento, verificá que el texto sea legible.',
+      resumen: 'No se encontró texto en la respuesta cargada. Si escaneaste un documento, verifica que el texto sea legible.',
     };
   }
 
@@ -82,7 +82,7 @@ export function analizarRespuesta({ peticionOriginal, respuestaEntidad }) {
     tipo = 'negativa';
     titulo = '❌ Respuesta NEGATIVA';
     resumen =
-      'La entidad negó tu petición. Revisá los argumentos que dieron. Si considerás que la negativa es injustificada, tenés derecho a interponer recursos.';
+      'La entidad negó tu petición. Revisa los argumentos que dieron. Si consideras que la negativa es injustificada, tienes derecho a interponer recursos.';
     siguientesPasos = [
       '📌 **Recurso de reposición**: ante la misma entidad, en los 5 días hábiles siguientes a la notificación.',
       '📌 **Recurso de apelación**: ante el superior jerárquico (si aplica).',
@@ -105,9 +105,9 @@ export function analizarRespuesta({ peticionOriginal, respuestaEntidad }) {
     resumen =
       'La entidad respondió todos los puntos de tu derecho de petición. La respuesta parece abordar cada una de tus solicitudes.';
     siguientesPasos = [
-      '📌 **Revisá el contenido**: ¿la respuesta es satisfactoria? ¿entregaron lo que pediste?',
-      '📌 **Si no es satisfactoria**: podés interponer recursos en 5 días hábiles.',
-      '📌 **Si es satisfactoria**: guardá la respuesta como evidencia. ¡Tu derecho de petición fue resuelto!',
+      '📌 **Revisa el contenido**: ¿la respuesta es satisfactoria? ¿entregaron lo que pediste?',
+      '📌 **Si no es satisfactoria**: puedes interponer recursos en 5 días hábiles.',
+      '📌 **Si es satisfactoria**: guarda la respuesta como evidencia. ¡Tu derecho de petición fue resuelto!',
     ];
   } else if (puntosRespondidos.length > 0) {
     tipo = 'parcial';
@@ -127,9 +127,9 @@ export function analizarRespuesta({ peticionOriginal, respuestaEntidad }) {
     resumen =
       'No se pudo determinar claramente si la respuesta aborda los puntos de tu petición. El texto extraído puede no reflejar fielmente el contenido del documento original.';
     siguientesPasos = [
-      '📌 **Leé la respuesta manualmente** y compará con tu petición original.',
+      '📌 **Lee la respuesta manualmente** y compara con tu petición original.',
       '📌 **Cargá un mejor archivo** si el texto se extrajo de forma incompleta (mejor PDF que imagen).',
-      '📌 **Consultá con un abogado** si tenés dudas sobre la validez de la respuesta.',
+      '📌 **Consulta con un abogado** si tienes dudas sobre la validez de la respuesta.',
     ];
   }
 

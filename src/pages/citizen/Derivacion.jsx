@@ -125,7 +125,7 @@ export default function Derivacion() {
 
   const handleEnviar = async () => {
     if (!emailEntidad.trim()) {
-      setEmailResult({ success: false, message: 'Ingresá el correo de la entidad destinataria.' });
+      setEmailResult({ success: false, message: 'Ingresa el correo de la entidad destinataria.' });
       return;
     }
     setEnviando(true);
@@ -278,9 +278,9 @@ export default function Derivacion() {
             <div className="bg-white rounded-xl p-4 border border-gray-200 text-left">
               <p className="text-sm font-semibold text-gray-700 mb-2">¿Qué sigue?</p>
               <ol className="text-xs text-gray-600 space-y-1.5 list-decimal list-inside">
-                <li>Descargá el PDF o envialo por correo</li>
+                <li>Descarga el PDF o envialo por correo</li>
                 <li>La entidad tiene <strong>15 días hábiles</strong> para responder</li>
-                <li>Guardá el radicado como comprobante</li>
+                <li>Guarda el radicado como comprobante</li>
               </ol>
             </div>
 
@@ -441,7 +441,7 @@ export default function Derivacion() {
                 onChange={handleChange}
                 required
                 rows={4}
-                placeholder="Describí qué pasó: ¿qué obra, contrato o situación querés vigilar? Incluí fechas, lugares y nombres si los tenés."
+                placeholder="Describe qué pasó: ¿qué obra, contrato o situación quieres vigilar? Incluí fechas, lugares y nombres si los tienes."
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-azul-medio resize-y"
               />
               {asuntoSugerido && asuntoSugerido !== 'Derecho de Petición' && (

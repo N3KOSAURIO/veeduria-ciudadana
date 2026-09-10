@@ -14,21 +14,21 @@ export default function Inicio() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
       <Header />
-      <main className="flex-1 px-6 py-10">
+      <main className="flex-1 px-6 py-8">
         <div className="max-w-5xl mx-auto">
-          <header className="mb-10">
-            <h2 className="text-2xl md:text-3xl font-extrabold text-azul-oscuro dark:text-white mb-2">
+          <header className="mb-8">
+            <h1 className="text-2xl md:text-3xl font-extrabold text-azul-oscuro dark:text-white mb-2">
               Hola{user?.nombre ? `, ${user.nombre.split(' ')[0]}` : ''} 👋
-            </h2>
-            <p className="text-gray-600 dark:text-gray-400">
+            </h1>
+            <p className="text-gray-600 dark:text-gray-300">
               Este es tu espacio. Elige un servicio para comenzar.
             </p>
           </header>
 
           {/* Catálogo de servicios — SOLO enlaces (no inserta servicios) */}
-          <h3 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">
+          <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 mb-4">
             Tus servicios
-          </h3>
+          </h2>
           <ServiceCatalog />
         </div>
       </main>

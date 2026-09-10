@@ -75,7 +75,7 @@ export default function Chat() {
     if (user?.plan === 'gratis' && (user?.consultasRealizadas || 0) >= 5) {
       const limitMsg = {
         sender: 'bot',
-        text: '⚠️ Alcanzaste el límite de 5 consultas del plan gratuito.\n\nPara seguir consultando, subí al plan Pro con consultas ILIMITADAS, informes detallados y asesoría personalizada.',
+        text: '⚠️ Alcanzaste el límite de 5 consultas del plan gratuito.\n\nPara seguir consultando, sube al plan Pro con consultas ILIMITADAS, informes detallados y asesoría personalizada.',
         showUpgrade: true,
       };
       setMessages(prev => [...prev, limitMsg]);
@@ -209,7 +209,7 @@ export default function Chat() {
             ...prev,
             {
               sender: 'bot',
-              text: '📄 ¿Querés generar un **derecho de petición** basado en este documento?',
+              text: '📄 ¿Quieres generar un **derecho de petición** basado en este documento?',
               offerPetition: true,
             },
           ]);
@@ -432,7 +432,7 @@ export default function Chat() {
             onKeyDown={handleKeyDown}
             placeholder={
               user?.plan === 'gratis' && (user?.consultasRealizadas || 0) >= 5
-                ? 'Límite alcanzado — subí de plan para seguir'
+                ? 'Límite alcanzado — sube de plan para seguir'
                 : 'Escribe tu consulta o adjunta un archivo...'
             }
             className="flex-1 px-4 py-2.5 border border-gray-300 dark:border-dark-border rounded-xl text-sm text-gray-900 dark:text-dark-text bg-white dark:bg-dark-bg placeholder:text-gray-400 dark:placeholder:text-dark-text-secondary focus:outline-none focus:ring-2 focus:ring-azul-medio focus:border-transparent"
@@ -441,9 +441,13 @@ export default function Chat() {
           <button
             onClick={() => handleSend()}
             disabled={!input.trim() || isInputDisabled}
-            className="px-5 py-2.5 bg-azul-oscuro hover:bg-azul-medio text-white font-bold rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            aria-label="Enviar consulta"
+            title="Enviar consulta"
+            className="px-4 py-2.5 bg-azul-oscuro hover:bg-azul-medio text-white font-bold rounded-xl transition-colors disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-azul-medio focus:ring-offset-2 inline-flex items-center justify-center"
           >
-            ➤
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
           </button>
         </div>
       </div>

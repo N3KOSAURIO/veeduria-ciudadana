@@ -41,7 +41,7 @@ export default function Planes() {
       <main className="flex-1 px-6 py-10 max-w-5xl mx-auto w-full">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-extrabold text-azul-oscuro mb-2">
-            Elegí tu plan
+            Elige tu plan
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto">
             Todos los planes incluyen acceso al chatbot con respuestas basadas en leyes colombianas reales.

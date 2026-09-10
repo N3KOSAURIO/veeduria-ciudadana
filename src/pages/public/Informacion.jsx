@@ -63,7 +63,7 @@ export default function Informacion({ onNavigate }) {
         {/* ========== QUÉ PUEDE HACER (3 cards) ========== */}
         <section>
           <h2 className="text-2xl font-bold text-azul-oscuro dark:text-dark-text text-center mb-8">
-            ¿Qué podés hacer?
+            ¿Qué puedes hacer?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Fiscalizar */}
@@ -75,11 +75,11 @@ export default function Informacion({ onNavigate }) {
               <ul className="space-y-2 text-sm text-gray-600 dark:text-dark-text-secondary">
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
-                  Verificá si una obra tiene licencia y contratos vigentes
+                  Verifica si una obra tiene licencia y contratos vigentes
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
-                  Consultá el SECOP y otras fuentes oficiales
+                  Consulta el SECOP y otras fuentes oficiales
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
@@ -87,7 +87,7 @@ export default function Informacion({ onNavigate }) {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
-                  Compará lo contratado contra lo ejecutado
+                  Compara lo contratado contra lo ejecutado
                 </li>
               </ul>
             </div>
@@ -105,7 +105,7 @@ export default function Informacion({ onNavigate }) {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
-                  Revisá pliegos, adjudicaciones y ejecución
+                  Revisa pliegos, adjudicaciones y ejecución
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-green-500 mt-0.5">✓</span>
@@ -162,7 +162,7 @@ export default function Informacion({ onNavigate }) {
               {
                 paso: '2',
                 icono: '📎',
-                titulo: 'Subí archivos',
+                titulo: 'Sube archivos',
                 desc: 'Adjuntá documentos, fotos o PDFs. Nuestro sistema los analiza y extrae información clave.',
               },
               {
@@ -175,7 +175,7 @@ export default function Informacion({ onNavigate }) {
                 paso: '4',
                 icono: '📊',
                 titulo: 'Recibí informes',
-                desc: 'Obtené reportes detallados con hallazgos, riesgos y recomendaciones accionables.',
+                desc: 'Obtén reportes detallados con hallazgos, riesgos y recomendaciones accionables.',
               },
             ].map((item) => (
               <div
@@ -270,7 +270,7 @@ export default function Informacion({ onNavigate }) {
                   </li>
                 </ul>
                 <p className="text-sm text-yellow-600 dark:text-yellow-400 mt-4 italic">
-                  ¿Tenés sugerencias o querés colaborar? Escribinos a <span className="font-semibold">info@veeduriaciudadana.co</span>
+                  ¿Tienes sugerencias o quieres colaborar? Escríbenos a <span className="font-semibold">info@veeduriaciudadana.co</span>
                 </p>
               </div>
             </div>

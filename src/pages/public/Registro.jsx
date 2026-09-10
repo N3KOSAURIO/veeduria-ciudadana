@@ -40,7 +40,7 @@ export default function Registro({ onNavigate }) {
       return;
     }
     if (!form.aceptoTerminos) {
-      setError('Debés aceptar los Términos y Condiciones para crear tu cuenta.');
+      setError('Debes aceptar los Términos y Condiciones para crear tu cuenta.');
       return;
     }
     if (password !== confirmar) {

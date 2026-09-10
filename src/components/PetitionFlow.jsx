@@ -158,7 +158,7 @@ export default function PetitionFlow({ onDone, user, onAddMessages, city }) {
     return (
       <div className="space-y-3 mt-2">
         <ChatBubble sender="bot">
-          Para generar tu derecho de petición, necesito saber a qué entidad va dirigido. Escribí el nombre o el tipo de entidad:
+          Para generar tu derecho de petición, necesito saber a qué entidad va dirigido. Escribe el nombre o el tipo de entidad:
         </ChatBubble>
 
         <div className="flex gap-2 ml-0 mb-2">
@@ -204,7 +204,7 @@ export default function PetitionFlow({ onDone, user, onAddMessages, city }) {
     return (
       <div className="space-y-3 mt-2">
         <ChatBubble sender="bot">
-          Describí los hechos: ¿qué pasó, dónde, cuándo? Cuantos más detalles, mejor será el derecho de petición.
+          Describe los hechos: ¿qué pasó, dónde, cuándo? Cuantos más detalles, mejor será el derecho de petición.
         </ChatBubble>
 
         <textarea
@@ -231,7 +231,7 @@ export default function PetitionFlow({ onDone, user, onAddMessages, city }) {
     return (
       <div className="space-y-3 mt-2">
         <ChatBubble sender="bot">
-          ¿Qué pedís concretamente? (Información, documentos, copias, acciones, explicaciones...)
+          ¿Qué pides concretamente? (Información, documentos, copias, acciones, explicaciones...)
         </ChatBubble>
 
         <textarea

@@ -2,9 +2,9 @@
  * Configuración de EmailJS para envío de derechos de petición.
  *
  * Para activar el envío real:
- * 1. Creá cuenta gratuita en https://emailjs.com
- * 2. Conectá un servicio de email (Gmail, Outlook, etc.)
- * 3. Creá un template con estas variables:
+ * 1. Crea una cuenta gratuita en https://emailjs.com
+ * 2. Conecta un servicio de email (Gmail, Outlook, etc.)
+ * 3. Crea un template con estas variables:
  *    - {{to_email}}: destinatario (entidad)
  *    - {{to_name}}: nombre de la entidad
  *    - {{subject}}: asunto del derecho de petición

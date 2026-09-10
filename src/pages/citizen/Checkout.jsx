@@ -79,7 +79,7 @@ export default function Checkout() {
         return;
       }
       if (!tarjeta.nombre.trim()) {
-        setError('Ingresá el nombre en la tarjeta.');
+        setError('Ingresa el nombre en la tarjeta.');
         return;
       }
       if (!tarjeta.expiracion || tarjeta.expiracion.length < 5) {
@@ -229,7 +229,7 @@ export default function Checkout() {
                 <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4 text-sm text-gray-700">
                   <p className="font-semibold mb-2">💵 Pago en efectivo</p>
                   <p>1. Realizá el pago en cualquier punto Efecty o Baloto.</p>
-                  <p>2. Usá el código de referencia que aparece abajo.</p>
+                  <p>2. Usa el código de referencia que aparece abajo.</p>
                   <p>3. Tu plan se activa en minutos tras confirmar el pago.</p>
                 </div>
                 <div className="bg-gray-100 rounded-xl p-4 text-center">

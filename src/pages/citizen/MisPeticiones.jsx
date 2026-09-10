@@ -126,7 +126,7 @@ export default function MisPeticiones() {
               autoFocus
             />
             <p className="text-xs text-gray-400 mt-1">
-              También podés volver al chat, adjuntar el PDF/imagen de la respuesta y pegar el análisis acá.
+              También puedes volver al chat, adjuntar el PDF/imagen de la respuesta y pegar el análisis acá.
             </p>
           </div>
 
@@ -175,9 +175,9 @@ export default function MisPeticiones() {
         {peticiones.length === 0 ? (
           <div className="text-center py-12">
             <span className="text-5xl">📭</span>
-            <p className="text-gray-400 mt-4">No tenés peticiones todavía.</p>
+            <p className="text-gray-400 mt-4">No tienes peticiones todavía.</p>
             <p className="text-sm text-gray-500 mt-1">
-              Volvé al chat y seleccioná "Radicar derecho de petición" para crear la primera.
+              Vuelve al chat y selecciona "Radicar derecho de petición" para crear la primera.
             </p>
           </div>
         ) : (

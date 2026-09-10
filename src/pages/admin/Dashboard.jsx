@@ -247,7 +247,7 @@ export default function Dashboard() {
                   Nueva consulta
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  Preguntá sobre obras, contratos o tus derechos
+                  Pregunta sobre obras, contratos o tus derechos
                 </p>
               </div>
             </div>
@@ -263,7 +263,7 @@ export default function Dashboard() {
                   Ver planes
                 </h3>
                 <p className="text-xs text-gray-500 mt-0.5">
-                  Compará planes y subí tu cuenta
+                  Compara planes y sube tu cuenta
                 </p>
               </div>
             </div>

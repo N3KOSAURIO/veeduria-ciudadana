@@ -7,7 +7,7 @@ const FLUJOS = {
     ],
     respuesta: `Según la **Ley 80 de 1993 (Art. 66)**, toda obra pública debe garantizar participación comunitaria. Esto significa que:
 
-🔍 **Lo que podés verificar ahora mismo:**
+🔍 **Lo que puedes verificar ahora mismo:**
 1. ¿Hay un **aviso visible** con el nombre de la entidad, el contratista, el valor y el plazo?
 2. ¿La obra aparece en **SECOP**? (https://www.contratos.gov.co)
 3. ¿Tiene **interventor o supervisor** designado?
@@ -15,7 +15,7 @@ const FLUJOS = {
 
 ⚠️ Si falta cualquiera de estos requisitos, puede haber irregularidades.`,
     jurisprudencia: "C-292/03 (Corte Constitucional — transparencia en la contratación pública, interés general sobre el particular)",
-    derivacion: "¿Querés que un consultor especializado revise esta obra? Tenemos profesionales que pueden verificar la legalidad del contrato, las pólizas y el cumplimiento normativo."
+    derivacion: "¿Quieres que un consultor especializado revise esta obra? Tenemos profesionales que pueden verificar la legalidad del contrato, las pólizas y el cumplimiento normativo."
   },
   "02": {
     triggers: [
@@ -25,15 +25,15 @@ const FLUJOS = {
     ],
     respuesta: `🚨 **La falta de aviso visible ya es una irregularidad.** La Ley 80/1993 exige transparencia total en la contratación pública.
 
-📌 **Esto es lo que podés hacer:**
-1. **Tomá fotos** de la obra (ubicación, fecha, lo que se ve)
-2. **Solicitá información** por derecho de petición a la alcaldía local (Ley 1712/2014, Art. 13 — deben responder en 10 días)
-3. **Buscá en SECOP** con la dirección o el sector: https://www.contratos.gov.co
+📌 **Esto es lo que puedes hacer:**
+1. **Toma fotos** de la obra (ubicación, fecha, lo que se ve)
+2. **Solicita información** por derecho de petición a la alcaldía local (Ley 1712/2014, Art. 13 — deben responder en 10 días)
+3. **Busca en SECOP** con la dirección o el sector: https://www.contratos.gov.co
 4. Si la obra NO aparece en SECOP → **irregularidad GRAVE**
 
-⚖️ La Corte Constitucional (T-596/02) dice que **no necesitás estar inscrito como veedor** para ejercer control social.`,
+⚖️ La Corte Constitucional (T-596/02) dice que **no necesitas estar inscrito como veedor** para ejercer control social.`,
     jurisprudencia: "T-596/02 (Corte Constitucional — la veeduría no requiere inscripción formal; todo ciudadano puede ejercer control social)",
-    derivacion: "¿Querés que un consultor te ayude a presentar el derecho de petición? Te asistimos en la redacción y hacemos seguimiento hasta obtener respuesta."
+    derivacion: "¿Quieres que un consultor te ayude a presentar el derecho de petición? Te asistimos en la redacción y hacemos seguimiento hasta obtener respuesta."
   },
   "03": {
     triggers: [
@@ -53,7 +53,7 @@ const FLUJOS = {
 
 🔍 **Cada alcaldía tiene su propio normograma** (conjunto de normas que la rigen). Puedes consultarlo en la página web de tu municipio o solicitarlo por derecho de petición.`,
     jurisprudencia: "C-274/13 (Corte Constitucional — no es necesario justificar la solicitud de información pública); T-595/02 (derecho de petición como derecho fundamental de aplicación inmediata)",
-    derivacion: "¿Necesitás que un consultor analice el normograma de tu municipio y te diga exactamente qué podés vigilar? Hacemos el análisis completo y te entregamos una guía personalizada."
+    derivacion: "¿Necesitas que un consultor analice el normograma de tu municipio y te diga exactamente qué puedes vigilar? Hacemos el análisis completo y te entregamos una guía personalizada."
   },
   "04": {
     triggers: [
@@ -61,9 +61,9 @@ const FLUJOS = {
       "participación", "participacion", "qué puedo hacer", "que puedo hacer",
       "quiero denunciar", "irregularidad", "corrupción", "corrupcion"
     ],
-    respuesta: `Como ciudadano colombiano tenés **derechos constitucionales y legales** para vigilar la gestión pública:
+    respuesta: `Como ciudadano colombiano tienes **derechos constitucionales y legales** para vigilar la gestión pública:
 
-✅ **Derecho de petición** (Art. 23 CP + Ley 1712/2014): solicitá cualquier información pública — deben responder en **10 días hábiles**
+✅ **Derecho de petición** (Art. 23 CP + Ley 1712/2014): solicita cualquier información pública — deben responder en **10 días hábiles**
 
 ✅ **Formar una veeduría ciudadana** (Ley 850/2003): reunite con otros ciudadanos, inscribila en la Personería, y vigilá contratos, obras, programas
 
@@ -74,9 +74,9 @@ const FLUJOS = {
 - **Procuraduría** → si un funcionario incumple sus deberes
 - **Fiscalía** → si hay delito (peculado, prevaricato)
 
-⚖️ La Corte Constitucional (T-596/02) dice claramente: **no necesitás estar inscrito como veedor** para ejercer control social.`,
+⚖️ La Corte Constitucional (T-596/02) dice claramente: **no necesitas estar inscrito como veedor** para ejercer control social.`,
     jurisprudencia: "T-596/02 (control social sin inscripción); SU-111/97 (procedencia de la tutela como mecanismo de protección de derechos fundamentales)",
-    derivacion: "¿Querés que un consultor te guíe en tu primer caso? Te orientamos gratis en los primeros pasos y te conectamos con los organismos correctos."
+    derivacion: "¿Quieres que un consultor te guíe en tu primer caso? Te orientamos gratis en los primeros pasos y te conectamos con los organismos correctos."
   },
   "05": {
     triggers: [
@@ -84,7 +84,7 @@ const FLUJOS = {
       "matrícula", "matricula", "profesor", "rector", "institución educativa",
       "institucion educativa", "escuela"
     ],
-    respuesta: `Como estudiante tenés **derecho a participar en la vigilancia** de tu institución educativa, especialmente si recibe recursos públicos:
+    respuesta: `Como estudiante tienes **derecho a participar en la vigilancia** de tu institución educativa, especialmente si recibe recursos públicos:
 
 🔍 **Puedes vigilar:**
 - Ejecución del presupuesto educativo
@@ -92,13 +92,13 @@ const FLUJOS = {
 - Calidad y oportunidad de los servicios educativos
 - Cumplimiento de planes de mejoramiento
 
-📌 **Herramientas que podés usar:**
+📌 **Herramientas que puedes usar:**
 1. **Derecho de petición** a la Secretaría de Educación
-2. **Veeduría estudiantil** — podés formarla con compañeros (Ley 850/2003)
+2. **Veeduría estudiantil** — puedes formarla con compañeros (Ley 850/2003)
 3. **Personería municipal** — recibí asesoría gratuita para tu denuncia
 4. **Procuraduría** — si hay falta disciplinaria de directivos o funcionarios`,
     jurisprudencia: "T-595/02 (Corte Constitucional — derecho de petición como herramienta de control ciudadano en el ámbito educativo)",
-    derivacion: "¿Querés que te ayudemos a formar una veeduría estudiantil? Te damos el paso a paso y los formatos listos para inscribir."
+    derivacion: "¿Quieres que te ayudemos a formar una veeduría estudiantil? Te damos el paso a paso y los formatos listos para inscribir."
   },
   "06": {
     triggers: [
@@ -113,14 +113,14 @@ const FLUJOS = {
 - Información clara sobre tu diagnóstico y tratamiento
 - Consentimiento informado (nadie puede hacerte un procedimiento sin explicártelo)
 - Segunda opinión médica
-- Protección reforzada si sos menor, adulto mayor, persona con discapacidad o víctima
+- Protección reforzada si eres menor, adulto mayor, persona con discapacidad o víctima
 
 📌 **Si tu EPS o el sistema te están fallando:**
-1. **Tutela** — es GRATIS, no necesitás abogado, la resuelven en 10 días
+1. **Tutela** — es GRATIS, no necesitas abogado, la resuelven en 10 días
 2. **Queja ante la Superintendencia de Salud** — por mala calidad del servicio
 3. **Denuncia a la Procuraduría** — si un funcionario de salud incumple sus deberes`,
     jurisprudencia: "T-760/08 (Corte Constitucional — la salud es un derecho fundamental autónomo, exigible por tutela)",
-    derivacion: "¿Necesitás ayuda para presentar una tutela por salud? Te asistimos con el formato y te guiamos en el proceso. Es tu derecho."
+    derivacion: "¿Necesitas ayuda para presentar una tutela por salud? Te asistimos con el formato y te guiamos en el proceso. Es tu derecho."
   },
   "08": {
     triggers: [
@@ -128,24 +128,24 @@ const FLUJOS = {
       "pliegos", "adjudicación", "adjudicacion", "contratista", "licitación",
       "licitacion", "concurso", "proponente"
     ],
-    respuesta: `Auditar un contrato público es tu derecho. La **Contraloría General** estructura sus auditorías en 8 pasos. Acá te los simplificamos:
+    respuesta: `Auditar un contrato público es tu derecho. La **Contraloría General** estructura sus auditorías en 8 pasos. Aquí te los simplificamos:
 
 📋 **Checklist ciudadano de 8 pasos:**
 
 | # | Paso | Acción |
 |---|------|--------|
 | 1 | ❓ ¿El contrato está en SECOP? | Buscalo en https://www.contratos.gov.co |
-| 2 | 📄 ¿Los pliegos fueron públicos? | Revisá los documentos del proceso |
-| 3 | 🏢 ¿El contratista tiene RUP vigente? | Verificá en el Registro Único de Proponentes |
-| 4 | 📊 ¿El valor es razonable? | Compará con obras similares en la región |
-| 5 | 📅 ¿Se cumplen los plazos? | Revisá informes de avance en SECOP |
+| 2 | 📄 ¿Los pliegos fueron públicos? | Revisa los documentos del proceso |
+| 3 | 🏢 ¿El contratista tiene RUP vigente? | Verifica en el Registro Único de Proponentes |
+| 4 | 📊 ¿El valor es razonable? | Compara con obras similares en la región |
+| 5 | 📅 ¿Se cumplen los plazos? | Revisa informes de avance en SECOP |
 | 6 | 💰 ¿Los pagos cuadran con el avance? | Contrastá informes financieros vs. físico |
-| 7 | 🛡️ ¿Las pólizas están vigentes? | Verificá garantías en SECOP |
-| 8 | ✅ ¿El contrato fue liquidado? | Revisá el acta de liquidación |
+| 7 | 🛡️ ¿Las pólizas están vigentes? | Verifica garantías en SECOP |
+| 8 | ✅ ¿El contrato fue liquidado? | Revisa el acta de liquidación |
 
 ⚠️ Si falla cualquiera de estos 8 puntos, hay hallazgos que reportar.`,
     jurisprudencia: "C-292/03 (Corte Constitucional — la contratación pública debe regirse por los principios de transparencia, economía y responsabilidad)",
-    derivacion: "¿Querés que un consultor haga esta auditoría por vos? Revisamos el contrato completo, generamos el informe ejecutivo (2 páginas) y el detallado, y te decimos exactamente dónde denunciar."
+    derivacion: "¿Quieres que un consultor haga esta auditoría por vos? Revisamos el contrato completo, generamos el informe ejecutivo (2 páginas) y el detallado, y te decimos exactamente dónde denunciar."
   },
   "09": {
     triggers: [
@@ -165,7 +165,7 @@ const FLUJOS = {
 | 7 | **Operativos** | Ejecución, maquinaria, personal | Personal sin certificaciones requeridas |
 | 8 | **Laborales** | Contratación, seguridad social, ARL | Trabajadores sin afiliación a seguridad social |`,
     jurisprudencia: "T-595/02 (Corte Constitucional — el derecho de petición permite acceder a información sobre riesgos en la gestión pública)",
-    derivacion: "¿Querés que un consultor haga el mapa de riesgos completo de tu caso? Analizamos las 8 dimensiones y te entregamos un informe con las alertas detectadas y las entidades donde denunciar cada una."
+    derivacion: "¿Quieres que un consultor haga el mapa de riesgos completo de tu caso? Analizamos las 8 dimensiones y te entregamos un informe con las alertas detectadas y las entidades donde denunciar cada una."
   },
   "10": {
     triggers: [
@@ -173,7 +173,7 @@ const FLUJOS = {
       "quiero denunciar", "demandar", "quejarme", "reportar",
       "a dónde voy", "a donde voy", "qué hago", "que hago"
     ],
-    respuesta: `Depende del TIPO de irregularidad. Acá te orientamos:
+    respuesta: `Depende del TIPO de irregularidad. Aquí te orientamos:
 
 | Si encontraste... | Denunciá ante... | ¿Qué hacen? |
 |-------------------|------------------|-------------|
@@ -183,12 +183,12 @@ const FLUJOS = {
 | 📄 **No te entregan información pública** | **Tutela** (juez) | Ordenan entregar la información en 48h |
 | 🏗️ **Obra que afecta a la comunidad** | **Acción popular** (juez) | Protegen derechos colectivos |
 
-📝 **En todos los casos necesitás:**
+📝 **En todos los casos necesitas:**
 - Datos concretos (fechas, nombres, lugares, valores)
 - Evidencias (fotos, videos, documentos, testimonios)
 - Relato claro de los hechos`,
     jurisprudencia: "SU-111/97 (Corte Constitucional — requisitos de procedencia de la tutela y mecanismos judiciales de protección de derechos)",
-    derivacion: "¿Querés que un consultor prepare tu denuncia? Redactamos el documento, lo radicamos en la entidad correcta y hacemos seguimiento."
+    derivacion: "¿Quieres que un consultor prepare tu denuncia? Redactamos el documento, lo radicamos en la entidad correcta y hacemos seguimiento."
   },
   "11": {
     triggers: [
@@ -196,15 +196,15 @@ const FLUJOS = {
       "solicitar informacion", "pedir datos", "no me responden",
       "requiero información", "requiero informacion", "cómo pido", "como pido"
     ],
-    respuesta: `El **derecho de petición** es tu herramienta más poderosa como ciudadano. Es GRATIS, no necesitás abogado, y está en la Constitución (Art. 23).
+    respuesta: `El **derecho de petición** es tu herramienta más poderosa como ciudadano. Es GRATIS, no necesitas abogado, y está en la Constitución (Art. 23).
 
 📝 **Pasos para hacerlo:**
 1. Escribe un documento corto con:
    - Tus datos (nombre, cédula, dirección, teléfono, correo)
-   - Lo que solicitás (sé específico: \"copia del contrato X\", \"informe de avance de la obra Y\")
+   - Lo que solicitas (sé específico: \"copia del contrato X\", \"informe de avance de la obra Y\")
    - Razón (no es obligatorio, pero ayuda: \"para ejercer control social como ciudadano\")
 2. Radicalo en la entidad (presencial o por correo electrónico)
-3. **Guardá la constancia de radicación** (sin esto, no hay prueba)
+3. **Guarda la constancia de radicación** (sin esto, no hay prueba)
 4. Tienen **10 días hábiles** para responder (prorrogables por 5 más)
 
 ⚠️ **Si no responden en 10 días:**
@@ -212,7 +212,7 @@ const FLUJOS = {
 - Puedes presentar una **tutela** (la resuelven en 10 días)
 - La Procuraduría puede abrir proceso disciplinario al funcionario`,
     jurisprudencia: "T-595/02 (derecho de petición como derecho fundamental); C-274/13 (no se requiere justificar la razón de la solicitud de información pública)",
-    derivacion: "¿Querés que redactemos y radiquemos el derecho de petición por vos? Nos encargamos de todo: redacción, radicación y seguimiento hasta obtener respuesta."
+    derivacion: "¿Quieres que redactemos y radiquemos el derecho de petición por vos? Nos encargamos de todo: redacción, radicación y seguimiento hasta obtener respuesta."
   },
   "12": {
     triggers: [
@@ -225,15 +225,15 @@ const FLUJOS = {
 📌 **Recordá:**
 - **Toda** información en poder del Estado es PÚBLICA (Art. 2, Ley 1712)
 - El secreto es la **excepción**, no la regla
-- No necesitás justificar por qué la pedís (Sentencia C-274/13)
+- No necesitas justificar por qué la pides (Sentencia C-274/13)
 - Si ya está publicada, deben decirte **exactamente dónde** (URL, enlace)
 
 ⚡ **Acciones inmediatas:**
-1. **Derecho de petición** — solicitá la información por escrito y guardá constancia
+1. **Derecho de petición** — solicita la información por escrito y guarda constancia
 2. Si no responden en 10 días → **Tutela** (gratis, sin abogado)
 3. **Queja ante la Procuraduría** — el funcionario que niega información sin justa causa comete falta disciplinaria`,
     jurisprudencia: "C-274/13 (Corte Constitucional — el acceso a la información pública no requiere motivación del solicitante; el secreto es la excepción)",
-    derivacion: "¿Querés que un consultor fuerce la entrega de esa información? Presentamos el derecho de petición, y si no responden, la tutela. No pagás hasta obtener resultados."
+    derivacion: "¿Quieres que un consultor fuerce la entrega de esa información? Presentamos el derecho de petición, y si no responden, la tutela. No pagas hasta obtener resultados."
   },
   "13": {
     triggers: [
@@ -242,7 +242,7 @@ const FLUJOS = {
       "comite de control", "ser veedor", "quiero ser veedor", "inscribir veeduría",
       "inscribir veeduria", "personería", "personeria"
     ],
-    respuesta: `Formar una veeduría ciudadana es tu derecho. La **Ley 850 de 2003** la define como un mecanismo democrático para vigilar la gestión pública. No necesitás ser abogado ni funcionario.
+    respuesta: `Formar una veeduría ciudadana es tu derecho. La **Ley 850 de 2003** la define como un mecanismo democrático para vigilar la gestión pública. No necesitas ser abogado ni funcionario.
 
 📝 **Requisitos para crear una veeduría:**
 
@@ -259,7 +259,7 @@ const FLUJOS = {
 - Procesos de contratación en SECOP
 - Ejecución presupuestal de cualquier entidad pública
 
-⚖️ La Corte Constitucional (T-596/02) aclaró: **no necesitás estar inscrito como veedor** para ejercer control social. Pero tener la veeduría formalizada te da acceso a más información y protección legal.
+⚖️ La Corte Constitucional (T-596/02) aclaró: **no necesitas estar inscrito como veedor** para ejercer control social. Pero tener la veeduría formalizada te da acceso a más información y protección legal.
 
 📌 **Derechos de los veedores:**
 - Acceder a documentos y contratos (sin restricción)
@@ -268,7 +268,7 @@ const FLUJOS = {
 - Presentar denuncias ante Contraloría, Procuraduría y Fiscalía
 - Protección especial contra represalias`,
     jurisprudencia: "T-596/02 (Corte Constitucional — la veeduría ciudadana no requiere inscripción formal para ejercer control social; es un derecho de todo ciudadano)",
-    derivacion: "¿Querés que un consultor te acompañe a crear tu veeduría? Te damos el acta de constitución lista, te orientamos con la inscripción en la Personería y te guiamos en tu primer caso."
+    derivacion: "¿Quieres que un consultor te acompañe a crear tu veeduría? Te damos el acta de constitución lista, te orientamos con la inscripción en la Personería y te guiamos en tu primer caso."
   },
   "14": {
     triggers: [
@@ -283,24 +283,24 @@ const FLUJOS = {
 
 1. **Continuidad**: el servicio no puede suspenderse si afecta tu salud o la de personas vulnerables (niños, ancianos, enfermos)
 2. **Información clara**: las empresas deben explicar cada cobro en tu factura
-3. **Reclamo directo**: podés presentar PQR (Petición, Queja, Reclamo) ante la empresa — deben responder en 15 días hábiles
-4. **Doble instancia**: si la empresa no responde, podés apelar ante la **Superintendencia de Servicios Públicos**
+3. **Reclamo directo**: puedes presentar PQR (Petición, Queja, Reclamo) ante la empresa — deben responder en 15 días hábiles
+4. **Doble instancia**: si la empresa no responde, puedes apelar ante la **Superintendencia de Servicios Públicos**
 
 📌 **Si tu servicio está fallando:**
 
-1. **Documentá**: guardá facturas, fotos, fechas de interrupciones
+1. **Documentá**: guarda facturas, fotos, fechas de interrupciones
 2. **Presentá PQR** por escrito a la empresa (con copia, radicado)
 3. Si no responden en 15 días → **queja ante la Superintendencia de Servicios Públicos**
 4. Si hay afectación a la salud → **Tutela** (gratis, sin abogado)
 
-⚠️ **Situaciones que podés denunciar:**
+⚠️ **Situaciones que puedes denunciar:**
 - Cobros excesivos o no justificados
 - Cortes sin aviso previo
 - Mala calidad del agua
 - Falta de mantenimiento en redes públicas
 - Contratos de prestación sin participación ciudadana`,
     jurisprudencia: "T-760/08 (Corte Constitucional — los servicios públicos son derechos fundamentales por conexidad cuando su falta afecta la salud, la vida o la dignidad humana)",
-    derivacion: "¿Querés que un consultor revise tu caso con la empresa de servicios? Te ayudamos a redactar el PQR, hacer seguimiento y, si no responden, escalar a la Superintendencia o a tutela."
+    derivacion: "¿Quieres que un consultor revise tu caso con la empresa de servicios? Te ayudamos a redactar el PQR, hacer seguimiento y, si no responden, escalar a la Superintendencia o a tutela."
   },
   "15": {
     triggers: [
@@ -312,7 +312,7 @@ const FLUJOS = {
     ],
     respuesta: `El medio ambiente en Colombia es un **derecho colectivo protegido constitucionalmente** (Art. 79 y 80 de la Constitución). Toda persona tiene derecho a gozar de un ambiente sano.
 
-🌿 **Mecanismos de protección ambiental que podés activar:**
+🌿 **Mecanismos de protección ambiental que puedes activar:**
 
 | Mecanismo | ¿Cuándo usarlo? | ¿Ante quién? |
 |-----------|-----------------|--------------|
@@ -321,7 +321,7 @@ const FLUJOS = {
 | **Queja administrativa** | Incumplimiento de licencia ambiental | **Corporación Autónoma Regional (CAR)** o **ANLA** |
 | **Derecho de petición** | Solicitar información sobre licencias, permisos, planes de manejo | Entidad que otorgó la licencia |
 
-📌 **¿Qué necesitás para denunciar?**
+📌 **¿Qué necesitas para denunciar?**
 
 1. **Evidencia**: fotos, videos, ubicación exacta, fechas
 2. **Identificar al responsable** (empresa, persona, entidad)
@@ -334,7 +334,7 @@ const FLUJOS = {
 - **Código Penal, Art. 328-339** — Delitos ambientales (hasta 12 años de cárcel)
 - **Decreto 1076/2015** — Licencias ambientales y planes de manejo`,
     jurisprudencia: "C-292/03 (Corte Constitucional — el interés general prima sobre el particular; el medio ambiente es un derecho colectivo de protección prevalente)",
-    derivacion: "¿Querés que un consultor ambiental revise tu caso? Analizamos si hay violación de licencias, preparamos la denuncia ante la CAR o la Fiscalía y hacemos seguimiento."
+    derivacion: "¿Quieres que un consultor ambiental revise tu caso? Analizamos si hay violación de licencias, preparamos la denuncia ante la CAR o la Fiscalía y hacemos seguimiento."
   },
   "16": {
     triggers: [
@@ -346,20 +346,20 @@ const FLUJOS = {
     ],
     respuesta: `⚖️ **Tutela: Guía completa paso a paso**
 
-La acción de tutela está consagrada en el **Artículo 86 de la Constitución Política** y reglamentada por el **Decreto 2591 de 1991**. Es GRATIS, no necesitás abogado, y cualquier persona puede presentarla.
+La acción de tutela está consagrada en el **Artículo 86 de la Constitución Política** y reglamentada por el **Decreto 2591 de 1991**. Es GRATIS, no necesitas abogado, y cualquier persona puede presentarla.
 
 ---
 
-## 📋 **Test de procedencia — 7 criterios que DEBÉS verificar:**
+## 📋 **Test de procedencia — 7 criterios que DEBES verificar:**
 
-Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente:
+Responde SÍ o NO a cada uno. Si respondes SÍ a TODOS, tu tutela es procedente:
 
 | # | Criterio | ¿Se cumple? |
 |---|----------|-------------|
-| **1** | **Legitimación por activa**: ¿Sos vos el afectado directo o actuás como agente oficioso de alguien que no puede defenderse? | |
+| **1** | **Legitimación por activa**: ¿Eres tú el afectado directo o actúas como agente oficioso de alguien que no puede defenderse? | |
 | **2** | **Legitimación por pasiva**: ¿La entidad o persona contra quien va la tutela es una autoridad pública o un particular que presta un servicio público? | |
 | **3** | **Derecho fundamental violado**: ¿Está en juego un derecho fundamental (vida, salud, dignidad, debido proceso, petición, información, igualdad, educación)? | |
-| **4** | **Inmediatez**: ¿Ocurrió hace menos de 6 meses? (Si pasó más tiempo, debés justificar por qué no actuaste antes) | |
+| **4** | **Inmediatez**: ¿Ocurrió hace menos de 6 meses? (Si pasó más tiempo, debes justificar por qué no actuaste antes) | |
 | **5** | **Subsidiariedad**: ¿NO existe otro mecanismo judicial para proteger tu derecho, o la tutela es necesaria como mecanismo transitorio para evitar un perjuicio irremediable? | |
 | **6** | **Vulneración real**: ¿Hay una acción u omisión concreta que está violando o amenazando tu derecho? | |
 | **7** | **No es contra fallos judiciales (salvo vía de hecho)**: ¿La tutela NO es contra una sentencia judicial (excepto que sea una "vía de hecho" — error grosero y evidente del juez)? | |
@@ -393,7 +393,7 @@ Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente
 
 2. ENTIDAD O PERSONA ACCIONADA
    - Nombre de la entidad o persona
-   - Dirección (si la conocés)
+   - Dirección (si la conoces)
    - Cargo del funcionario (si es autoridad pública)
 
 3. DERECHO(S) FUNDAMENTALES VIOLADOS
@@ -404,11 +404,11 @@ Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente
    - Qué pasó, quién, dónde, cómo
    - Adjuntá PRUEBAS (documentos, fotos, correos, constancias)
 
-5. PRETENSIONES (lo que pedís al juez)
-   - Qué ordenás concretamente (ej.: "ordenar a la EPS que autorice el medicamento X en 48 horas")
+5. PRETENSIONES (lo que pides al juez)
+   - Qué ordenas concretamente (ej.: "ordenar a la EPS que autorice el medicamento X en 48 horas")
 
 6. MEDIDA PROVISIONAL (opcional pero recomendado)
-   - Si el peligro es inminente, pedí que el juez ordene algo mientras decide
+   - Si el peligro es inminente, pide que el juez ordene algo mientras decide
    - Ej.: "Solicito medida provisional para que se me practique la cirugía de inmediato"
 
 7. JURAMENTO
@@ -423,18 +423,18 @@ Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente
 
 ## 🔑 **Tips prácticos:**
 
-- **No necesitás abogado.** La tutela la puede presentar cualquier persona, incluso escrita a mano.
+- **No necesitas abogado.** La tutela la puede presentar cualquier persona, incluso escrita a mano.
 - **Radicala en cualquier juzgado** (civil, penal, laboral, etc.). Todos los jueces son competentes para recibir tutelas.
 - **Puedes presentarla por correo electrónico** del juzgado (hoy casi todos lo aceptan).
-- **Guardá copia con sello de radicación** — es tu constancia.
-- **Si el juez la rechaza por improcedente**, tenés 3 días para impugnar.
-- **Si no cumplen el fallo**, pedí inmediatamente apertura de **incidente de desacato**. El juez puede imponer arresto (hasta 6 meses) y multa (hasta 20 salarios mínimos).
+- **Guarda copia con sello de radicación** — es tu constancia.
+- **Si el juez la rechaza por improcedente**, tienes 3 días para impugnar.
+- **Si no cumplen el fallo**, pide inmediatamente apertura de **incidente de desacato**. El juez puede imponer arresto (hasta 6 meses) y multa (hasta 20 salarios mínimos).
 
 ⚖️ **Jurisprudencia clave:** SU-111/97 (requisitos de procedencia), T-760/08 (salud como derecho fundamental tutelable), Decreto 2591/1991.`,
 
     jurisprudencia: "SU-111/97 (Corte Constitucional — requisitos de procedencia de la acción de tutela); T-760/08 (salud como derecho fundamental autónomo y tutelable); Decreto 2591/1991 (reglamentación de la tutela)",
 
-    derivacion: "¿Querés que un consultor revise tu caso y te confirme si la tutela es procedente? Hacemos el test de los 7 criterios sin costo, te ayudamos con el formato y te orientamos en la radicación."
+    derivacion: "¿Quieres que un consultor revise tu caso y te confirme si la tutela es procedente? Hacemos el test de los 7 criterios sin costo, te ayudamos con el formato y te orientamos en la radicación."
   },
   "17": {
     triggers: [
@@ -446,7 +446,7 @@ Responde SÍ o NO a cada uno. Si respondés SÍ a TODOS, tu tutela es procedente
     ],
     respuesta: `🏛️ **Acción Popular: Guía completa**
 
-La acción popular está en el **Artículo 88 de la Constitución** y la **Ley 472 de 1998**. Es una herramienta para proteger **derechos e intereses colectivos**, no individuales. Es GRATIS y no necesitás abogado (aunque es recomendable).
+La acción popular está en el **Artículo 88 de la Constitución** y la **Ley 472 de 1998**. Es una herramienta para proteger **derechos e intereses colectivos**, no individuales. Es GRATIS y no necesitas abogado (aunque es recomendable).
 
 ---
 
@@ -529,7 +529,7 @@ La Ley 472/98 (Art. 39-40) establece un **incentivo económico** para quien pres
 
 ## ⚡ **Medidas cautelares (urgentes):**
 
-Al presentar la demanda, podés solicitar medidas cautelares inmediatas:
+Al presentar la demanda, puedes solicitar medidas cautelares inmediatas:
 - Suspensión de la obra o actividad que causa el daño
 - Decomiso de bienes o productos
 - Cierre temporal del establecimiento
@@ -539,7 +539,7 @@ Al presentar la demanda, podés solicitar medidas cautelares inmediatas:
 
     jurisprudencia: "C-292/03 (Corte Constitucional — el interés general prima sobre el particular en la contratación y gestión pública); Ley 472 de 1998 (acciones populares y de grupo); C-215/99 (procedencia de acciones populares contra particulares)",
 
-    derivacion: "¿Querés que un consultor evalúe si tu caso amerita una acción popular? Analizamos la situación, identificamos el derecho colectivo violado, redactamos la demanda y te guiamos en todo el proceso."
+    derivacion: "¿Quieres que un consultor evalúe si tu caso amerita una acción popular? Analizamos la situación, identificamos el derecho colectivo violado, redactamos la demanda y te guiamos en todo el proceso."
   },
   "18": {
     triggers: [
@@ -583,7 +583,7 @@ Cualquier falta disciplinaria de un servidor público: negligencia, abuso de pod
    - **Virtual**: https://www.procuraduria.gov.co → "Quejas y Denuncias"
    - **Presencial**: sede central (Bogotá) o Procuradurías Regionales/Provinciales
    - **Correo**: quejas@procuraduria.gov.co
-3. **Guardá el número de radicado** (es tu constancia de seguimiento)
+3. **Guarda el número de radicado** (es tu constancia de seguimiento)
 
 ### ⏱️ **Tiempos del proceso disciplinario:**
 
@@ -617,14 +617,14 @@ Ejemplos: sobrecostos en contratos, obras inconclusas, bienes públicos perdidos
 ### 📝 ¿Cómo denunciar?
 1. **Prepará tu denuncia** con:
    - Identificación del contrato, obra o programa (número, entidad, contratista)
-   - Monto del presunto detrimento (si lo conocés)
+   - Monto del presunto detrimento (si lo conoces)
    - Hechos narrados cronológicamente
    - Pruebas documentales
 2. **Radicala**:
    - **Virtual**: https://www.contraloria.gov.co → "Denuncias ciudadanas"
    - **Presencial**: Contralorías departamentales y municipales
    - **Línea gratuita**: 01-8000-910-678
-3. **Seguimiento**: podés consultar el estado de tu denuncia en la página web
+3. **Seguimiento**: puedes consultar el estado de tu denuncia en la página web
 
 ### ⏱️ **Tiempos del proceso fiscal:**
 
@@ -665,16 +665,16 @@ Principales delitos contra la administración pública:
 
 ### 📝 ¿Cómo denunciar?
 1. **Escribe la denuncia penal** — debe incluir:
-   - Relato detallado de los hechos (qué delito creés que se cometió)
+   - Relato detallado de los hechos (qué delito crees que se cometió)
    - Identificación del posible responsable
    - Pruebas (documentos, testimonios, grabaciones, fotos)
-   - Tus datos (podés pedir reserva de identidad)
+   - Tus datos (puedes pedir reserva de identidad)
 2. **Radicala**:
    - **Virtual**: https://www.fiscalia.gov.co → "Denuncia fácil"
    - **Presencial**: cualquier sede de la Fiscalía o URI (Unidad de Reacción Inmediata)
    - **Línea gratuita nacional**: 122
    - **Aplicación móvil**: "A Denunciar" (descargable en Play Store / App Store)
-3. **Guardá el número de noticia criminal** (NUNC) para seguimiento
+3. **Guarda el número de noticia criminal** (NUNC) para seguimiento
 
 ### ⏱️ **Tiempos del proceso penal:**
 
@@ -691,23 +691,23 @@ Principales delitos contra la administración pública:
 
 ## ⚠️ **Recomendaciones CRUCIALES para las tres denuncias:**
 
-1. **LAS TRES SON INDEPENDIENTES** — podés y DEBÉS denunciar ante las tres al mismo tiempo si el caso lo amerita (ej.: un funcionario que robó plata = responsabilidad fiscal + disciplinaria + penal).
+1. **LAS TRES SON INDEPENDIENTES** — puedes y DEBES denunciar ante las tres al mismo tiempo si el caso lo amerita (ej.: un funcionario que robó plata = responsabilidad fiscal + disciplinaria + penal).
 
-2. **PRUEBAS PRUEBAS PRUEBAS** — sin evidencia, no hay caso. Guardá TODO.
+2. **PRUEBAS PRUEBAS PRUEBAS** — sin evidencia, no hay caso. Guarda TODO.
 
-3. **NO TE LIMITÉS A UNA SOLA ENTIDAD** — muchos ciudadanos denuncian solo en la Fiscalía y no en la Contraloría, dejando la plata sin recuperar.
+3. **NO TE LIMITES A UNA SOLA ENTIDAD** — muchos ciudadanos denuncian solo en la Fiscalía y no en la Contraloría, dejando la plata sin recuperar.
 
-4. **HACÉ SEGUIMIENTO PERIÓDICO** — las entidades tienen portales de consulta. Si tu denuncia está estancada, insistí o pedí información por derecho de petición.
+4. **HAZ SEGUIMIENTO PERIÓDICO** — las entidades tienen portales de consulta. Si tu denuncia está estancada, insiste o pide información por derecho de petición.
 
-5. **PEDÍ COPIA DE TODO** — cada radicación, cada respuesta, cada notificación.
+5. **PIDE COPIA DE TODO** — cada radicación, cada respuesta, cada notificación.
 
-6. **PROTECCIÓN AL DENUNCIANTE** — si temés represalias, pedí expresamente reserva de identidad (está en la Ley 1712/2014 y el Estatuto Anticorrupción Ley 1474/2011).
+6. **PROTECCIÓN AL DENUNCIANTE** — si temes represalias, pide expresamente reserva de identidad (está en la Ley 1712/2014 y el Estatuto Anticorrupción Ley 1474/2011).
 
 ⚖️ **Jurisprudencia clave:** C-292/03 (control fiscal y contratación); Ley 734 de 2002 (Código Disciplinario Único); Ley 610 de 2000 (proceso de responsabilidad fiscal); Código Penal Colombiano (Ley 599/2000) — Títulos XV y XVI.`,
 
     jurisprudencia: "C-292/03 (Corte Constitucional — control fiscal y transparencia en la gestión pública); Ley 734 de 2002 (Código Disciplinario Único); Ley 610 de 2000 (responsabilidad fiscal); Ley 599 de 2000 (Código Penal — delitos contra la administración pública)",
 
-    derivacion: "¿Querés que un consultor especializado prepare tu denuncia ante la entidad correcta? Analizamos tu caso, determinamos ante quién denunciar (Procuraduría, Contraloría, Fiscalía o las tres), redactamos el documento y hacemos seguimiento hasta obtener resultados."
+    derivacion: "¿Quieres que un consultor especializado prepare tu denuncia ante la entidad correcta? Analizamos tu caso, determinamos ante quién denunciar (Procuraduría, Contraloría, Fiscalía o las tres), redactamos el documento y hacemos seguimiento hasta obtener resultados."
   },
   "00": {
     triggers: [], // fallback — no triggers
@@ -727,7 +727,7 @@ Principales delitos contra la administración pública:
 - ✅ Conectarte con los organismos de control (Contraloría, Procuraduría, Fiscalía)
 
 📋 **Contanos más sobre tu caso y un consultor especializado te orientará sin costo.**
-¿Qué situación querés revisar?`,
+¿Qué situación quieres revisar?`,
     derivacion: null // fallback no fuerza derivación directa
   }
 };

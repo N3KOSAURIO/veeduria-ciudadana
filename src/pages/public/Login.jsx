@@ -54,7 +54,7 @@ export default function Login({ onNavigate }) {
                 Bienvenido de nuevo
               </h2>
               <p className="text-sm text-gray-500">
-                Ingresá a tu cuenta de Veeduría Ciudadana
+                Ingresa a tu cuenta de Veeduría Ciudadana
               </p>
             </div>
 
@@ -106,12 +106,12 @@ export default function Login({ onNavigate }) {
 
             <div className="mt-6 text-center">
               <p className="text-sm text-gray-500">
-                ¿No tenés cuenta?{' '}
+                ¿No tienes cuenta?{' '}
                 <button
                   onClick={() => onNavigate('registro')}
                   className="text-azul-medio hover:text-azul-oscuro font-semibold underline"
                 >
-                  Registrate gratis
+                  Regístrate gratis
                 </button>
               </p>
             </div>
