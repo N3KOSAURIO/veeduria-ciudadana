@@ -31,13 +31,16 @@ export default function Login({ onNavigate }) {
 
     setLoading(true);
     // Simular delay de red
-    setTimeout(() => {
-      const result = login(email.trim().toLowerCase(), password);
-      if (!result.success) {
-        setError(result.error);
+    setTimeout(async () => {
+      // `login` es asíncrono (llama a la API): hay que esperar el resultado.
+      const result = await login(email.trim().toLowerCase(), password);
+      if (!result?.success) {
+        setError(result?.error || 'No se pudo iniciar sesión.');
         setLoading(false);
+        return;
       }
-      // Si es success, el contexto actualiza user y App redirige solo
+      // Sesión creada → el layout público detecta isAuthenticated y redirige
+      // al hogar post-login (/inicio).
     }, 800);
   };
 

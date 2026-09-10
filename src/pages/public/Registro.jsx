@@ -77,7 +77,10 @@ export default function Registro({ onNavigate }) {
       } else {
         setSuccess(true);
         setTimeout(() => {
-          onNavigate('chat');
+          // Usuario queda autenticado tras el registro → aterriza en el hogar
+          // post-login (/inicio), no en /chat (diseño App-Comunitaria-Arquitectura).
+          // El consentimiento TOS/cookies ya lo persisten TOSContext y CookieBanner.
+          onNavigate('inicio');
         }, 1200);
       }
     }, 600);

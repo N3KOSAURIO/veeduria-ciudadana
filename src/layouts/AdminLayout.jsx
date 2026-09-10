@@ -29,7 +29,7 @@ export default function AdminLayout() {
   }
 
   if (!isAdmin) {
-    return <Navigate to="/chat" replace />;
+    return <Navigate to="/inicio" replace />;
   }
 
   return (
